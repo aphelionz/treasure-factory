@@ -59,11 +59,12 @@
     #unsupported { background:#5a1d33; color:#ffd9e6; padding:8px 14px; font-size:13px; }
     #unsupported a { color:#fff; }
 
-    .modal { border:none; border-radius:14px; padding:0; background:var(--panel); color:var(--ink);
-      max-width:540px; box-shadow:0 12px 48px rgba(0,0,0,.5); }
-    .modal::backdrop { background:rgba(0,0,0,.55); }
-    .modalbody { padding:20px 22px; }
-    .modal h2 { margin:0 0 10px; color:var(--accent); font-size:18px; }
+    #gate { position:fixed; inset:0; z-index:1000; background:var(--bg);
+      display:flex; align-items:center; justify-content:center; padding:24px; overflow:auto; }
+    .gatecard { max-width:560px; background:var(--panel); border:1px solid var(--line);
+      border-radius:14px; padding:24px 26px; box-shadow:0 12px 48px rgba(0,0,0,.5); }
+    .gatecard h2 { margin:0 0 10px; color:var(--accent); font-size:20px; }
+    .gateerror { color:#ffb3b3; font-size:13px; margin:10px 0 0; }
     .modalnote { color:var(--muted); font-size:13px; line-height:1.5; }
     .steps { margin:12px 0; padding-left:20px; font-size:13px; line-height:1.6; }
     .steps code, .modalnote code { background:var(--bg); border:1px solid var(--line); border-radius:5px;
@@ -88,7 +89,7 @@
     <label>Title <input id="nodeTitle" type="text" placeholder="Room name"></label>
     <span class="spacer"></span>
     <span id="status" class="status"></span>
-    <button id="helpTokenBtn" title="Create and paste a GitHub token (for saving on the hosted site)">GitHub token…</button>
+    <button id="helpTokenBtn" title="Sign out (clear the saved token and lock the editor)" hidden>Sign out</button>
     <button id="downloadBtn" title="Export scene.json as a download">Download</button>
     <button id="saveBtn" class="primary">Save to folder</button>
   </header>
@@ -115,14 +116,13 @@
     </aside>
   </main>
 
-  <dialog id="tokenModal" class="modal">
-    <div class="modalbody">
-      <h2>Save to GitHub</h2>
+  <div id="gate" hidden>
+    <div class="gatecard">
+      <h2>Treasure Factory Editor</h2>
       <p class="modalnote">
-        The hosted editor saves by committing <code>app/scene.json</code> straight to the repo. You need a
-        <b>fine-grained Personal Access Token</b> with this repo's <b>Contents: Read and write</b> permission.
-        The token is stored only in this browser. Anyone with a write token to the repo can save, so that
-        collaborator list is the allowlist. You can revoke or rotate it anytime in GitHub settings.
+        This editor is locked. To open it, paste a GitHub <b>fine-grained Personal Access Token</b> with
+        <b>Contents: Read and write</b> on <code>aphelionz/treasure-factory</code>. The token is stored only in
+        this browser and is verified against the repo before the editor opens; repo write access is the allowlist.
       </p>
       <ol class="steps">
         <li>GitHub &rarr; your profile photo (top-right) &rarr; <b>Settings</b>.</li>
@@ -138,12 +138,12 @@
       <label class="tokenfield">Token
         <input id="tokenInput" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
       </label>
+      <div id="gateError" class="gateerror" hidden></div>
       <div class="modalactions">
-        <button id="tokenCancel" type="button">Cancel</button>
-        <button id="tokenSave" type="button" class="primary">Save token</button>
+        <button id="gateUnlock" type="button" class="primary">Unlock editor</button>
       </div>
     </div>
-  </dialog>
+  </div>
 
   <script type="module" src="editor.js"></script>
 </body>

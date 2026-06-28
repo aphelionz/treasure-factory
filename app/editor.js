@@ -35,10 +35,12 @@ let dragStart = null;     // {x,y} in box pixels
 let dragOrig = null;      // original shape (normalized) for move/resize
 let tempEl = null;        // live rectangle while drawing
 let moved = false;
+let wired = false;        // editor events wired once
 
 init();
 
 async function init() {
+  wireGate();
   try {
     const [s, m] = await Promise.all([
       fetch(SCENE_URL).then(r => r.ok ? r.json() : emptyScene()).catch(emptyScene),
@@ -53,23 +55,33 @@ async function init() {
   }
   try { dirHandle = await idbGet('projectDir'); } catch (_) { dirHandle = null; }
 
+  // Hosted editor stays locked until a token that can write to the repo is provided.
+  if (HOSTED) {
+    const tok = getToken();
+    if (!tok || !(await validateToken(tok))) { showGate(); return; }
+  }
+  startEditor();
+}
+
+function startEditor() {
+  el('gate').hidden = true;
+  if (!wired) { wireEvents(); wired = true; }
   populateImageSelect();
   populateNodeSelect();
   populateTargetOptions();
-  wireEvents();
-
   const first = scene.nodes[0] && scene.nodes[0].id;
   selectNode((scene.meta && scene.meta.entry) || first || null);
   applyMode();
 }
 
 function applyMode() {
-  el('helpTokenBtn').hidden = !HOSTED;
+  const tokenBtn = el('helpTokenBtn');
+  tokenBtn.hidden = !HOSTED;
+  if (HOSTED) tokenBtn.textContent = 'Sign out';
   const saveBtn = el('saveBtn');
   if (HOSTED) {
     saveBtn.textContent = 'Save to GitHub';
-    setStatus(getToken() ? 'Saves commit to ' + GH.owner + '/' + GH.repo + '.'
-                         : 'Add a GitHub token to enable saving.');
+    setStatus('Saves commit to ' + GH.owner + '/' + GH.repo + '.');
   } else if (IS_LOCAL && FSA) {
     saveBtn.textContent = 'Save to folder';
     setStatus('Reads the served scene. Save writes to your app/ folder.');
@@ -362,7 +374,7 @@ function wireEvents() {
     }
   });
   window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
-  wireTokenModal();
+  el('helpTokenBtn').addEventListener('click', signOut);
 }
 
 function markDirty() { dirty = true; setStatus('Unsaved changes'); }
@@ -463,14 +475,14 @@ async function ghPut(sha) {
 }
 
 async function ghSave() {
-  if (!getToken()) { openTokenModal(); setStatus('Paste a GitHub token to save.'); return; }
+  if (!getToken()) { showGate(); setStatus('Paste a GitHub token to save.'); return; }
   try {
     setStatus('Saving to GitHub…');
     let sha = await ghGetSha();
     let r = await ghPut(sha);
     if (r.status === 409) { sha = await ghGetSha(); r = await ghPut(sha); }   // stale sha: retry once
     if (r.status === 401 || r.status === 403) {
-      openTokenModal();
+      signOut();
       setStatus('Token rejected (' + r.status + '). Needs Contents: Read and write on this repo.');
       return;
     }
@@ -487,21 +499,52 @@ async function ghSave() {
   }
 }
 
-// ---------- token modal ----------
-function openTokenModal() {
-  el('tokenInput').value = getToken();
-  const dlg = el('tokenModal');
-  if (dlg.showModal) dlg.showModal(); else dlg.hidden = false;
+// ---------- access gate (hosted) ----------
+async function validateToken(token) {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    if (!r.ok) return false;
+    const j = await r.json();
+    return !!(j.permissions && j.permissions.push);   // token can write to this repo
+  } catch (_) { return false; }
 }
-function wireTokenModal() {
-  el('helpTokenBtn').addEventListener('click', openTokenModal);
-  el('tokenCancel').addEventListener('click', () => el('tokenModal').close());
-  el('tokenSave').addEventListener('click', () => {
-    const v = el('tokenInput').value.trim();
-    if (v) { setToken(v); }
-    el('tokenModal').close();
-    applyMode();
-  });
+
+function showGate() {
+  el('tokenInput').value = getToken();
+  el('gateError').hidden = true;
+  el('gate').hidden = false;
+}
+
+function signOut() {
+  try { localStorage.removeItem(TOKEN_KEY); } catch (_) {}
+  showGate();
+}
+
+function wireGate() {
+  el('gateUnlock').addEventListener('click', unlockFromGate);
+  el('tokenInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); unlockFromGate(); } });
+}
+
+async function unlockFromGate() {
+  const v = el('tokenInput').value.trim();
+  const err = el('gateError');
+  if (!v) { err.textContent = 'Paste a token to continue.'; err.hidden = false; return; }
+  const btn = el('gateUnlock');
+  btn.disabled = true; btn.textContent = 'Checking…'; err.hidden = true;
+  const ok = await validateToken(v);
+  btn.disabled = false; btn.textContent = 'Unlock editor';
+  if (!ok) {
+    err.textContent = 'That token cannot write to ' + GH.owner + '/' + GH.repo + '. Give it Contents: Read and write on that repo.';
+    err.hidden = false; return;
+  }
+  setToken(v);
+  startEditor();
 }
 
 // ---------- IndexedDB (remember the chosen folder) ----------
