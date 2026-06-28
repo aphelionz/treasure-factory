@@ -55,10 +55,12 @@ async function init() {
   }
   try { dirHandle = await idbGet('projectDir'); } catch (_) { dirHandle = null; }
 
-  // Hosted editor stays locked until a token that can write to the repo is provided.
+  // Hosted editor stays locked until a token with access to the repo is provided.
   if (HOSTED) {
     const tok = getToken();
-    if (!tok || !(await validateToken(tok))) { showGate(); return; }
+    if (!tok) { showGate(); return; }
+    const res = await checkToken(tok);
+    if (!res.ok) { showGate(res.reason); return; }
   }
   startEditor();
 }
@@ -459,7 +461,7 @@ async function ghGetSha() {
   const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${REPO_SCENE_PATH}?ref=${GH_BRANCH}`;
   const r = await fetch(url, { headers: ghHeaders() });
   if (r.status === 404) return null;            // file does not exist yet -> create
-  if (!r.ok) throw new Error('GET sha failed: ' + r.status);
+  if (!r.ok) { const e = new Error('GET sha failed: ' + r.status); e.status = r.status; throw e; }
   return (await r.json()).sha;
 }
 
@@ -475,32 +477,43 @@ async function ghPut(sha) {
 }
 
 async function ghSave() {
-  if (!getToken()) { showGate(); setStatus('Paste a GitHub token to save.'); return; }
+  if (!getToken()) { showGate('Paste a GitHub token to save.'); return; }
   try {
     setStatus('Saving to GitHub…');
     let sha = await ghGetSha();
     let r = await ghPut(sha);
     if (r.status === 409) { sha = await ghGetSha(); r = await ghPut(sha); }   // stale sha: retry once
-    if (r.status === 401 || r.status === 403) {
-      signOut();
-      setStatus('Token rejected (' + r.status + '). Needs Contents: Read and write on this repo.');
-      return;
-    }
     if (!r.ok) {
-      const t = await r.text().catch(() => '');
-      setStatus('Save failed (' + r.status + '). ' + t.slice(0, 100));
+      let msg = '';
+      try { msg = (await r.json()).message || ''; } catch (_) {}
+      console.warn('ghSave failed', r.status, msg);
+      if (r.status === 401 || r.status === 403) {
+        signOut();
+        setStatus('Save rejected (' + r.status + '): ' + (msg || 'token needs Contents: Read and write on this repo'));
+      } else {
+        setStatus('Save failed (' + r.status + ')' + (msg ? ': ' + msg : ''));
+      }
       return;
     }
     dirty = false;
     setStatus('Committed scene.json. Pages redeploys shortly.');
   } catch (e) {
     console.error(e);
-    setStatus('Save failed (network). See console.');
+    if (e.status === 401 || e.status === 403) {
+      signOut();
+      setStatus('Token rejected (' + e.status + '). Re-enter a token with Contents: Read and write.');
+    } else {
+      setStatus('Save failed: could not reach GitHub (network or CORS). See console.');
+    }
   }
 }
 
 // ---------- access gate (hosted) ----------
-async function validateToken(token) {
+// Verify the token can reach this repo. A fine-grained PAT scoped to the repo
+// returns 200 (Metadata: read is automatic); 401 = bad/expired token; 404 = token
+// not granted to this repo. We do NOT check permissions.push (it is unreliable for
+// fine-grained PATs); write capability is enforced by GitHub at save time.
+async function checkToken(token) {
   try {
     const r = await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`, {
       headers: {
@@ -509,15 +522,24 @@ async function validateToken(token) {
         'X-GitHub-Api-Version': '2022-11-28',
       },
     });
-    if (!r.ok) return false;
-    const j = await r.json();
-    return !!(j.permissions && j.permissions.push);   // token can write to this repo
-  } catch (_) { return false; }
+    if (r.ok) return { ok: true };
+    let msg = '';
+    try { msg = (await r.json()).message || ''; } catch (_) {}
+    const reason = r.status === 401
+      ? 'Token is invalid or expired (401).'
+      : r.status === 404
+      ? 'This token cannot see ' + GH.owner + '/' + GH.repo + ' (404). When creating it, set Resource owner = ' + GH.owner + ' and Repository access = Only select repositories, then pick ' + GH.repo + '.'
+      : 'GitHub returned ' + r.status + (msg ? ' (' + msg + ')' : '') + '.';
+    return { ok: false, status: r.status, reason };
+  } catch (e) {
+    return { ok: false, status: 0, reason: 'Could not reach GitHub (network or CORS): ' + (e.message || 'unknown') };
+  }
 }
 
-function showGate() {
+function showGate(reason) {
   el('tokenInput').value = getToken();
-  el('gateError').hidden = true;
+  const err = el('gateError');
+  if (reason) { err.textContent = reason; err.hidden = false; } else { err.hidden = true; }
   el('gate').hidden = false;
 }
 
@@ -537,11 +559,11 @@ async function unlockFromGate() {
   if (!v) { err.textContent = 'Paste a token to continue.'; err.hidden = false; return; }
   const btn = el('gateUnlock');
   btn.disabled = true; btn.textContent = 'Checking…'; err.hidden = true;
-  const ok = await validateToken(v);
+  const res = await checkToken(v);
   btn.disabled = false; btn.textContent = 'Unlock editor';
-  if (!ok) {
-    err.textContent = 'That token cannot write to ' + GH.owner + '/' + GH.repo + '. Give it Contents: Read and write on that repo.';
-    err.hidden = false; return;
+  if (!res.ok) {
+    console.warn('token check failed', res);
+    err.textContent = res.reason; err.hidden = false; return;
   }
   setToken(v);
   startEditor();
