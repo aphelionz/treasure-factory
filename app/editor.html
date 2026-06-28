@@ -7,6 +7,9 @@
   <style>
     :root { --bg:#16131c; --panel:#221d2b; --line:#3a3346; --ink:#f3eee7; --muted:#a99fb5; --accent:#ff50a0; --accent2:#7cc0ff; }
     * { box-sizing: border-box; }
+    /* The `hidden` attribute must win over our id/class `display` rules (e.g. #gate, .empty),
+       or those elements never hide. Without this, the gate overlay stays up after unlock. */
+    [hidden] { display: none !important; }
     html, body { margin:0; height:100%; background:var(--bg); color:var(--ink);
       font:14px/1.4 ui-sans-serif, system-ui, sans-serif; overflow:hidden; }
 
