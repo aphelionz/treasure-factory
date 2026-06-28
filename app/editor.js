@@ -36,6 +36,8 @@ let dragOrig = null;      // original shape (normalized) for move/resize
 let tempEl = null;        // live rectangle while drawing
 let moved = false;
 let wired = false;        // editor events wired once
+let buildState = 'unknown';
+let buildTimer = null;
 
 init();
 
@@ -73,6 +75,7 @@ function startEditor() {
   const first = scene.nodes[0] && scene.nodes[0].id;
   selectNode((scene.meta && scene.meta.entry) || first || null);
   applyMode();
+  refreshBuild();
 }
 
 function applyMode() {
@@ -165,20 +168,24 @@ function selectNode(id) {
   updateHsEditor();
 }
 
-function createNodeFromImage(img) {
+function addNode(img, title = '') {
   let base = (img || 'node').replace(/[^a-z0-9_]+/gi, '_');
   let id = base, i = 2;
   while (scene.nodes.some(n => n.id === id)) id = base + '_' + (i++);
-  const ans = prompt('Name this room:', '');
-  if (ans === null) return;   // cancelled
-  scene.nodes.push({ id, image: img, title: ans.trim(), hotspots: [] });
+  scene.nodes.push({ id, image: img, title, hotspots: [] });
   if (!scene.meta.entry) scene.meta.entry = id;
   populateNodeSelect(); populateTargetOptions(); markDirty();
-  selectNode(id);
+  return id;
+}
+function createNodeFromImage(img) {
+  const ans = prompt('Name this room:', '');
+  if (ans === null) return;   // cancelled
+  selectNode(addNode(img, ans.trim()));
 }
 
 // ---------- image grid (the selector) ----------
 let gridMode = 'assign';
+let linkHotspotId = null;
 
 function openImageGrid(mode) {
   gridMode = mode;
@@ -221,6 +228,15 @@ function renderImageGrid(filter) {
 
 function onGridPick(key) {
   if (gridMode === 'create') { closeImageGrid(); createNodeFromImage(key); return; }
+  if (gridMode === 'link') {
+    closeImageGrid();
+    const node = currentNode(); if (!node) return;
+    const hs = node.hotspots.find(h => h.id === linkHotspotId); if (!hs) return;
+    const existing = buildUsedMap()[key];           // link to existing room, or create one
+    hs.action = { type: 'goto', target: existing ? existing.id : addNode(key) };
+    markDirty(); renderHotspots(); selectHotspot(linkHotspotId);   // stay on current node
+    return;
+  }
   const node = currentNode();
   closeImageGrid();
   if (!node) return;
@@ -235,6 +251,55 @@ function wireImageGrid() {
   });
   el('imageGrid').addEventListener('click', (e) => { if (e.target === el('imageGrid')) closeImageGrid(); });
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !el('imageGrid').hidden) closeImageGrid(); });
+}
+
+// ---------- build status badge (hosted, anonymous Actions read) ----------
+function setBuildState(s) {
+  buildState = s;
+  const badge = el('buildBadge'); if (!badge) return;
+  badge.hidden = !HOSTED;
+  badge.className = 'buildbadge ' + s;
+  el('buildBadgeText').textContent =
+    { unsaved: 'Unsaved', building: 'Building', live: 'Live', failed: 'Build failed', unknown: '·' }[s] || s;
+}
+function stopBuildPoll() { if (buildTimer) { clearTimeout(buildTimer); buildTimer = null; } }
+async function fetchLatestRun() {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/actions/runs?per_page=1`,
+      { headers: { 'Accept': 'application/vnd.github+json' } });   // anonymous: public repo, 60/hr
+    if (!r.ok) return undefined;                                   // error / rate-limited
+    const j = await r.json();
+    return (j.workflow_runs && j.workflow_runs[0]) || null;        // null = no runs yet
+  } catch (_) { return undefined; }
+}
+function watchBuild(expectSha) {
+  if (!HOSTED) return;
+  stopBuildPoll();
+  const deadline = Date.now() + 180000;            // give up after 3 min
+  const tick = async () => {
+    buildTimer = null;
+    if (!HOSTED || dirty) return;                  // 'unsaved' is shown by markDirty
+    const run = await fetchLatestRun();
+    if (dirty) return;
+    if (run === undefined) { if (Date.now() < deadline) buildTimer = setTimeout(tick, 15000); return; }
+    const ours = !expectSha || (run && run.head_sha === expectSha);
+    if (run && run.status === 'completed' && ours) {
+      setBuildState(run.conclusion === 'success' ? 'live' : 'failed'); return;
+    }
+    setBuildState('building');
+    if (Date.now() < deadline) buildTimer = setTimeout(tick, 8000);
+  };
+  tick();
+}
+function refreshBuild() {                            // one-shot on load
+  if (!HOSTED) { const b = el('buildBadge'); if (b) b.hidden = true; return; }
+  if (dirty) { setBuildState('unsaved'); return; }
+  fetchLatestRun().then(run => {
+    if (dirty) return;
+    if (run && run.status === 'completed') setBuildState(run.conclusion === 'success' ? 'live' : 'failed');
+    else if (run) { setBuildState('building'); watchBuild(); }
+    else setBuildState('unknown');
+  });
 }
 
 // ---------- layout / geometry ----------
@@ -407,6 +472,7 @@ overlay.addEventListener('pointerup', (e) => {
         action: { type: 'goto', target: otherNodeId() },
       });
       markDirty(); renderHotspots(); selectHotspot(id);
+      linkHotspotId = id; openImageGrid('link');   // pick the destination right away
     }
   } else if ((mode === 'move' || mode === 'resize') && moved) {
     markDirty(); updateHsEditor();
@@ -449,7 +515,7 @@ function wireEvents() {
   el('helpTokenBtn').addEventListener('click', signOut);
 }
 
-function markDirty() { dirty = true; setStatus('Unsaved changes'); }
+function markDirty() { dirty = true; setStatus('Unsaved changes'); if (HOSTED) { stopBuildPoll(); setBuildState('unsaved'); } }
 function setStatus(msg) { el('status').textContent = msg; }
 
 // ---------- save / download ----------
@@ -567,6 +633,9 @@ async function ghSave() {
     }
     dirty = false;
     setStatus('Committed scene.json. Pages redeploys shortly.');
+    const body = await r.json().catch(() => null);
+    setBuildState('building');
+    watchBuild(body && body.commit && body.commit.sha);
   } catch (e) {
     console.error(e);
     if (e.status === 401 || e.status === 403) {

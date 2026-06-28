@@ -101,6 +101,17 @@
       white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tile.current { border-color:var(--accent); }
     .tile:hover { border-color:var(--accent2); }
+
+    .buildbadge { display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:14px;
+      font-size:12px; background:var(--bg); border:1px solid var(--line); color:var(--muted); white-space:nowrap; }
+    .buildbadge .dot { width:9px; height:9px; border-radius:50%; background:var(--muted); flex:none; }
+    .buildbadge.live { color:#9ff0cf; }      .buildbadge.live .dot { background:#36d399; }
+    .buildbadge.unsaved { color:#ffc4cc; }   .buildbadge.unsaved .dot { background:#ff5a6a; }
+    .buildbadge.failed { color:#ffc4cc; }    .buildbadge.failed .dot { background:#ff5a6a; }
+    .buildbadge.building { color:#ffd9a3; }
+    .buildbadge.building .dot { width:12px; height:12px; background:transparent;
+      border:2px solid rgba(245,177,74,.3); border-top-color:#f5b14a; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -117,6 +128,7 @@
     <span class="spacer"></span>
     <span id="status" class="status"></span>
     <button id="helpTokenBtn" title="Sign out (clear the saved token and lock the editor)" hidden>Sign out</button>
+    <span id="buildBadge" class="buildbadge" title="GitHub Pages build status" hidden><span class="dot"></span><span id="buildBadgeText">·</span></span>
     <button id="downloadBtn" title="Export scene.json as a download">Download</button>
     <button id="saveBtn" class="primary">Save to folder</button>
   </header>
