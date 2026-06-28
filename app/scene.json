@@ -12,21 +12,48 @@
       "hotspots": [
         {
           "id": "h_door",
-          "shape": { "type": "rect", "x": 0.483, "y": 0.61, "w": 0.087, "h": 0.17 },
+          "shape": {
+            "type": "rect",
+            "x": 0.4584919065400232,
+            "y": 0.5933961716937355,
+            "w": 0.13486724187935034,
+            "h": 0.3345647839327146
+          },
           "hint": "Open the red door",
-          "action": { "type": "goto", "target": "snax_room" }
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
         },
         {
           "id": "h_window_left",
-          "shape": { "type": "rect", "x": 0.137, "y": 0.652, "w": 0.165, "h": 0.135 },
+          "shape": {
+            "type": "rect",
+            "x": 0.137,
+            "y": 0.652,
+            "w": 0.165,
+            "h": 0.135
+          },
           "hint": "Peer into the green room",
-          "action": { "type": "goto", "target": "gold_green_room" }
+          "action": {
+            "type": "goto",
+            "target": "gold_green_room"
+          }
         },
         {
           "id": "h_window_right",
-          "shape": { "type": "rect", "x": 0.69, "y": 0.662, "w": 0.168, "h": 0.13 },
+          "shape": {
+            "type": "rect",
+            "x": 0.69,
+            "y": 0.662,
+            "w": 0.168,
+            "h": 0.13
+          },
           "hint": "Peer into the yellow room",
-          "action": { "type": "goto", "target": "yellow_room" }
+          "action": {
+            "type": "goto",
+            "target": "yellow_room"
+          }
         }
       ]
     },
@@ -37,15 +64,33 @@
       "hotspots": [
         {
           "id": "h_back",
-          "shape": { "type": "rect", "x": 0.0, "y": 0.88, "w": 1.0, "h": 0.12 },
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
           "hint": "Step back outside",
-          "action": { "type": "goto", "target": "exterior" }
+          "action": {
+            "type": "goto",
+            "target": "exterior"
+          }
         },
         {
           "id": "h_doorway",
-          "shape": { "type": "rect", "x": 0.0, "y": 0.16, "w": 0.135, "h": 0.62 },
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.16,
+            "w": 0.135,
+            "h": 0.62
+          },
           "hint": "Through the doorway",
-          "action": { "type": "goto", "target": "gold_green_room" }
+          "action": {
+            "type": "goto",
+            "target": "gold_green_room"
+          }
         }
       ]
     },
@@ -56,15 +101,33 @@
       "hotspots": [
         {
           "id": "h_back",
-          "shape": { "type": "rect", "x": 0.0, "y": 0.88, "w": 1.0, "h": 0.12 },
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
           "hint": "Step back outside",
-          "action": { "type": "goto", "target": "exterior" }
+          "action": {
+            "type": "goto",
+            "target": "exterior"
+          }
         },
         {
           "id": "h_window",
-          "shape": { "type": "rect", "x": 0.345, "y": 0.04, "w": 0.18, "h": 0.4 },
+          "shape": {
+            "type": "rect",
+            "x": 0.345,
+            "y": 0.04,
+            "w": 0.18,
+            "h": 0.4
+          },
           "hint": "Toward the yellow light",
-          "action": { "type": "goto", "target": "yellow_room" }
+          "action": {
+            "type": "goto",
+            "target": "yellow_room"
+          }
         }
       ]
     },
@@ -75,15 +138,33 @@
       "hotspots": [
         {
           "id": "h_back",
-          "shape": { "type": "rect", "x": 0.0, "y": 0.88, "w": 1.0, "h": 0.12 },
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
           "hint": "Step back outside",
-          "action": { "type": "goto", "target": "exterior" }
+          "action": {
+            "type": "goto",
+            "target": "exterior"
+          }
         },
         {
           "id": "h_doorway",
-          "shape": { "type": "rect", "x": 0.0, "y": 0.1, "w": 0.13, "h": 0.7 },
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.1,
+            "w": 0.13,
+            "h": 0.7
+          },
           "hint": "On to the snax room",
-          "action": { "type": "goto", "target": "snax_room" }
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
         }
       ]
     }
