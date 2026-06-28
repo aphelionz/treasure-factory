@@ -54,6 +54,21 @@
             "type": "goto",
             "target": "yellow_room"
           }
+        },
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.1790428781177494,
+            "y": 0.7971876812645011,
+            "w": 0.14630424340197215,
+            "h": 0.16657301334106733
+          },
+          "hint": "Investigate the bunnies",
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
         }
       ]
     },
@@ -164,6 +179,28 @@
           "action": {
             "type": "goto",
             "target": "snax_room"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yellow_room_img_0114",
+      "image": "yellow-room-img_0114",
+      "title": "Bunnies Close Up",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.0000872335411832617,
+            "y": 0.7770038790603249,
+            "w": 0.9978576801769141,
+            "h": 0.20427149796983757
+          },
+          "hint": "Go back",
+          "action": {
+            "type": "goto",
+            "target": "exterior"
           }
         }
       ]
