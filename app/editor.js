@@ -185,8 +185,8 @@ let gridMode = 'assign';
 function openImageGrid(mode) {
   gridMode = mode;
   el('imageGridFilter').value = '';
+  el('imageGrid').hidden = false;   // show first so the observer sees real layout
   renderImageGrid('');
-  el('imageGrid').hidden = false;
   el('imageGridFilter').focus();
 }
 function closeImageGrid() { el('imageGrid').hidden = true; }
@@ -205,7 +205,7 @@ function renderImageGrid(filter) {
     tile.className = 'tile' + (owner ? ' used' : '') + (cur && cur.image === key ? ' current' : '');
     tile.dataset.key = key;
     const img = document.createElement('img');
-    img.loading = 'lazy'; img.src = imageUrl(key); img.alt = key;
+    img.loading = 'lazy'; img.alt = key; img.src = imageUrl(key);
     tile.appendChild(img);
     if (owner) {
       const b = document.createElement('span');

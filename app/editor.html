@@ -86,10 +86,13 @@
     #imageGridFilter { flex:1; background:var(--panel); color:var(--ink);
       border:1px solid var(--line); border-radius:7px; padding:8px 10px; font:inherit; }
     #imageGridList { flex:1; overflow:auto; display:grid; gap:10px; align-content:start;
-      grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
-    .tile { position:relative; border:2px solid transparent; border-radius:8px; overflow:hidden;
-      cursor:pointer; background:var(--panel); aspect-ratio:4/3; }
-    .tile img { width:100%; height:100%; object-fit:cover; display:block; }
+      grid-template-columns:1fr; grid-auto-rows:210px; width:100%; max-width:1200px; margin-inline:auto; }
+    @media (min-width:700px) { #imageGridList { grid-template-columns:repeat(3, 1fr); } }
+    .tile { position:relative; border:2px solid transparent; border-radius:8px;
+      overflow:hidden; cursor:pointer; background:var(--panel); }
+    /* fixed-height rows (grid-auto-rows) give every tile a stable box even before the lazy src
+       loads, so the grid is tall/scrollable and the observer only loads near-viewport tiles. */
+    .tile img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; background:var(--panel); }
     .tile .cap { position:absolute; left:0; right:0; bottom:0; padding:3px 6px; font-size:11px;
       background:rgba(0,0,0,.6); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tile.used img { filter:grayscale(1); opacity:.38; }
