@@ -125,7 +125,7 @@ function populateNodeSelect() {
   const sel = el('nodeSelect');
   sel.innerHTML = '';
   for (const n of scene.nodes) {
-    const o = document.createElement('option'); o.value = n.id; o.textContent = n.id; sel.appendChild(o);
+    const o = document.createElement('option'); o.value = n.id; o.textContent = n.title || n.id; sel.appendChild(o);
   }
 }
 function populateTargetOptions() {
@@ -133,7 +133,7 @@ function populateTargetOptions() {
   const cur = sel.value;
   sel.innerHTML = '';
   for (const n of scene.nodes) {
-    const o = document.createElement('option'); o.value = n.id; o.textContent = n.id; sel.appendChild(o);
+    const o = document.createElement('option'); o.value = n.id; o.textContent = n.title || n.id; sel.appendChild(o);
   }
   if (cur) sel.value = cur;
 }
@@ -169,11 +169,9 @@ function createNodeFromImage(img) {
   let base = (img || 'node').replace(/[^a-z0-9_]+/gi, '_');
   let id = base, i = 2;
   while (scene.nodes.some(n => n.id === id)) id = base + '_' + (i++);
-  const name = prompt('New node id:', id);
-  if (!name) return;
-  id = name.trim();
-  if (scene.nodes.some(n => n.id === id)) { alert('That id already exists.'); return; }
-  scene.nodes.push({ id, image: img, title: '', hotspots: [] });
+  const ans = prompt('Name this room:', '');
+  if (ans === null) return;   // cancelled
+  scene.nodes.push({ id, image: img, title: ans.trim(), hotspots: [] });
   if (!scene.meta.entry) scene.meta.entry = id;
   populateNodeSelect(); populateTargetOptions(); markDirty();
   selectNode(id);
@@ -268,10 +266,14 @@ function renderHotspots() {
     d.className = 'hs' + (hs.id === selectedId ? ' selected' : '');
     d.dataset.id = hs.id;
     positionEl(d, rectToScreen(hs.shape, L));
+    const target = hs.action && hs.action.target;
+    const tgt = target && scene.nodes.find(n => n.id === target);
+    const tgtName = (tgt && (tgt.title || tgt.id)) || target || hs.id;
     const label = document.createElement('span');
     label.className = 'hslabel';
-    label.textContent = (hs.action && hs.action.target) || hs.id;
+    label.textContent = tgtName;
     d.appendChild(label);
+    d.title = 'Option-click to follow' + (target ? ' -> ' + tgtName : '');
     if (hs.id === selectedId) { const h = document.createElement('div'); h.className = 'handle'; d.appendChild(h); }
     overlay.appendChild(d);
   }
@@ -289,7 +291,9 @@ function renderHotspotList() {
     li.dataset.id = hs.id;
     const name = document.createElement('span'); name.textContent = hs.hint || hs.id;
     const t = document.createElement('span'); t.className = 't';
-    t.textContent = '→ ' + ((hs.action && hs.action.target) || '?');
+    const tgtId = hs.action && hs.action.target;
+    const tNode = tgtId && scene.nodes.find(n => n.id === tgtId);
+    t.textContent = '→ ' + ((tNode && (tNode.title || tNode.id)) || tgtId || '?');
     li.append(name, t);
     li.addEventListener('click', () => selectHotspot(hs.id));
     list.appendChild(li);
@@ -326,6 +330,14 @@ const capture = (e) => { try { capture(e); } catch (_) {} };
 overlay.addEventListener('pointerdown', (e) => {
   const node = currentNode();
   if (!node || !frame.naturalWidth) return;
+  // Option/Alt-click a hotspot to follow it to its target node
+  const hsEl = e.target.closest('.hs');
+  if (e.altKey && hsEl) {
+    const hs = node.hotspots.find(h => h.id === hsEl.dataset.id);
+    const target = hs && hs.action && hs.action.target;
+    if (target && scene.nodes.some(n => n.id === target)) selectNode(target);
+    return;
+  }
   const L = layout();
   const p = clampPt(e, L);
   moved = false;
@@ -411,6 +423,8 @@ function wireEvents() {
   el('nodeTitle').addEventListener('input', (e) => {
     const node = currentNode(); if (!node) return;
     node.title = e.target.value; markDirty();
+    const opt = [...el('nodeSelect').options].find(o => o.value === node.id);
+    if (opt) opt.textContent = node.title || node.id;
   });
   el('hsHint').addEventListener('input', (e) => {
     const hs = currentHotspot(); if (!hs) return;
