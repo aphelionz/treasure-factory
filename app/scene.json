@@ -59,15 +59,15 @@
           "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.1790428781177494,
-            "y": 0.7971876812645011,
+            "x": 0.17914483939965195,
+            "y": 0.7973281612529002,
             "w": 0.14630424340197215,
             "h": 0.16657301334106733
           },
           "hint": "Investigate the bunnies",
           "action": {
             "type": "goto",
-            "target": "snax_room"
+            "target": "yellow_room_img_0114"
           }
         }
       ]
@@ -217,6 +217,21 @@
             "type": "goto",
             "target": "exterior"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.6998950931699536,
+            "y": 0.011256525522041764,
+            "w": 0.27741625580046403,
+            "h": 0.5790857018561485
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "yellow_room_img_0115"
+          }
         }
       ]
     },
@@ -224,6 +239,12 @@
       "id": "snax_room_mark_pink_10",
       "image": "snax-room-mark-pink-10",
       "title": "",
+      "hotspots": []
+    },
+    {
+      "id": "yellow_room_img_0115",
+      "image": "yellow-room-img_0115",
+      "title": "Come on in!",
       "hotspots": []
     }
   ]
