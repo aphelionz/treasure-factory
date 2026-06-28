@@ -68,7 +68,6 @@ async function init() {
 function startEditor() {
   el('gate').hidden = true;
   if (!wired) { wireEvents(); wired = true; }
-  populateImageSelect();
   populateNodeSelect();
   populateTargetOptions();
   const first = scene.nodes[0] && scene.nodes[0].id;
@@ -116,12 +115,11 @@ function uniqueHotspotId(node) {
 }
 
 // ---------- populate dropdowns ----------
-function populateImageSelect() {
-  const sel = el('imageSelect');
-  sel.innerHTML = '';
-  for (const key of Object.keys(manifest).sort()) {
-    const o = document.createElement('option'); o.value = key; o.textContent = key; sel.appendChild(o);
-  }
+function buildUsedMap() {
+  // image key -> the node that uses it (derived; last writer wins if duplicated)
+  const used = {};
+  for (const n of scene.nodes) { if (n.image) used[n.image] = n; }
+  return used;
 }
 function populateNodeSelect() {
   const sel = el('nodeSelect');
@@ -146,8 +144,9 @@ function selectNode(id) {
   selectedId = null;
   const node = currentNode();
   el('nodeSelect').value = id || '';
+  el('browseImagesBtn').disabled = !node;
+  el('curImageName').textContent = (node && node.image) || 'none';
   if (node) {
-    el('imageSelect').value = node.image || '';
     el('nodeTitle').value = node.title || '';
     const url = imageUrl(node.image);
     if (url) {
@@ -166,8 +165,7 @@ function selectNode(id) {
   updateHsEditor();
 }
 
-function createNode() {
-  const img = el('imageSelect').value || Object.keys(manifest)[0];
+function createNodeFromImage(img) {
   let base = (img || 'node').replace(/[^a-z0-9_]+/gi, '_');
   let id = base, i = 2;
   while (scene.nodes.some(n => n.id === id)) id = base + '_' + (i++);
@@ -179,6 +177,66 @@ function createNode() {
   if (!scene.meta.entry) scene.meta.entry = id;
   populateNodeSelect(); populateTargetOptions(); markDirty();
   selectNode(id);
+}
+
+// ---------- image grid (the selector) ----------
+let gridMode = 'assign';
+
+function openImageGrid(mode) {
+  gridMode = mode;
+  el('imageGridFilter').value = '';
+  renderImageGrid('');
+  el('imageGrid').hidden = false;
+  el('imageGridFilter').focus();
+}
+function closeImageGrid() { el('imageGrid').hidden = true; }
+
+function renderImageGrid(filter) {
+  const used = buildUsedMap();
+  const cur = currentNode();
+  const keys = Object.keys(manifest).sort();
+  const q = (filter || '').toLowerCase();
+  const list = el('imageGridList');
+  list.innerHTML = '';
+  for (const key of keys) {
+    if (q && !key.toLowerCase().includes(q)) continue;
+    const owner = used[key];
+    const tile = document.createElement('div');
+    tile.className = 'tile' + (owner ? ' used' : '') + (cur && cur.image === key ? ' current' : '');
+    tile.dataset.key = key;
+    const img = document.createElement('img');
+    img.loading = 'lazy'; img.src = imageUrl(key); img.alt = key;
+    tile.appendChild(img);
+    if (owner) {
+      const b = document.createElement('span');
+      b.className = 'badge'; b.textContent = owner.title || owner.id;
+      tile.appendChild(b);
+    }
+    const cap = document.createElement('span');
+    cap.className = 'cap'; cap.textContent = key;
+    tile.appendChild(cap);
+    list.appendChild(tile);
+  }
+  const u = Object.keys(used).length;
+  el('imageGridCount').textContent = u + ' of ' + keys.length + ' used, ' + (keys.length - u) + ' left';
+}
+
+function onGridPick(key) {
+  if (gridMode === 'create') { closeImageGrid(); createNodeFromImage(key); return; }
+  const node = currentNode();
+  closeImageGrid();
+  if (!node) return;
+  node.image = key; markDirty(); selectNode(node.id);
+}
+
+function wireImageGrid() {
+  el('imageGridClose').addEventListener('click', closeImageGrid);
+  el('imageGridFilter').addEventListener('input', (e) => renderImageGrid(e.target.value));
+  el('imageGridList').addEventListener('click', (e) => {
+    const tile = e.target.closest('.tile'); if (tile) onGridPick(tile.dataset.key);
+  });
+  el('imageGrid').addEventListener('click', (e) => { if (e.target === el('imageGrid')) closeImageGrid(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !el('imageGrid').hidden) closeImageGrid(); });
 }
 
 // ---------- layout / geometry ----------
@@ -347,11 +405,9 @@ overlay.addEventListener('pointerup', (e) => {
 // ---------- events ----------
 function wireEvents() {
   el('nodeSelect').addEventListener('change', (e) => selectNode(e.target.value));
-  el('newNodeBtn').addEventListener('click', createNode);
-  el('imageSelect').addEventListener('change', (e) => {
-    const node = currentNode(); if (!node) return;
-    node.image = e.target.value; markDirty(); selectNode(node.id);
-  });
+  el('newNodeBtn').addEventListener('click', () => openImageGrid('create'));
+  el('browseImagesBtn').addEventListener('click', () => { if (currentNode()) openImageGrid('assign'); });
+  wireImageGrid();
   el('nodeTitle').addEventListener('input', (e) => {
     const node = currentNode(); if (!node) return;
     node.title = e.target.value; markDirty();

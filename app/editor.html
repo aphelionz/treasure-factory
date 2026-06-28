@@ -77,6 +77,27 @@
       border:1px solid var(--line); border-radius:7px; padding:8px; font:inherit; }
     .modalactions { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; }
     #tokenDocLink { color:var(--accent2); }
+
+    #imageGrid { position:fixed; inset:0; z-index:1000; background:var(--bg);
+      display:flex; flex-direction:column; padding:16px 18px; }
+    .gridhead { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+    .gridhead h2 { margin:0; color:var(--accent); font-size:18px; white-space:nowrap; }
+    #imageGridCount { color:var(--muted); font-size:13px; white-space:nowrap; }
+    #imageGridFilter { flex:1; background:var(--panel); color:var(--ink);
+      border:1px solid var(--line); border-radius:7px; padding:8px 10px; font:inherit; }
+    #imageGridList { flex:1; overflow:auto; display:grid; gap:10px; align-content:start;
+      grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
+    .tile { position:relative; border:2px solid transparent; border-radius:8px; overflow:hidden;
+      cursor:pointer; background:var(--panel); aspect-ratio:4/3; }
+    .tile img { width:100%; height:100%; object-fit:cover; display:block; }
+    .tile .cap { position:absolute; left:0; right:0; bottom:0; padding:3px 6px; font-size:11px;
+      background:rgba(0,0,0,.6); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tile.used img { filter:grayscale(1); opacity:.38; }
+    .tile.used .badge { position:absolute; top:6px; left:6px; padding:1px 6px; font-size:11px;
+      background:var(--accent2); color:#0c1422; border-radius:10px; max-width:90%;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tile.current { border-color:var(--accent); }
+    .tile:hover { border-color:var(--accent2); }
   </style>
 </head>
 <body>
@@ -88,7 +109,7 @@
     <strong class="brand">Treasure Factory</strong>
     <label>Node <select id="nodeSelect"></select></label>
     <button id="newNodeBtn" title="Create a new node from an image">+ Node</button>
-    <label>Image <select id="imageSelect"></select></label>
+    <button id="browseImagesBtn" title="Pick this node's image from a grid">Image: <span id="curImageName">none</span></button>
     <label>Title <input id="nodeTitle" type="text" placeholder="Room name"></label>
     <span class="spacer"></span>
     <span id="status" class="status"></span>
@@ -146,6 +167,16 @@
         <button id="gateUnlock" type="button" class="primary">Unlock editor</button>
       </div>
     </div>
+  </div>
+
+  <div id="imageGrid" hidden>
+    <div class="gridhead">
+      <h2>Images</h2>
+      <span id="imageGridCount"></span>
+      <input id="imageGridFilter" type="text" placeholder="Filter by name…" autocomplete="off" spellcheck="false">
+      <button id="imageGridClose" type="button">Close</button>
+    </div>
+    <div id="imageGridList"></div>
   </div>
 
   <script type="module" src="editor.js"></script>
