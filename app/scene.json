@@ -266,7 +266,23 @@
       "id": "gold_and_green_3",
       "image": "gold-and-green-3",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.0019055430684454429,
+            "y": 0.8023310614849188,
+            "w": 0.9930553037993038,
+            "h": 0.19173705771461713
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "exterior"
+          }
+        }
+      ]
     }
   ]
 }
