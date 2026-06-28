@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Treasure Factory / DA SPOT",
+    "entry": "exterior"
+  },
+  "nodes": [
+    {
+      "id": "exterior",
+      "image": "yellow-room-img_0112",
+      "title": "Treasure Factory",
+      "hotspots": [
+        {
+          "id": "h_door",
+          "shape": { "type": "rect", "x": 0.483, "y": 0.61, "w": 0.087, "h": 0.17 },
+          "hint": "Open the red door",
+          "action": { "type": "goto", "target": "snax_room" }
+        },
+        {
+          "id": "h_window_left",
+          "shape": { "type": "rect", "x": 0.137, "y": 0.652, "w": 0.165, "h": 0.135 },
+          "hint": "Peer into the green room",
+          "action": { "type": "goto", "target": "gold_green_room" }
+        },
+        {
+          "id": "h_window_right",
+          "shape": { "type": "rect", "x": 0.69, "y": 0.662, "w": 0.168, "h": 0.13 },
+          "hint": "Peer into the yellow room",
+          "action": { "type": "goto", "target": "yellow_room" }
+        }
+      ]
+    },
+    {
+      "id": "snax_room",
+      "image": "snax-room-mark-pink-5",
+      "title": "The Snax Room",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": { "type": "rect", "x": 0.0, "y": 0.88, "w": 1.0, "h": 0.12 },
+          "hint": "Step back outside",
+          "action": { "type": "goto", "target": "exterior" }
+        },
+        {
+          "id": "h_doorway",
+          "shape": { "type": "rect", "x": 0.0, "y": 0.16, "w": 0.135, "h": 0.62 },
+          "hint": "Through the doorway",
+          "action": { "type": "goto", "target": "gold_green_room" }
+        }
+      ]
+    },
+    {
+      "id": "gold_green_room",
+      "image": "gold-and-green-20",
+      "title": "Gold and Green",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": { "type": "rect", "x": 0.0, "y": 0.88, "w": 1.0, "h": 0.12 },
+          "hint": "Step back outside",
+          "action": { "type": "goto", "target": "exterior" }
+        },
+        {
+          "id": "h_window",
+          "shape": { "type": "rect", "x": 0.345, "y": 0.04, "w": 0.18, "h": 0.4 },
+          "hint": "Toward the yellow light",
+          "action": { "type": "goto", "target": "yellow_room" }
+        }
+      ]
+    },
+    {
+      "id": "yellow_room",
+      "image": "yellow-room-img_0125",
+      "title": "The Yellow Room",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": { "type": "rect", "x": 0.0, "y": 0.88, "w": 1.0, "h": 0.12 },
+          "hint": "Step back outside",
+          "action": { "type": "goto", "target": "exterior" }
+        },
+        {
+          "id": "h_doorway",
+          "shape": { "type": "rect", "x": 0.0, "y": 0.1, "w": 0.13, "h": 0.7 },
+          "hint": "On to the snax room",
+          "action": { "type": "goto", "target": "snax_room" }
+        }
+      ]
+    }
+  ]
+}

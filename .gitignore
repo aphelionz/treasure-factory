@@ -1,0 +1,11 @@
+.DS_Store
+**/.DS_Store
+dist/
+src-tauri/target/
+app/images/.build-cache
+node_modules/
+
+# Original photos (the only copies, ~435MB). Never commit to the public repo.
+/Gold and green/
+/Snax room/
+/Yellow Room/

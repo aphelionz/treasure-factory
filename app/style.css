@@ -1,0 +1,47 @@
+:root { --bg: #0c0a10; --ink: #f6efe6; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
+
+#stage { position: fixed; inset: 0; }
+
+#frame {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  user-select: none; -webkit-user-drag: none;
+  transition: opacity .28s ease;
+}
+#frame.fading { opacity: 0; }
+
+/* Transparent layer that catches the mouse and hosts debug outlines. */
+#overlay { position: absolute; inset: 0; cursor: default; }
+
+#title {
+  position: absolute; left: 0; top: 0; padding: 14px 20px;
+  font: 600 15px/1.2 ui-sans-serif, system-ui, sans-serif; letter-spacing: .04em;
+  color: var(--ink); text-shadow: 0 1px 5px rgba(0,0,0,.8);
+  opacity: .85; pointer-events: none;
+}
+
+#hint {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
+  max-width: 80%; padding: 7px 14px; border-radius: 999px;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(3px);
+  font: 500 14px/1.2 ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); text-shadow: 0 1px 3px rgba(0,0,0,.8);
+  pointer-events: none; transition: opacity .15s ease;
+}
+#hint:empty { opacity: 0; }
+
+.hs-outline {
+  position: absolute;
+  border: 2px dashed rgba(255, 80, 160, .95);
+  background: rgba(255, 80, 160, .14);
+  border-radius: 3px; pointer-events: none;
+}
+
+#error {
+  position: absolute; left: 0; right: 0; top: 45%; padding: 0 24px; text-align: center;
+  color: #ffb3b3; font: 500 15px/1.5 ui-sans-serif, system-ui, sans-serif;
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Factory: Editor</title>
+  <style>
+    :root { --bg:#16131c; --panel:#221d2b; --line:#3a3346; --ink:#f3eee7; --muted:#a99fb5; --accent:#ff50a0; --accent2:#7cc0ff; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+      font:14px/1.4 ui-sans-serif, system-ui, sans-serif; overflow:hidden; }
+
+    #toolbar { display:flex; align-items:center; gap:14px; padding:8px 14px;
+      background:var(--panel); border-bottom:1px solid var(--line); height:52px; }
+    #toolbar .brand { color:var(--accent); letter-spacing:.02em; white-space:nowrap; }
+    #toolbar label { display:flex; align-items:center; gap:6px; color:var(--muted); white-space:nowrap; }
+    #toolbar select, #toolbar input { background:var(--bg); color:var(--ink);
+      border:1px solid var(--line); border-radius:7px; padding:6px 8px; font:inherit; }
+    #toolbar input { width:140px; }
+    #toolbar .spacer { flex:1; }
+    .status { color:var(--muted); min-width:120px; text-align:right; font-size:13px; }
+    button { background:#2e2738; color:var(--ink); border:1px solid var(--line);
+      border-radius:8px; padding:7px 12px; font:inherit; cursor:pointer; }
+    button:hover { border-color:var(--accent); }
+    button:disabled { opacity:.45; cursor:not-allowed; }
+    button.primary { background:var(--accent); color:#1a0e16; border-color:var(--accent); font-weight:600; }
+    button.danger { background:#3a2030; border-color:#6b2a47; color:#ffc4dc; }
+
+    #main { display:flex; height:calc(100% - 52px); }
+    #stage { position:relative; flex:1; background:#0c0a10; overflow:hidden; }
+    #editframe { position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+      user-select:none; -webkit-user-drag:none; }
+    #overlay { position:absolute; inset:0; cursor:crosshair; }
+    .empty { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      color:var(--muted); text-align:center; padding:0 30px; pointer-events:none; }
+
+    .hs { position:absolute; border:2px solid var(--accent2);
+      background:rgba(124,192,255,.14); border-radius:3px; cursor:move; }
+    .hs.selected { border-color:var(--accent); background:rgba(255,80,160,.18); box-shadow:0 0 0 1px var(--accent); }
+    .hs.drawing { border-style:dashed; pointer-events:none; }
+    .hslabel { position:absolute; left:0; top:-19px; padding:0 5px; font-size:11px; line-height:17px;
+      background:rgba(0,0,0,.7); color:var(--ink); border-radius:4px; white-space:nowrap; pointer-events:none; }
+    .handle { position:absolute; right:-6px; bottom:-6px; width:12px; height:12px;
+      background:var(--accent); border:2px solid #1a0e16; border-radius:3px; cursor:nwse-resize; }
+
+    #panel { width:288px; background:var(--panel); border-left:1px solid var(--line);
+      padding:14px; overflow:auto; }
+    #panel h3 { margin:6px 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+    #hotspotList { list-style:none; margin:0 0 14px; padding:0; }
+    #hotspotList li { display:flex; justify-content:space-between; gap:8px; align-items:center;
+      padding:7px 9px; border:1px solid var(--line); border-radius:7px; margin-bottom:6px; cursor:pointer; }
+    #hotspotList li.sel { border-color:var(--accent); background:rgba(255,80,160,.1); }
+    #hotspotList li .t { color:var(--muted); font-size:12px; }
+    #hsEditor label { display:block; margin:10px 0; color:var(--muted); }
+    #hsEditor input, #hsEditor select { width:100%; margin-top:4px; background:var(--bg); color:var(--ink);
+      border:1px solid var(--line); border-radius:7px; padding:7px 8px; font:inherit; }
+    .coords { font:12px/1.5 ui-monospace, monospace; color:var(--muted); margin:8px 0; }
+    .help { color:var(--muted); font-size:12px; border-top:1px solid var(--line); padding-top:12px; margin-top:16px; }
+    #unsupported { background:#5a1d33; color:#ffd9e6; padding:8px 14px; font-size:13px; }
+    #unsupported a { color:#fff; }
+
+    .modal { border:none; border-radius:14px; padding:0; background:var(--panel); color:var(--ink);
+      max-width:540px; box-shadow:0 12px 48px rgba(0,0,0,.5); }
+    .modal::backdrop { background:rgba(0,0,0,.55); }
+    .modalbody { padding:20px 22px; }
+    .modal h2 { margin:0 0 10px; color:var(--accent); font-size:18px; }
+    .modalnote { color:var(--muted); font-size:13px; line-height:1.5; }
+    .steps { margin:12px 0; padding-left:20px; font-size:13px; line-height:1.6; }
+    .steps code, .modalnote code { background:var(--bg); border:1px solid var(--line); border-radius:5px;
+      padding:0 4px; font:12px/1.4 ui-monospace, monospace; }
+    .tokenfield { display:block; margin:14px 0 4px; color:var(--muted); }
+    .tokenfield input { width:100%; margin-top:5px; background:var(--bg); color:var(--ink);
+      border:1px solid var(--line); border-radius:7px; padding:8px; font:inherit; }
+    .modalactions { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; }
+    #tokenDocLink { color:var(--accent2); }
+  </style>
+</head>
+<body>
+  <div id="unsupported" hidden>
+    Save-to-folder needs the File System Access API (Chrome or Edge). You can still edit and use
+    <b>Download</b> to export <code>scene.json</code>, then drop it into <code>app/</code>.
+  </div>
+  <header id="toolbar">
+    <strong class="brand">Treasure Factory</strong>
+    <label>Node <select id="nodeSelect"></select></label>
+    <button id="newNodeBtn" title="Create a new node from an image">+ Node</button>
+    <label>Image <select id="imageSelect"></select></label>
+    <label>Title <input id="nodeTitle" type="text" placeholder="Room name"></label>
+    <span class="spacer"></span>
+    <span id="status" class="status"></span>
+    <button id="helpTokenBtn" title="Create and paste a GitHub token (for saving on the hosted site)">GitHub token…</button>
+    <button id="downloadBtn" title="Export scene.json as a download">Download</button>
+    <button id="saveBtn" class="primary">Save to folder</button>
+  </header>
+  <main id="main">
+    <div id="stage">
+      <img id="editframe" alt="" draggable="false">
+      <div id="overlay"></div>
+      <div id="empty" class="empty">Pick or create a node, then drag on the image to add a clickable area.</div>
+    </div>
+    <aside id="panel">
+      <h3>Hotspots in this node</h3>
+      <ul id="hotspotList"></ul>
+      <div id="hsEditor" hidden>
+        <h3>Selected hotspot</h3>
+        <label>Hint (shown on hover)<input id="hsHint" type="text" placeholder="e.g. Open the red door"></label>
+        <label>Action<select id="hsActionType"><option value="goto">goto: navigate to a node</option></select></label>
+        <label>Target node<select id="hsTarget"></select></label>
+        <div class="coords" id="hsCoords"></div>
+        <button id="deleteHsBtn" class="danger">Delete hotspot</button>
+      </div>
+      <p class="help">Drag on the image to draw a box. Click a box to select it. Drag a box to move it,
+      drag its corner to resize. Press <b>Delete</b> to remove the selected box. Save writes
+      <code>scene.json</code> into your <code>app/</code> folder.</p>
+    </aside>
+  </main>
+
+  <dialog id="tokenModal" class="modal">
+    <div class="modalbody">
+      <h2>Save to GitHub</h2>
+      <p class="modalnote">
+        The hosted editor saves by committing <code>app/scene.json</code> straight to the repo. You need a
+        <b>fine-grained Personal Access Token</b> with this repo's <b>Contents: Read and write</b> permission.
+        The token is stored only in this browser. Anyone with a write token to the repo can save, so that
+        collaborator list is the allowlist. You can revoke or rotate it anytime in GitHub settings.
+      </p>
+      <ol class="steps">
+        <li>GitHub &rarr; your profile photo (top-right) &rarr; <b>Settings</b>.</li>
+        <li>Left sidebar, bottom: <b>Developer settings</b>.</li>
+        <li><b>Personal access tokens</b> &rarr; <b>Fine-grained tokens</b> &rarr; <b>Generate new token</b>.</li>
+        <li><b>Token name</b>: e.g. <code>treasure-factory editor</code>. Set an <b>Expiration</b> (re-issue when it lapses).</li>
+        <li><b>Resource owner</b>: the repo owner (<code>aphelionz</code>).</li>
+        <li><b>Repository access</b> &rarr; <b>Only select repositories</b> &rarr; pick <code>treasure-factory</code>.</li>
+        <li><b>Repository permissions</b> &rarr; <b>Contents</b> &rarr; <b>Read and write</b> (Metadata: Read is added automatically).</li>
+        <li><b>Generate token</b>, copy it, and paste it below.</li>
+      </ol>
+      <p><a id="tokenDocLink" href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener">Open the token page &#8599;</a></p>
+      <label class="tokenfield">Token
+        <input id="tokenInput" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+      </label>
+      <div class="modalactions">
+        <button id="tokenCancel" type="button">Cancel</button>
+        <button id="tokenSave" type="button" class="primary">Save token</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="editor.js"></script>
+</body>
+</html>
