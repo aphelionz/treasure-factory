@@ -106,6 +106,21 @@
             "type": "goto",
             "target": "gold_green_room"
           }
+        },
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.6272034965922274,
+            "y": 0.36604100203016243,
+            "w": 0.08883886492169368,
+            "h": 0.3020682279582366
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room_mark_pink_10"
+          }
         }
       ]
     },
@@ -204,6 +219,12 @@
           }
         }
       ]
+    },
+    {
+      "id": "snax_room_mark_pink_10",
+      "image": "snax-room-mark-pink-10",
+      "title": "",
+      "hotspots": []
     }
   ]
 }
