@@ -151,6 +151,36 @@
             "type": "goto",
             "target": "snax_room_mark_pink_13"
           }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.6376511292778423,
+            "y": 0.18296838747099767,
+            "w": 0.10076153748549876,
+            "h": 0.17579937645011603
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room_mark_pink_29"
+          }
+        },
+        {
+          "id": "h_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.23561779473607886,
+            "y": 0.2956559962296984,
+            "w": 0.11163400884570768,
+            "h": 0.33532120069605564
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room_mark_pink_30"
+          }
         }
       ]
     },
@@ -350,6 +380,50 @@
             "y": 0.7439638921113689,
             "w": 0.9896701892401392,
             "h": 0.24378715922273775
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
+        }
+      ]
+    },
+    {
+      "id": "snax_room_mark_pink_29",
+      "image": "snax-room-mark-pink-29",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.0031970526392111043,
+            "y": 0.7469592879930395,
+            "w": 0.9888578976943155,
+            "h": 0.2467870867169374
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
+        }
+      ]
+    },
+    {
+      "id": "snax_room_mark_pink_30",
+      "image": "snax-room-mark-pink-30",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.0014365211716937027,
+            "y": 0.8044518561484919,
+            "w": 0.9943604082076566,
+            "h": 0.19127030162412995
           },
           "hint": "",
           "action": {
