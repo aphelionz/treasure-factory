@@ -14,7 +14,7 @@
           "id": "h_door",
           "shape": {
             "type": "rect",
-            "x": 0.4584919065400232,
+            "x": 0.45838314783932715,
             "y": 0.5933961716937355,
             "w": 0.13486724187935034,
             "h": 0.3345647839327146
@@ -68,6 +68,21 @@
           "action": {
             "type": "goto",
             "target": "yellow_room_img_0114"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.4359411252900232,
+            "y": 0.2763966429814385,
+            "w": 0.2757712804524362,
+            "h": 0.2646642981438515
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "gold_and_green_3"
           }
         }
       ]
@@ -245,6 +260,12 @@
       "id": "yellow_room_img_0115",
       "image": "yellow-room-img_0115",
       "title": "Come on in!",
+      "hotspots": []
+    },
+    {
+      "id": "gold_and_green_3",
+      "image": "gold-and-green-3",
+      "title": "",
       "hotspots": []
     }
   ]
