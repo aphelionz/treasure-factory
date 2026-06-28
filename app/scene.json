@@ -126,15 +126,30 @@
           "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.6272034965922274,
-            "y": 0.36604100203016243,
+            "x": 0.6270947378915314,
+            "y": 0.3661814820185615,
             "w": 0.08883886492169368,
             "h": 0.3020682279582366
           },
           "hint": "",
           "action": {
             "type": "goto",
-            "target": "snax_room_mark_pink_10"
+            "target": "snax_room_mark_pink_23"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.7473478737674014,
+            "y": 0.2091747027262181,
+            "w": 0.11226956750290018,
+            "h": 0.3291083599187935
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room_mark_pink_13"
           }
         }
       ]
@@ -253,8 +268,24 @@
     {
       "id": "snax_room_mark_pink_10",
       "image": "snax-room-mark-pink-10",
-      "title": "",
-      "hotspots": []
+      "title": "Strawberry + Lollipop",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.004539542850928041,
+            "y": 0.7726036832946636,
+            "w": 0.9887627338312065,
+            "h": 0.22146443590487241
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
+        }
+      ]
     },
     {
       "id": "yellow_room_img_0115",
@@ -265,14 +296,14 @@
     {
       "id": "gold_and_green_3",
       "image": "gold-and-green-3",
-      "title": "",
+      "title": "Opening Night",
       "hotspots": [
         {
           "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.0019055430684454429,
-            "y": 0.8023310614849188,
+            "x": 0.0017967843677493872,
+            "y": 0.8024715414733179,
             "w": 0.9930553037993038,
             "h": 0.19173705771461713
           },
@@ -280,6 +311,50 @@
           "action": {
             "type": "goto",
             "target": "exterior"
+          }
+        }
+      ]
+    },
+    {
+      "id": "snax_room_mark_pink_23",
+      "image": "snax-room-mark-pink-23",
+      "title": "Strawberry + Lollipop 2",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.002350773999419921,
+            "y": 0.7712124782482599,
+            "w": 0.9897007776247099,
+            "h": 0.22569243039443154
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
+          }
+        }
+      ]
+    },
+    {
+      "id": "snax_room_mark_pink_13",
+      "image": "snax-room-mark-pink-13",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.002242015298723865,
+            "y": 0.7439638921113689,
+            "w": 0.9896701892401392,
+            "h": 0.24378715922273775
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "snax_room"
           }
         }
       ]
