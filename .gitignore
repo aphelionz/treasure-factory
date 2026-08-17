@@ -5,7 +5,14 @@ src-tauri/target/
 app/images/.build-cache
 node_modules/
 
-# Original photos (the only copies, ~435MB). Never commit to the public repo.
+# Original photos (the only copies, ~1.5GB). Never commit to the public repo.
+# Exception: "Gold and green/" holds 1600px JPGs rebuilt from the committed
+# webp derivatives; its full-res originals were lost on 2026-08-16.
+/Exterior/
 /Gold and green/
+/Green and Gold/
+/Glad You Are Here/
+/International room/
 /Snax room/
+/Welcome To The Party/
 /Yellow Room/

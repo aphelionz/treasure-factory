@@ -12,7 +12,16 @@ MAXDIM=1600
 QUALITY=82
 
 # The originals, read in place. Add room folders here as the miniature grows.
-SOURCES=("$ROOT/Gold and green" "$ROOT/Snax room" "$ROOT/Yellow Room")
+SOURCES=(
+  "$ROOT/Exterior"
+  "$ROOT/Gold and green"
+  "$ROOT/Green and Gold"
+  "$ROOT/Glad You Are Here"
+  "$ROOT/International room"
+  "$ROOT/Snax room"
+  "$ROOT/Welcome To The Party"
+  "$ROOT/Yellow Room"
+)
 
 command -v magick >/dev/null || { echo "error: ImageMagick (magick) not found" >&2; exit 1; }
 mkdir -p "$OUT"

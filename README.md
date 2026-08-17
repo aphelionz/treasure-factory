@@ -14,8 +14,13 @@ clickable navigation.
 | Package for itch.io | `./scripts/package-web.sh` |
 | Desktop build (mac) | see "Desktop / Steam" below |
 
-The originals live in `Gold and green/`, `Snax room/`, `Yellow Room/` and are
-never modified. The build writes only into `app/images/`.
+The originals live in one folder per room (`Exterior/`, `Gold and green/`,
+`Green and Gold/`, `Glad You Are Here/`, `International room/`, `Snax room/`,
+`Welcome To The Party/`, `Yellow Room/`) and are never modified. `Gold and
+green/` is the exception: its full-res originals were lost, and the folder now
+holds 1600px JPGs rebuilt from the committed webp derivatives. The build
+writes only into `app/images/`. To add a room, drop the folder in, name the
+files `<Folder>-NN.jpg`, and add it to `SOURCES` in `build-assets.sh`.
 
 ## How it works
 

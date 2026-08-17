@@ -1,4 +1,154 @@
 {
+  "exterior-01": {
+    "file": "exterior-01.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "exterior-02": {
+    "file": "exterior-02.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "exterior-03": {
+    "file": "exterior-03.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-01": {
+    "file": "glad-you-are-here-01.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-02": {
+    "file": "glad-you-are-here-02.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-03": {
+    "file": "glad-you-are-here-03.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-04": {
+    "file": "glad-you-are-here-04.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-05": {
+    "file": "glad-you-are-here-05.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-06": {
+    "file": "glad-you-are-here-06.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-07": {
+    "file": "glad-you-are-here-07.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-08": {
+    "file": "glad-you-are-here-08.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-09": {
+    "file": "glad-you-are-here-09.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-10": {
+    "file": "glad-you-are-here-10.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-11": {
+    "file": "glad-you-are-here-11.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-12": {
+    "file": "glad-you-are-here-12.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-13": {
+    "file": "glad-you-are-here-13.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-14": {
+    "file": "glad-you-are-here-14.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-15": {
+    "file": "glad-you-are-here-15.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-16": {
+    "file": "glad-you-are-here-16.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-17": {
+    "file": "glad-you-are-here-17.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-18": {
+    "file": "glad-you-are-here-18.webp",
+    "h": 1600,
+    "w": 1202
+  },
+  "glad-you-are-here-19": {
+    "file": "glad-you-are-here-19.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-20": {
+    "file": "glad-you-are-here-20.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-21": {
+    "file": "glad-you-are-here-21.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-22": {
+    "file": "glad-you-are-here-22.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-23": {
+    "file": "glad-you-are-here-23.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-24": {
+    "file": "glad-you-are-here-24.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-25": {
+    "file": "glad-you-are-here-25.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-26": {
+    "file": "glad-you-are-here-26.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "glad-you-are-here-27": {
+    "file": "glad-you-are-here-27.webp",
+    "h": 1600,
+    "w": 1200
+  },
   "gold-and-green-1": {
     "file": "gold-and-green-1.webp",
     "h": 1200,
@@ -244,6 +394,241 @@
     "h": 1200,
     "w": 1600
   },
+  "green-and-gold-01": {
+    "file": "green-and-gold-01.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-02": {
+    "file": "green-and-gold-02.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-03": {
+    "file": "green-and-gold-03.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-04": {
+    "file": "green-and-gold-04.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-05": {
+    "file": "green-and-gold-05.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-06": {
+    "file": "green-and-gold-06.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-07": {
+    "file": "green-and-gold-07.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-08": {
+    "file": "green-and-gold-08.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-09": {
+    "file": "green-and-gold-09.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-10": {
+    "file": "green-and-gold-10.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-11": {
+    "file": "green-and-gold-11.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-12": {
+    "file": "green-and-gold-12.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-13": {
+    "file": "green-and-gold-13.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-14": {
+    "file": "green-and-gold-14.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-15": {
+    "file": "green-and-gold-15.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-16": {
+    "file": "green-and-gold-16.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-17": {
+    "file": "green-and-gold-17.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-18": {
+    "file": "green-and-gold-18.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-19": {
+    "file": "green-and-gold-19.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-20": {
+    "file": "green-and-gold-20.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-21": {
+    "file": "green-and-gold-21.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-22": {
+    "file": "green-and-gold-22.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-23": {
+    "file": "green-and-gold-23.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-24": {
+    "file": "green-and-gold-24.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-25": {
+    "file": "green-and-gold-25.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-26": {
+    "file": "green-and-gold-26.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-27": {
+    "file": "green-and-gold-27.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-28": {
+    "file": "green-and-gold-28.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "green-and-gold-29": {
+    "file": "green-and-gold-29.webp",
+    "h": 1200,
+    "w": 1600
+  },
+  "international-room-01": {
+    "file": "international-room-01.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-02": {
+    "file": "international-room-02.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-03": {
+    "file": "international-room-03.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-04": {
+    "file": "international-room-04.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-05": {
+    "file": "international-room-05.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-06": {
+    "file": "international-room-06.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-07": {
+    "file": "international-room-07.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-08": {
+    "file": "international-room-08.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-09": {
+    "file": "international-room-09.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-10": {
+    "file": "international-room-10.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-11": {
+    "file": "international-room-11.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-12": {
+    "file": "international-room-12.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-13": {
+    "file": "international-room-13.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-14": {
+    "file": "international-room-14.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-15": {
+    "file": "international-room-15.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-16": {
+    "file": "international-room-16.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-17": {
+    "file": "international-room-17.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "international-room-18": {
+    "file": "international-room-18.webp",
+    "h": 1600,
+    "w": 1200
+  },
   "snax-room-mark-pink-1": {
     "file": "snax-room-mark-pink-1.webp",
     "h": 1200,
@@ -393,6 +778,126 @@
     "file": "snax-room-mark-pink-9.webp",
     "h": 1200,
     "w": 1600
+  },
+  "welcome-to-the-party-01": {
+    "file": "welcome-to-the-party-01.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-02": {
+    "file": "welcome-to-the-party-02.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-03": {
+    "file": "welcome-to-the-party-03.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-04": {
+    "file": "welcome-to-the-party-04.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-05": {
+    "file": "welcome-to-the-party-05.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-06": {
+    "file": "welcome-to-the-party-06.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-07": {
+    "file": "welcome-to-the-party-07.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-08": {
+    "file": "welcome-to-the-party-08.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-09": {
+    "file": "welcome-to-the-party-09.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-10": {
+    "file": "welcome-to-the-party-10.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-11": {
+    "file": "welcome-to-the-party-11.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-12": {
+    "file": "welcome-to-the-party-12.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-13": {
+    "file": "welcome-to-the-party-13.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-14": {
+    "file": "welcome-to-the-party-14.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-15": {
+    "file": "welcome-to-the-party-15.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-16": {
+    "file": "welcome-to-the-party-16.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-17": {
+    "file": "welcome-to-the-party-17.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-18": {
+    "file": "welcome-to-the-party-18.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-19": {
+    "file": "welcome-to-the-party-19.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-20": {
+    "file": "welcome-to-the-party-20.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-21": {
+    "file": "welcome-to-the-party-21.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-22": {
+    "file": "welcome-to-the-party-22.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-23": {
+    "file": "welcome-to-the-party-23.webp",
+    "h": 1600,
+    "w": 1200
+  },
+  "welcome-to-the-party-24": {
+    "file": "welcome-to-the-party-24.webp",
+    "h": 1600,
+    "w": 1200
   },
   "yellow-room-img_0112": {
     "file": "yellow-room-img_0112.webp",

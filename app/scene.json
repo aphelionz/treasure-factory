@@ -297,7 +297,7 @@
           "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.0000872335411832617,
+            "x": 8.72335411832617e-05,
             "y": 0.7770038790603249,
             "w": 0.9978576801769141,
             "h": 0.20427149796983757
@@ -540,6 +540,116 @@
           "action": {
             "type": "goto",
             "target": "snax_room_mark_pink_30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "house_cutaway",
+      "image": "glad-you-are-here-01",
+      "title": "Glad You Are Here",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back outside",
+          "action": {
+            "type": "goto",
+            "target": "exterior"
+          }
+        }
+      ]
+    },
+    {
+      "id": "downstairs_gallery",
+      "image": "glad-you-are-here-14",
+      "title": "The Downstairs Gallery",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "house_cutaway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room",
+      "image": "international-room-14",
+      "title": "The International Room",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "house_cutaway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "party_room",
+      "image": "welcome-to-the-party-01",
+      "title": "Welcome To The Party",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "house_cutaway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gold_green_restaged",
+      "image": "green-and-gold-28",
+      "title": "Gold and Green (Restaged)",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back outside",
+          "action": {
+            "type": "goto",
+            "target": "exterior"
           }
         }
       ]
