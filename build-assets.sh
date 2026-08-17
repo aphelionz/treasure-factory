@@ -14,13 +14,10 @@ QUALITY=82
 # The originals, read in place. Add room folders here as the miniature grows.
 SOURCES=(
   "$ROOT/Exterior"
-  "$ROOT/Gold and green"
   "$ROOT/Green and Gold"
   "$ROOT/Glad You Are Here"
   "$ROOT/International room"
-  "$ROOT/Snax room"
   "$ROOT/Welcome To The Party"
-  "$ROOT/Yellow Room"
 )
 
 command -v magick >/dev/null || { echo "error: ImageMagick (magick) not found" >&2; exit 1; }
@@ -38,6 +35,7 @@ trap 'rm -f "$NEWCACHE" "$ENTRIES"' EXIT
 
 processed=0
 skipped=0
+landscape=0
 
 for dir in "${SOURCES[@]}"; do
   [ -d "$dir" ] || { echo "warn: missing source folder: $dir" >&2; continue; }
@@ -73,6 +71,15 @@ for dir in "${SOURCES[@]}"; do
       processed=$((processed + 1))
     fi
 
+    # Portrait only: this is a phone game, so a landscape frame would letterbox
+    # into a thin strip. Drop it rather than ship it.
+    if [ "$w" -ge "$h" ]; then
+      rm -f "$out"
+      echo "skip: landscape ${w}x${h}: $src" >&2
+      landscape=$((landscape + 1))
+      continue
+    fi
+
     printf '%s|%s|%s|%s\n' "$key" "$sig" "$w" "$h" >> "$NEWCACHE"
     printf '%s|%s|%s|%s\n' "$key" "$key.webp" "$w" "$h" >> "$ENTRIES"
   done < <(find "$dir" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | sort)
@@ -98,4 +105,4 @@ with open(manifest_path, "w") as f:
 print(f"manifest: {len(m)} images")
 PY
 
-echo "assets: $processed processed, $skipped skipped -> $OUT"
+echo "assets: $processed processed, $skipped skipped, $landscape landscape dropped -> $OUT"

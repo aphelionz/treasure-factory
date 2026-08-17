@@ -14,13 +14,15 @@ clickable navigation.
 | Package for itch.io | `./scripts/package-web.sh` |
 | Desktop build (mac) | see "Desktop / Steam" below |
 
-The originals live in one folder per room (`Exterior/`, `Gold and green/`,
-`Green and Gold/`, `Glad You Are Here/`, `International room/`, `Snax room/`,
-`Welcome To The Party/`, `Yellow Room/`) and are never modified. `Gold and
-green/` is the exception: its full-res originals were lost, and the folder now
-holds 1600px JPGs rebuilt from the committed webp derivatives. The build
-writes only into `app/images/`. To add a room, drop the folder in, name the
-files `<Folder>-NN.jpg`, and add it to `SOURCES` in `build-assets.sh`.
+The originals live in one folder per room (`Exterior/`, `Green and Gold/`,
+`Glad You Are Here/`, `International room/`, `Welcome To The Party/`) and are
+never modified. The build writes only into `app/images/`. To add a room, drop
+the folder in, name the files `<Folder>-NN.jpg`, and add it to `SOURCES` in
+`build-assets.sh`.
+
+**Portrait only.** This is a phone game, so `build-assets.sh` drops any frame
+that comes out landscape and reports the count. Shoot rooms vertically; a
+landscape photo will silently never reach `app/images/` or the manifest.
 
 ## How it works
 
