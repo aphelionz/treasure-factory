@@ -24,6 +24,11 @@ the folder in, name the files `<Folder>-NN.jpg`, and add it to `SOURCES` in
 that comes out landscape and reports the count. Shoot rooms vertically; a
 landscape photo will silently never reach `app/images/` or the manifest.
 
+The photos are 3:4 and a phone screen is roughly 9:19.5, so the image never
+fills the screen. That is deliberate: the bands above and below are reserved
+for HUD (design TBD). Do not switch the engine to crop-to-fill, since every
+hotspot coordinate is normalized to the image and would move.
+
 ## How it works
 
 - `app/scene.json` is the scene graph: nodes (one photo each) + hotspots
