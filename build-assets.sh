@@ -17,6 +17,7 @@ SOURCES=(
   "$ROOT/Green and Gold"
   "$ROOT/Glad You Are Here"
   "$ROOT/International room"
+  "$ROOT/Sweet Shoppe"
   "$ROOT/Welcome To The Party"
 )
 

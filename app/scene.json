@@ -136,6 +136,28 @@
           }
         }
       ]
+    },
+    {
+      "id": "sweet_shoppe",
+      "image": "sweet-shoppe-20",
+      "title": "The Sweet Shoppe",
+      "hotspots": [
+        {
+          "id": "h_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "house_cutaway"
+          }
+        }
+      ]
     }
   ]
 }
