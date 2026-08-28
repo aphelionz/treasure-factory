@@ -39,6 +39,7 @@
 
     .hs { position:absolute; border:2px solid var(--accent2);
       background:rgba(124,192,255,.14); border-radius:3px; cursor:move; }
+    .hs.find { border-color:#ffd76a; background:rgba(255,215,106,.14); }
     .hs.selected { border-color:var(--accent); background:rgba(255,80,160,.18); box-shadow:0 0 0 1px var(--accent); }
     .hs.drawing { border-style:dashed; pointer-events:none; }
     .hslabel { position:absolute; left:0; top:-19px; padding:0 5px; font-size:11px; line-height:17px;
@@ -85,14 +86,19 @@
     #imageGridCount { color:var(--muted); font-size:13px; white-space:nowrap; }
     #imageGridFilter { flex:1; background:var(--panel); color:var(--ink);
       border:1px solid var(--line); border-radius:7px; padding:8px 10px; font:inherit; }
+    /* max-content rows: with the default stretch alignment, auto rows collapse to ~16px
+       (Chrome sizes the row before the img's aspect-ratio height is known) and the 3:4
+       tiles pile on top of each other. */
     #imageGridList { flex:1; overflow:auto; display:grid; gap:10px; align-content:start;
-      grid-template-columns:1fr; grid-auto-rows:210px; width:100%; max-width:1200px; margin-inline:auto; }
-    @media (min-width:700px) { #imageGridList { grid-template-columns:repeat(3, 1fr); } }
+      grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); grid-auto-rows:max-content;
+      width:100%; }
     .tile { position:relative; border:2px solid transparent; border-radius:8px;
       overflow:hidden; cursor:pointer; background:var(--panel); }
-    /* fixed-height rows (grid-auto-rows) give every tile a stable box even before the lazy src
-       loads, so the grid is tall/scrollable and the observer only loads near-viewport tiles. */
-    .tile img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; background:var(--panel); }
+    /* The in-flow img with an aspect-ratio is what gives the tile (and so the auto grid row)
+       its height, stable even before the lazy src loads. Keep it in flow: an absolutely
+       positioned img contributes no height and the rows collapse. Photos are all portrait
+       3:4, so cover shows them uncropped. */
+    .tile img { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; background:var(--panel); }
     .tile .cap { position:absolute; left:0; right:0; bottom:0; padding:3px 6px; font-size:11px;
       background:rgba(0,0,0,.6); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tile.used img { filter:grayscale(1); opacity:.38; }
@@ -101,6 +107,46 @@
       white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tile.current { border-color:var(--accent); }
     .tile:hover { border-color:var(--accent2); }
+
+    /* --- atlas: the map home view --- */
+    #atlasView { position:fixed; left:0; right:0; bottom:0; top:52px; z-index:900;
+      background:var(--bg); display:flex; flex-direction:column; }
+    .atlas-head { display:flex; align-items:center; gap:16px; padding:8px 14px;
+      border-bottom:1px solid var(--line); background:var(--panel); color:var(--muted); font-size:13px; }
+    .atlas-head b { color:var(--ink); font-variant-numeric:tabular-nums; }
+    .atlas-head .gold { color:#ffd76a; }
+    .at-key { display:inline-flex; align-items:center; gap:6px; }
+    .at-sw { width:16px; border-top:3px solid; border-radius:2px; }
+    #atlasBody { flex:1; overflow:auto; position:relative; }
+    .at-shell { overflow:hidden; }
+    .at-canvas { position:relative; transform-origin:0 0; }
+    .at-canvas svg { position:absolute; inset:0; }
+    .at-canvas line { transition: stroke .15s ease, stroke-opacity .15s ease, stroke-width .15s ease; }
+    line.at-ring  { stroke:var(--accent2); stroke-opacity:.38; stroke-width:1.5; }
+    line.at-spoke { stroke:var(--accent2); stroke-opacity:.12; stroke-width:1; }
+    line.at-spine { stroke:var(--accent);  stroke-opacity:.75; stroke-width:2.5; }
+    line.at-lit   { stroke:#ffd76a; stroke-opacity:1; stroke-width:2.5; }
+    .at-node { position:absolute; transform:translate(-50%,-50%); width:72px; height:72px;
+      border-radius:50%; padding:0; background-size:cover; background-position:center;
+      border:2px solid var(--line); cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.5);
+      transition:border-color .15s ease; }
+    .at-node:hover, .at-node.at-lit { border-color:#ffd76a; }
+    .at-node.at-hub { width:96px; height:96px; border-color:var(--accent2); }
+    .at-node.at-entry { border-color:var(--accent); }
+    .at-node.at-cur { border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,80,160,.4), 0 2px 10px rgba(0,0,0,.5); }
+    .at-badge { position:absolute; right:-6px; bottom:-4px; background:#ffd76a; color:#3a2a00;
+      border-radius:999px; font-size:11px; font-weight:600; line-height:1; padding:3px 7px;
+      pointer-events:none; box-shadow:0 1px 4px rgba(0,0,0,.5); }
+    .at-roomlabel { position:absolute; transform:translateX(-50%); text-align:center;
+      font-weight:600; font-size:15px; color:var(--ink); pointer-events:none;
+      text-shadow:0 1px 6px rgba(0,0,0,.9); white-space:nowrap; }
+    .at-roomlabel small { display:block; font-weight:400; font-size:11px; color:var(--muted); letter-spacing:.04em; }
+    .at-tip { position:absolute; transform:translate(-50%,-100%); background:rgba(0,0,0,.78);
+      color:var(--ink); padding:4px 9px; border-radius:6px; font-size:12px;
+      pointer-events:none; white-space:nowrap; z-index:5; }
+    @media (prefers-reduced-motion: reduce) {
+      .at-canvas line, .at-node { transition:none; }
+    }
 
     .buildbadge { display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:14px;
       font-size:12px; background:var(--bg); border:1px solid var(--line); color:var(--muted); white-space:nowrap; }
@@ -121,6 +167,7 @@
   </div>
   <header id="toolbar">
     <strong class="brand">Treasure Factory</strong>
+    <button id="mapBtn" title="Back to the scene map">Map</button>
     <label>Node <select id="nodeSelect"></select></label>
     <button id="newNodeBtn" title="Create a new node from an image">+ Node</button>
     <button id="browseImagesBtn" title="Pick this node's image from a grid">Image: <span id="curImageName">none</span></button>
@@ -144,8 +191,9 @@
       <div id="hsEditor" hidden>
         <h3>Selected hotspot</h3>
         <label>Hint (shown on hover)<input id="hsHint" type="text" placeholder="e.g. Open the red door"></label>
-        <label>Action<select id="hsActionType"><option value="goto">goto: navigate to a node</option></select></label>
-        <label>Target node<select id="hsTarget"></select></label>
+        <label>Action<select id="hsActionType"><option value="goto">goto: navigate to a node</option><option value="find">find: scavenger item</option></select></label>
+        <label id="hsTargetRow">Target node<select id="hsTarget"></select></label>
+        <label id="hsItemRow" hidden>Item<select id="hsItem"></select></label>
         <div class="coords" id="hsCoords"></div>
         <button id="deleteHsBtn" class="danger">Delete hotspot</button>
       </div>
@@ -182,6 +230,20 @@
         <button id="gateUnlock" type="button" class="primary">Unlock editor</button>
       </div>
     </div>
+  </div>
+
+  <div id="atlasView" hidden>
+    <div class="atlas-head">
+      <span id="atlasStats"></span>
+      <span class="at-key"><span class="at-sw" style="border-color:var(--accent)"></span>entry</span>
+      <span class="at-key"><span class="at-sw" style="border-color:var(--accent2)"></span>click path</span>
+      <span class="at-key"><span class="gold">★</span>hunt items</span>
+      <span style="flex:1"></span>
+      <button id="atlasFit">Fit</button>
+      <button id="atlas100">100%</button>
+      <button id="atlasClose" title="Close the map and edit the selected node">Close</button>
+    </div>
+    <div id="atlasBody"></div>
   </div>
 
   <div id="imageGrid" hidden>

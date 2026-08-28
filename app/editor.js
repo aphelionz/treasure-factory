@@ -4,6 +4,7 @@
 // Access API (Chrome/Edge). Falls back to a Download for other browsers.
 // Reuses geometry.js so a box drawn here is clickable at the same spot in the player.
 import { containRect, rectToScreen, screenToNorm } from './geometry.js';
+import { renderAtlas } from './atlas.js';
 
 const SCENE_URL = 'scene.json';
 const MANIFEST_URL = 'images/manifest.json';
@@ -76,7 +77,25 @@ function startEditor() {
   selectNode((scene.meta && scene.meta.entry) || first || null);
   applyMode();
   refreshBuild();
+  openAtlas();   // the map is the editor's home screen
 }
+
+// ---------- atlas (the map home view) ----------
+let atlasApi = null;
+
+function openAtlas() {
+  if (!scene) return;
+  el('atlasView').hidden = false;   // unhide first so fit-zoom sees real dimensions
+  atlasApi = renderAtlas(el('atlasBody'), scene, manifest, {
+    currentId: currentNodeId,
+    onPick: (id) => { closeAtlas(); selectNode(id); },
+  });
+  const s = atlasApi.stats;
+  el('atlasStats').innerHTML = '<b>' + s.scenes + '</b> scenes · <b>' + s.paths +
+    '</b> paths · <b class="gold">' + s.items + '</b> items placed';
+}
+
+function closeAtlas() { el('atlasView').hidden = true; }
 
 function applyMode() {
   const tokenBtn = el('helpTokenBtn');
@@ -137,6 +156,25 @@ function populateTargetOptions() {
   sel.innerHTML = '';
   for (const n of scene.nodes) {
     const o = document.createElement('option'); o.value = n.id; o.textContent = n.title || n.id; sel.appendChild(o);
+  }
+  if (cur) sel.value = cur;
+}
+function huntItemList() {
+  return (scene.meta && scene.meta.hunt && Array.isArray(scene.meta.hunt.items))
+    ? scene.meta.hunt.items : [];
+}
+function huntItemLabel(id) {
+  const it = huntItemList().find(i => i.id === id);
+  return (it && it.label) || id || 'item';
+}
+function populateItemOptions() {
+  const sel = el('hsItem');
+  const cur = sel.value;
+  sel.innerHTML = '';
+  for (const it of huntItemList()) {
+    const o = document.createElement('option');
+    o.value = it.id; o.textContent = it.label + (it.room ? ' (' + it.room + ')' : '');
+    sel.appendChild(o);
   }
   if (cur) sel.value = cur;
 }
@@ -331,14 +369,21 @@ function renderHotspots() {
     d.className = 'hs' + (hs.id === selectedId ? ' selected' : '');
     d.dataset.id = hs.id;
     positionEl(d, rectToScreen(hs.shape, L));
-    const target = hs.action && hs.action.target;
-    const tgt = target && scene.nodes.find(n => n.id === target);
-    const tgtName = (tgt && (tgt.title || tgt.id)) || target || hs.id;
+    const isFind = hs.action && hs.action.type === 'find';
+    let tgtName;
+    if (isFind) {
+      tgtName = '★ ' + huntItemLabel(hs.action.item);
+    } else {
+      const target = hs.action && hs.action.target;
+      const tgt = target && scene.nodes.find(n => n.id === target);
+      tgtName = (tgt && (tgt.title || tgt.id)) || target || hs.id;
+      d.title = 'Option-click to follow' + (target ? ' -> ' + tgtName : '');
+    }
+    if (isFind) d.classList.add('find');
     const label = document.createElement('span');
     label.className = 'hslabel';
     label.textContent = tgtName;
     d.appendChild(label);
-    d.title = 'Option-click to follow' + (target ? ' -> ' + tgtName : '');
     if (hs.id === selectedId) { const h = document.createElement('div'); h.className = 'handle'; d.appendChild(h); }
     overlay.appendChild(d);
   }
@@ -356,9 +401,13 @@ function renderHotspotList() {
     li.dataset.id = hs.id;
     const name = document.createElement('span'); name.textContent = hs.hint || hs.id;
     const t = document.createElement('span'); t.className = 't';
-    const tgtId = hs.action && hs.action.target;
-    const tNode = tgtId && scene.nodes.find(n => n.id === tgtId);
-    t.textContent = '→ ' + ((tNode && (tNode.title || tNode.id)) || tgtId || '?');
+    if (hs.action && hs.action.type === 'find') {
+      t.textContent = '★ ' + huntItemLabel(hs.action.item);
+    } else {
+      const tgtId = hs.action && hs.action.target;
+      const tNode = tgtId && scene.nodes.find(n => n.id === tgtId);
+      t.textContent = '→ ' + ((tNode && (tNode.title || tNode.id)) || tgtId || '?');
+    }
     li.append(name, t);
     li.addEventListener('click', () => selectHotspot(hs.id));
     list.appendChild(li);
@@ -373,9 +422,17 @@ function updateHsEditor() {
   if (!hs) { box.hidden = true; return; }
   box.hidden = false;
   el('hsHint').value = hs.hint || '';
-  el('hsActionType').value = (hs.action && hs.action.type) || 'goto';
-  populateTargetOptions();
-  el('hsTarget').value = (hs.action && hs.action.target) || '';
+  const type = (hs.action && hs.action.type) || 'goto';
+  el('hsActionType').value = type;
+  el('hsTargetRow').hidden = type === 'find';
+  el('hsItemRow').hidden = type !== 'find';
+  if (type === 'find') {
+    populateItemOptions();
+    el('hsItem').value = (hs.action && hs.action.item) || '';
+  } else {
+    populateTargetOptions();
+    el('hsTarget').value = (hs.action && hs.action.target) || '';
+  }
   const s = hs.shape;
   el('hsCoords').textContent =
     `x ${s.x.toFixed(3)}  y ${s.y.toFixed(3)}  w ${s.w.toFixed(3)}  h ${s.h.toFixed(3)}`;
@@ -482,6 +539,13 @@ overlay.addEventListener('pointerup', (e) => {
 
 // ---------- events ----------
 function wireEvents() {
+  el('mapBtn').addEventListener('click', openAtlas);
+  el('atlasClose').addEventListener('click', closeAtlas);
+  el('atlasFit').addEventListener('click', () => atlasApi && atlasApi.setZoom('fit'));
+  el('atlas100').addEventListener('click', () => atlasApi && atlasApi.setZoom(1));
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !el('atlasView').hidden && el('imageGrid').hidden) closeAtlas();
+  });
   el('nodeSelect').addEventListener('change', (e) => selectNode(e.target.value));
   el('newNodeBtn').addEventListener('click', () => openImageGrid('create'));
   el('browseImagesBtn').addEventListener('click', () => { if (currentNode()) openImageGrid('assign'); });
@@ -500,6 +564,20 @@ function wireEvents() {
     const hs = currentHotspot(); if (!hs) return;
     hs.action = hs.action || { type: 'goto' };
     hs.action.target = e.target.value; markDirty(); renderHotspots();
+  });
+  el('hsActionType').addEventListener('change', (e) => {
+    const hs = currentHotspot(); if (!hs) return;
+    if (e.target.value === 'find') {
+      const items = huntItemList();
+      hs.action = { type: 'find', item: (hs.action && hs.action.item) || (items[0] && items[0].id) || '' };
+    } else {
+      hs.action = { type: 'goto', target: (hs.action && hs.action.target) || otherNodeId() };
+    }
+    markDirty(); renderHotspots(); updateHsEditor();
+  });
+  el('hsItem').addEventListener('change', (e) => {
+    const hs = currentHotspot(); if (!hs || !hs.action || hs.action.type !== 'find') return;
+    hs.action.item = e.target.value; markDirty(); renderHotspots();
   });
   el('deleteHsBtn').addEventListener('click', deleteSelected);
   el('saveBtn').addEventListener('click', save);
