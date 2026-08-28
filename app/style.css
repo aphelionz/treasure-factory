@@ -45,3 +45,119 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
   position: absolute; left: 0; right: 0; top: 45%; padding: 0 24px; text-align: center;
   color: #ffb3b3; font: 500 15px/1.5 ui-sans-serif, system-ui, sans-serif;
 }
+
+/* --- scavenger hunt HUD (lives in the reserved letterbox bands) --- */
+
+#hud {
+  position: absolute; right: 12px; top: 10px;
+  padding: 7px 13px; border: 1px solid rgba(246,239,230,.25); border-radius: 999px;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(3px);
+  color: #ffd76a; font: 600 14px/1.2 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+#toast {
+  position: absolute; left: 50%; top: 56px; transform: translateX(-50%);
+  max-width: 84%; padding: 8px 16px; border-radius: 999px;
+  background: rgba(0,0,0,.65); backdrop-filter: blur(3px);
+  color: var(--ink); font: 600 14px/1.2 ui-sans-serif, system-ui, sans-serif;
+  pointer-events: none; opacity: 0; transition: opacity .2s ease;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#toast.show { opacity: 1; }
+
+.hs-found {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(255,215,106,.92); color: #3a2a00;
+  font: 700 15px/24px ui-sans-serif, system-ui, sans-serif; text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,.5); pointer-events: none;
+}
+
+#checklist {
+  position: absolute; inset: 0; z-index: 10; overflow: auto;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(2px);
+  padding: 46px 16px 24px;
+}
+.cl-card {
+  max-width: 380px; margin: 0 auto; padding: 14px 18px 18px;
+  background: #1b1622; border: 1px solid #3a3346; border-radius: 14px;
+  color: var(--ink); font: 14px/1.45 ui-sans-serif, system-ui, sans-serif;
+}
+.cl-head { display: flex; justify-content: space-between; align-items: center; }
+.cl-head b { font-size: 16px; letter-spacing: .02em; }
+.cl-head button {
+  background: none; border: none; color: var(--ink); font-size: 24px;
+  cursor: pointer; padding: 0 4px; line-height: 1;
+}
+.cl-card h4 {
+  margin: 14px 0 6px; font-size: 12px; text-transform: uppercase;
+  letter-spacing: .08em; color: #a99fb5;
+}
+.cl-card ul { list-style: none; margin: 0; padding: 0; }
+.cl-card li {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 4px 2px; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.cl-card li.done { color: #8fd7a8; }
+.cl-card li.done span:first-child { text-decoration: line-through; opacity: .75; }
+.cl-card li .n { color: #ffd76a; font-weight: 600; }
+.cl-card li.done .n { color: #8fd7a8; }
+#clReset {
+  margin-top: 16px; width: 100%; padding: 8px; border-radius: 8px;
+  background: #2e2738; border: 1px solid #3a3346; color: #ffc4dc;
+  font: inherit; cursor: pointer;
+}
+
+/* --- touch feedback --- */
+
+.tap-ripple {
+  position: absolute; width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid rgba(246,239,230,.6); background: rgba(246,239,230,.22);
+  transform: translate(-50%,-50%) scale(.25); pointer-events: none;
+  animation: ripple .45s ease-out forwards;
+}
+@keyframes ripple {
+  to { transform: translate(-50%,-50%) scale(1.3); opacity: 0; }
+}
+
+/* brief on-entry pulse of the navigation hotspots (goto only, never find) */
+.hs-pulse {
+  position: absolute; border: 2px solid rgba(246,239,230,.85); border-radius: 6px;
+  box-shadow: 0 0 14px rgba(246,239,230,.35), inset 0 0 10px rgba(246,239,230,.12);
+  pointer-events: none; opacity: 0;
+  animation: hspulse 1.6s ease-out forwards;
+}
+@keyframes hspulse {
+  0% { opacity: 0; }
+  18% { opacity: .9; }
+  45% { opacity: .3; }
+  70% { opacity: .8; }
+  100% { opacity: 0; }
+}
+
+/* --- win overlay --- */
+
+#win {
+  position: absolute; inset: 0; z-index: 12; overflow: auto;
+  background: rgba(0,0,0,.72); backdrop-filter: blur(3px);
+  padding: 70px 16px 24px;
+}
+.win-card {
+  max-width: 380px; margin: 0 auto; padding: 24px 20px 18px; text-align: center;
+  background: #1b1622; border: 1px solid #ffd76a; border-radius: 14px;
+  color: var(--ink); font: 15px/1.5 ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 10px 50px rgba(0,0,0,.6);
+}
+.win-card .trophy { font-size: 46px; line-height: 1; }
+.win-card .count { margin-top: 10px; color: #ffd76a; font-weight: 700; font-size: 19px; }
+.win-card p { margin: 12px 0 0; }
+.win-card .win-link {
+  display: inline-block; margin-top: 16px; padding: 10px 18px; border-radius: 999px;
+  background: #ffd76a; color: #3a2a00; font-weight: 700; text-decoration: none;
+}
+#winClose {
+  margin-top: 16px; width: 100%; padding: 8px; border-radius: 8px;
+  background: #2e2738; border: 1px solid #3a3346; color: var(--ink);
+  font: inherit; font-size: 18px; line-height: 1; cursor: pointer;
+}
