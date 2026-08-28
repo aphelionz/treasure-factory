@@ -32,7 +32,15 @@ hotspot coordinate is normalized to the image and would move.
 ## How it works
 
 - `app/scene.json` is the scene graph: nodes (one photo each) + hotspots
-  (clickable regions with normalized 0..1 coordinates) + actions (v1: `goto`).
+  (clickable regions with normalized 0..1 coordinates) + actions: `goto`
+  (navigate) and `find` (scavenger-hunt item).
+- **Scavenger hunt:** `meta.hunt.items` catalogs the items
+  (`{id, room, label, count}`); a hotspot with `{type: "find", item: "<id>"}`
+  places one instance. Progress is a set of `nodeId:hotspotId` keys in
+  `localStorage` (`meta.hunt.storageKey`), so multi-instance items ("Two candy
+  canes") count per box. The HUD counter, checklist overlay, and found-toasts
+  render in the 3:4 letterbox bands. The editor can draw and retarget `find`
+  boxes (Action -> "find: scavenger item").
 - `app/engine.js` plays it. `app/editor.js` edits it (writes `scene.json` via
   the browser File System Access API; Chrome or Edge only).
 - `app/geometry.js` holds the coordinate math both share, so a hotspot drawn in

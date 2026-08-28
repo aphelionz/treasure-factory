@@ -2,7 +2,312 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Treasure Factory / DA SPOT",
-    "entry": "exterior"
+    "entry": "exterior",
+    "hunt": {
+      "storageKey": "tf-hunt-v1",
+      "items": [
+        {
+          "id": "gg_buddha",
+          "room": "Green and Gold",
+          "label": "Buddha",
+          "count": 1
+        },
+        {
+          "id": "gg_cross",
+          "room": "Green and Gold",
+          "label": "Cross",
+          "count": 1
+        },
+        {
+          "id": "gg_amy_preroll",
+          "room": "Green and Gold",
+          "label": "Amy smoking a pre-roll",
+          "count": 1
+        },
+        {
+          "id": "gg_cat",
+          "room": "Green and Gold",
+          "label": "Cat",
+          "count": 1
+        },
+        {
+          "id": "gg_rupaul",
+          "room": "Green and Gold",
+          "label": "RuPaul",
+          "count": 1
+        },
+        {
+          "id": "gg_alien",
+          "room": "Green and Gold",
+          "label": "Alien",
+          "count": 1
+        },
+        {
+          "id": "gg_crab",
+          "room": "Green and Gold",
+          "label": "Crab",
+          "count": 1
+        },
+        {
+          "id": "gg_robot",
+          "room": "Green and Gold",
+          "label": "Robot",
+          "count": 1
+        },
+        {
+          "id": "gg_tarts",
+          "room": "Green and Gold",
+          "label": "Plate of tarts",
+          "count": 1
+        },
+        {
+          "id": "gg_spaceships",
+          "room": "Green and Gold",
+          "label": "Two spaceships",
+          "count": 2
+        },
+        {
+          "id": "gg_serpents",
+          "room": "Green and Gold",
+          "label": "Four sea serpents",
+          "count": 4
+        },
+        {
+          "id": "gg_lizard",
+          "room": "Green and Gold",
+          "label": "Lizard",
+          "count": 1
+        },
+        {
+          "id": "gg_xmas",
+          "room": "Green and Gold",
+          "label": "Christmas tree",
+          "count": 1
+        },
+        {
+          "id": "mg_buoy",
+          "room": "Main Gallery",
+          "label": "Buoy",
+          "count": 1
+        },
+        {
+          "id": "mg_mouse_nut",
+          "room": "Main Gallery",
+          "label": "Mouse with nut",
+          "count": 1
+        },
+        {
+          "id": "mg_shell",
+          "room": "Main Gallery",
+          "label": "Shell",
+          "count": 1
+        },
+        {
+          "id": "mg_granite",
+          "room": "Main Gallery",
+          "label": "Granite",
+          "count": 1
+        },
+        {
+          "id": "mg_fairies",
+          "room": "Main Gallery",
+          "label": "Two silver fairies",
+          "count": 2
+        },
+        {
+          "id": "mg_mushrooms",
+          "room": "Main Gallery",
+          "label": "Four mushrooms",
+          "count": 4
+        },
+        {
+          "id": "mg_coffee_cat",
+          "room": "Main Gallery",
+          "label": "Coffee cat",
+          "count": 1
+        },
+        {
+          "id": "mg_lanterns",
+          "room": "Main Gallery",
+          "label": "Two lanterns",
+          "count": 2
+        },
+        {
+          "id": "mg_pelican",
+          "room": "Main Gallery",
+          "label": "Pelican",
+          "count": 1
+        },
+        {
+          "id": "intl_tulips",
+          "room": "International Room",
+          "label": "Three tulips",
+          "count": 1
+        },
+        {
+          "id": "intl_ballerinas",
+          "room": "International Room",
+          "label": "Two ballerinas",
+          "count": 2
+        },
+        {
+          "id": "intl_elephant",
+          "room": "International Room",
+          "label": "Elephant",
+          "count": 1
+        },
+        {
+          "id": "intl_buddha",
+          "room": "International Room",
+          "label": "Buddha",
+          "count": 1
+        },
+        {
+          "id": "intl_fish",
+          "room": "International Room",
+          "label": "Fish",
+          "count": 1
+        },
+        {
+          "id": "intl_clogs",
+          "room": "International Room",
+          "label": "Dutch clogs",
+          "count": 1
+        },
+        {
+          "id": "intl_monster",
+          "room": "International Room",
+          "label": "Sea monster",
+          "count": 1
+        },
+        {
+          "id": "intl_dog_bone",
+          "room": "International Room",
+          "label": "Dog with a bone",
+          "count": 1
+        },
+        {
+          "id": "intl_skulls",
+          "room": "International Room",
+          "label": "Two party skulls",
+          "count": 2
+        },
+        {
+          "id": "party_dj",
+          "room": "Welcome To The Party",
+          "label": "DJ Doggy Dog",
+          "count": 1
+        },
+        {
+          "id": "party_orange_blossom",
+          "room": "Welcome To The Party",
+          "label": "Orange Blossom the painter",
+          "count": 1
+        },
+        {
+          "id": "party_banana_dogs",
+          "room": "Welcome To The Party",
+          "label": "Two banana dogs",
+          "count": 2
+        },
+        {
+          "id": "party_shovel",
+          "room": "Welcome To The Party",
+          "label": "Yellow toy shovel",
+          "count": 1
+        },
+        {
+          "id": "party_dragon",
+          "room": "Welcome To The Party",
+          "label": "Sea monster or dragon",
+          "count": 1
+        },
+        {
+          "id": "party_lollipop",
+          "room": "Welcome To The Party",
+          "label": "Lollipop",
+          "count": 1
+        },
+        {
+          "id": "party_worm",
+          "room": "Welcome To The Party",
+          "label": "Earthworm",
+          "count": 1
+        },
+        {
+          "id": "party_daisies",
+          "room": "Welcome To The Party",
+          "label": "Three daisies",
+          "count": 3
+        },
+        {
+          "id": "party_tarts",
+          "room": "Welcome To The Party",
+          "label": "Two tarts",
+          "count": 2
+        },
+        {
+          "id": "sweet_elephant",
+          "room": "Sweet Shoppe",
+          "label": "Elephant",
+          "count": 1
+        },
+        {
+          "id": "sweet_unicorn",
+          "room": "Sweet Shoppe",
+          "label": "Unicorn",
+          "count": 1
+        },
+        {
+          "id": "sweet_mountain",
+          "room": "Sweet Shoppe",
+          "label": "Mountain",
+          "count": 1
+        },
+        {
+          "id": "sweet_candy_canes",
+          "room": "Sweet Shoppe",
+          "label": "Two candy canes",
+          "count": 2
+        },
+        {
+          "id": "sweet_bunnies",
+          "room": "Sweet Shoppe",
+          "label": "Two bunnies",
+          "count": 2
+        },
+        {
+          "id": "sweet_cupcake",
+          "room": "Sweet Shoppe",
+          "label": "Cupcake",
+          "count": 1
+        },
+        {
+          "id": "sweet_fish",
+          "room": "Sweet Shoppe",
+          "label": "Fish",
+          "count": 1
+        },
+        {
+          "id": "sweet_kitty",
+          "room": "Sweet Shoppe",
+          "label": "Hello Kitty gamer",
+          "count": 1
+        },
+        {
+          "id": "sweet_icecream",
+          "room": "Sweet Shoppe",
+          "label": "Ice cream cone",
+          "count": 1
+        },
+        {
+          "id": "sweet_xmas",
+          "room": "Sweet Shoppe",
+          "label": "Christmas tree",
+          "count": 1
+        }
+      ]
+    }
   },
   "nodes": [
     {
@@ -11,13 +316,13 @@
       "title": "Treasure Factory",
       "hotspots": [
         {
-          "id": "h_enter",
+          "id": "h_door",
           "shape": {
             "type": "rect",
-            "x": 0,
-            "y": 0,
-            "w": 1,
-            "h": 1
+            "x": 0.435,
+            "y": 0.5,
+            "w": 0.13,
+            "h": 0.175
           },
           "hint": "Go inside",
           "action": {
@@ -33,7 +338,67 @@
       "title": "Glad You Are Here",
       "hotspots": [
         {
-          "id": "h_back",
+          "id": "to_gold_green_restaged",
+          "shape": {
+            "type": "rect",
+            "x": 0.0125,
+            "y": 0.276,
+            "w": 0.494,
+            "h": 0.355
+          },
+          "hint": "Into Green and Gold",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "to_international_room",
+          "shape": {
+            "type": "rect",
+            "x": 0.531,
+            "y": 0.262,
+            "w": 0.4625,
+            "h": 0.347
+          },
+          "hint": "Into International Room",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "to_downstairs_gallery",
+          "shape": {
+            "type": "rect",
+            "x": 0.0125,
+            "y": 0.622,
+            "w": 0.97,
+            "h": 0.3475
+          },
+          "hint": "Into Main Gallery",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "to_party_room",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Over to the party wing",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "nav_back",
           "shape": {
             "type": "rect",
             "x": 0,
@@ -41,7 +406,7 @@
             "w": 1,
             "h": 0.12
           },
-          "hint": "Step back outside",
+          "hint": "Back outside",
           "action": {
             "type": "goto",
             "target": "exterior"
@@ -50,12 +415,42 @@
       ]
     },
     {
-      "id": "downstairs_gallery",
-      "image": "glad-you-are-here-14",
-      "title": "The Downstairs Gallery",
+      "id": "gold_green_restaged",
+      "image": "green-and-gold-28",
+      "title": "Green and Gold",
       "hotspots": [
         {
-          "id": "h_back",
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_11"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_26"
+          }
+        },
+        {
+          "id": "nav_back",
           "shape": {
             "type": "rect",
             "x": 0,
@@ -63,7 +458,7 @@
             "w": 1,
             "h": 0.12
           },
-          "hint": "Step back",
+          "hint": "Back to the house",
           "action": {
             "type": "goto",
             "target": "house_cutaway"
@@ -72,12 +467,42 @@
       ]
     },
     {
-      "id": "international_room",
-      "image": "international-room-14",
-      "title": "The International Room",
+      "id": "green_and_gold_26",
+      "image": "green-and-gold-26",
+      "title": "",
       "hotspots": [
         {
-          "id": "h_back",
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_27"
+          }
+        },
+        {
+          "id": "nav_back",
           "shape": {
             "type": "rect",
             "x": 0,
@@ -88,7 +513,2093 @@
           "hint": "Step back",
           "action": {
             "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_27",
+      "image": "green-and-gold-27",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_26"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_23"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_23",
+      "image": "green-and-gold-23",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_27"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_10"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_rupaul_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.445,
+            "y": 0.405,
+            "w": 0.46,
+            "h": 0.47
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_rupaul"
+          }
+        },
+        {
+          "id": "f_gg_robot_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.51,
+            "y": 0.09,
+            "w": 0.395,
+            "h": 0.21
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_robot"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_10",
+      "image": "green-and-gold-10",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_23"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_08"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_tarts_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.44,
+            "y": 0.52,
+            "w": 0.28,
+            "h": 0.18
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_tarts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_08",
+      "image": "green-and-gold-08",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_10"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_15"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_buddha_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.44,
+            "w": 0.145,
+            "h": 0.26
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_buddha"
+          }
+        },
+        {
+          "id": "f_gg_lizard_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.72,
+            "w": 0.255,
+            "h": 0.155
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_lizard"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_15",
+      "image": "green-and-gold-15",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_08"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_19"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_spaceships_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.24,
+            "y": 0.33,
+            "w": 0.4,
+            "h": 0.25
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_spaceships"
+          }
+        },
+        {
+          "id": "f_gg_serpents_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.14,
+            "y": 0.67,
+            "w": 0.5,
+            "h": 0.205
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_serpents"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_19",
+      "image": "green-and-gold-19",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_15"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_02"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_cross_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.38,
+            "w": 0.125,
+            "h": 0.23
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_cross"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_02",
+      "image": "green-and-gold-02",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_19"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_18"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_amy_preroll_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.125,
+            "y": 0.495,
+            "w": 0.5,
+            "h": 0.38
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_amy_preroll"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_18",
+      "image": "green-and-gold-18",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_02"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_25"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_cat_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.12,
+            "w": 0.465,
+            "h": 0.26
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_cat"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_25",
+      "image": "green-and-gold-25",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_18"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_24"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_alien_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.64,
+            "y": 0.73,
+            "w": 0.25,
+            "h": 0.145
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_alien"
+          }
+        },
+        {
+          "id": "f_gg_crab_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.42,
+            "y": 0.09,
+            "w": 0.48,
+            "h": 0.31
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_crab"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_24",
+      "image": "green-and-gold-24",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_25"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_03"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_spaceships_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.74,
+            "y": 0.485,
+            "w": 0.16,
+            "h": 0.11
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_spaceships"
+          }
+        },
+        {
+          "id": "f_gg_serpents_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.74,
+            "y": 0.62,
+            "w": 0.16,
+            "h": 0.12
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_serpents"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_03",
+      "image": "green-and-gold-03",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_24"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_16"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_serpents_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.1,
+            "y": 0.47,
+            "w": 0.26,
+            "h": 0.21
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_serpents"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_16",
+      "image": "green-and-gold-16",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_03"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_11"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_serpents_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.1,
+            "y": 0.68,
+            "w": 0.5,
+            "h": 0.195
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_serpents"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_11",
+      "image": "green-and-gold-11",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_16"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "gold_green_restaged"
+          }
+        },
+        {
+          "id": "f_gg_xmas_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.14,
+            "y": 0.76,
+            "w": 0.21,
+            "h": 0.115
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "gg_xmas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "downstairs_gallery",
+      "image": "glad-you-are-here-14",
+      "title": "Main Gallery",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_10"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_20"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Back to the house",
+          "action": {
+            "type": "goto",
             "target": "house_cutaway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_20",
+      "image": "glad-you-are-here-20",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_16"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "f_mg_buoy_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.25,
+            "w": 0.415,
+            "h": 0.5
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_buoy"
+          }
+        },
+        {
+          "id": "f_mg_granite_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.6,
+            "y": 0.565,
+            "w": 0.305,
+            "h": 0.29
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_granite"
+          }
+        },
+        {
+          "id": "f_mg_pelican_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.565,
+            "y": 0.09,
+            "w": 0.34,
+            "h": 0.45
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_pelican"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_16",
+      "image": "glad-you-are-here-16",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_20"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_21"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "f_mg_fairies_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.195,
+            "y": 0.668,
+            "w": 0.18,
+            "h": 0.152
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_fairies"
+          }
+        },
+        {
+          "id": "f_mg_fairies_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.767,
+            "y": 0.437,
+            "w": 0.138,
+            "h": 0.134
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_fairies"
+          }
+        },
+        {
+          "id": "f_mg_mushrooms_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.266,
+            "y": 0.451,
+            "w": 0.125,
+            "h": 0.135
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_mushrooms"
+          }
+        },
+        {
+          "id": "f_mg_mushrooms_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.386,
+            "y": 0.51,
+            "w": 0.083,
+            "h": 0.082
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_mushrooms"
+          }
+        },
+        {
+          "id": "f_mg_mushrooms_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.7,
+            "y": 0.719,
+            "w": 0.117,
+            "h": 0.125
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_mushrooms"
+          }
+        },
+        {
+          "id": "f_mg_mushrooms_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.588,
+            "y": 0.8,
+            "w": 0.108,
+            "h": 0.075
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_mushrooms"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_21",
+      "image": "glad-you-are-here-21",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_16"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_13"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_13",
+      "image": "glad-you-are-here-13",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_21"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_22"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "f_mg_lanterns_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.555,
+            "y": 0.09,
+            "w": 0.158,
+            "h": 0.157
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_lanterns"
+          }
+        },
+        {
+          "id": "f_mg_lanterns_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.715,
+            "y": 0.1,
+            "w": 0.18,
+            "h": 0.26
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_lanterns"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_22",
+      "image": "glad-you-are-here-22",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_13"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_23"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "f_mg_shell_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.6,
+            "y": 0.835,
+            "w": 0.2,
+            "h": 0.04
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_shell"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_23",
+      "image": "glad-you-are-here-23",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_22"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_10"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "f_mg_mouse_nut_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.2,
+            "y": 0.27,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_mouse_nut"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_10",
+      "image": "glad-you-are-here-10",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_23"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "f_mg_coffee_cat_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.6,
+            "w": 0.26,
+            "h": 0.275
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_coffee_cat"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room",
+      "image": "international-room-14",
+      "title": "International Room",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_17"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_01"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Back to the house",
+          "action": {
+            "type": "goto",
+            "target": "house_cutaway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_01",
+      "image": "international-room-01",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_04"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "f_intl_tulips_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.34,
+            "y": 0.2,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_tulips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_04",
+      "image": "international-room-04",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_01"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_10"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "f_intl_clogs_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.61,
+            "y": 0.43,
+            "w": 0.295,
+            "h": 0.445
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_clogs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_10",
+      "image": "international-room-10",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_04"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_12"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "f_intl_skulls_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.44,
+            "w": 0.205,
+            "h": 0.435
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_skulls"
+          }
+        },
+        {
+          "id": "f_intl_skulls_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.29,
+            "y": 0.45,
+            "w": 0.39,
+            "h": 0.425
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_skulls"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_12",
+      "image": "international-room-12",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_10"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_13"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "f_intl_ballerinas_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.52,
+            "y": 0.24,
+            "w": 0.21,
+            "h": 0.42
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_ballerinas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_13",
+      "image": "international-room-13",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_12"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_17"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "f_intl_ballerinas_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.115,
+            "y": 0.445,
+            "w": 0.245,
+            "h": 0.43
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_ballerinas"
+          }
+        },
+        {
+          "id": "f_intl_elephant_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.7,
+            "y": 0.52,
+            "w": 0.19,
+            "h": 0.17
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_elephant"
+          }
+        },
+        {
+          "id": "f_intl_buddha_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.555,
+            "y": 0.525,
+            "w": 0.165,
+            "h": 0.165
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_buddha"
+          }
+        },
+        {
+          "id": "f_intl_monster_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.44,
+            "y": 0.215,
+            "w": 0.17,
+            "h": 0.18
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_monster"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_17",
+      "image": "international-room-17",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room_13"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "international_room"
+          }
+        },
+        {
+          "id": "f_intl_fish_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.275,
+            "y": 0.115,
+            "w": 0.25,
+            "h": 0.1
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_fish"
+          }
+        },
+        {
+          "id": "f_intl_dog_bone_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.42,
+            "y": 0.53,
+            "w": 0.29,
+            "h": 0.18
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "intl_dog_bone"
           }
         }
       ]
@@ -99,7 +2610,104 @@
       "title": "Welcome To The Party",
       "hotspots": [
         {
-          "id": "h_back",
+          "id": "nav_up",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0,
+            "w": 1,
+            "h": 0.07
+          },
+          "hint": "Up to the Sweet Shoppe",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_11"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_03"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Back to the house",
+          "action": {
+            "type": "goto",
+            "target": "house_cutaway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_03",
+      "image": "welcome-to-the-party-03",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_04"
+          }
+        },
+        {
+          "id": "nav_back",
           "shape": {
             "type": "rect",
             "x": 0,
@@ -110,18 +2718,93 @@
           "hint": "Step back",
           "action": {
             "type": "goto",
-            "target": "house_cutaway"
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_dj_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.1585,
+            "y": 0.1625,
+            "w": 0.5,
+            "h": 0.5
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_dj"
+          }
+        },
+        {
+          "id": "f_party_tarts_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.563,
+            "w": 0.318,
+            "h": 0.312
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_tarts"
+          }
+        },
+        {
+          "id": "f_party_tarts_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.5,
+            "y": 0.551,
+            "w": 0.328,
+            "h": 0.305
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_tarts"
           }
         }
       ]
     },
     {
-      "id": "gold_green_restaged",
-      "image": "green-and-gold-28",
-      "title": "Gold and Green (Restaged)",
+      "id": "welcome_to_the_party_04",
+      "image": "welcome-to-the-party-04",
+      "title": "",
       "hotspots": [
         {
-          "id": "h_back",
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_03"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_09"
+          }
+        },
+        {
+          "id": "nav_back",
           "shape": {
             "type": "rect",
             "x": 0,
@@ -129,10 +2812,524 @@
             "w": 1,
             "h": 0.12
           },
-          "hint": "Step back outside",
+          "hint": "Step back",
           "action": {
             "type": "goto",
-            "target": "exterior"
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_orange_blossom_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.457,
+            "w": 0.272,
+            "h": 0.418
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_orange_blossom"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_09",
+      "image": "welcome-to-the-party-09",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_04"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_10"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_shovel_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.267,
+            "y": 0.103,
+            "w": 0.458,
+            "h": 0.5
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_shovel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_10",
+      "image": "welcome-to-the-party-10",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_09"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_20"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_daisies_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.711,
+            "y": 0.099,
+            "w": 0.164,
+            "h": 0.118
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_daisies"
+          }
+        },
+        {
+          "id": "f_party_daisies_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.8,
+            "y": 0.256,
+            "w": 0.105,
+            "h": 0.103
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_daisies"
+          }
+        },
+        {
+          "id": "f_party_daisies_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.688,
+            "y": 0.323,
+            "w": 0.125,
+            "h": 0.088
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_daisies"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_20",
+      "image": "welcome-to-the-party-20",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_10"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_22"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_banana_dogs_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.178,
+            "w": 0.305,
+            "h": 0.35
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_banana_dogs"
+          }
+        },
+        {
+          "id": "f_party_banana_dogs_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.34,
+            "y": 0.358,
+            "w": 0.5,
+            "h": 0.299
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_banana_dogs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_22",
+      "image": "welcome-to-the-party-22",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_20"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_12"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_12",
+      "image": "welcome-to-the-party-12",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_22"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_15"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_dragon_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.09,
+            "w": 0.32,
+            "h": 0.309
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_dragon"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_15",
+      "image": "welcome-to-the-party-15",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_12"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_11"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_lollipop_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.782,
+            "y": 0.352,
+            "w": 0.123,
+            "h": 0.305
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_lollipop"
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome_to_the_party_11",
+      "image": "welcome-to-the-party-11",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "welcome_to_the_party_15"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        },
+        {
+          "id": "f_party_worm_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.779,
+            "y": 0.203,
+            "w": 0.126,
+            "h": 0.341
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "party_worm"
           }
         }
       ]
@@ -140,10 +3337,92 @@
     {
       "id": "sweet_shoppe",
       "image": "sweet-shoppe-20",
-      "title": "The Sweet Shoppe",
+      "title": "Sweet Shoppe",
       "hotspots": [
         {
-          "id": "h_back",
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_10"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_03"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Down to the party",
+          "action": {
+            "type": "goto",
+            "target": "party_room"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_03",
+      "image": "sweet-shoppe-03",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_16"
+          }
+        },
+        {
+          "id": "nav_back",
           "shape": {
             "type": "rect",
             "x": 0,
@@ -154,7 +3433,499 @@
           "hint": "Step back",
           "action": {
             "type": "goto",
-            "target": "house_cutaway"
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_unicorn_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.435,
+            "w": 0.18,
+            "h": 0.33
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_unicorn"
+          }
+        },
+        {
+          "id": "f_sweet_mountain_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.27,
+            "y": 0.53,
+            "w": 0.21,
+            "h": 0.28
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_mountain"
+          }
+        },
+        {
+          "id": "f_sweet_cupcake_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.5,
+            "y": 0.18,
+            "w": 0.27,
+            "h": 0.27
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_cupcake"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_16",
+      "image": "sweet-shoppe-16",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_03"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_02"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_elephant_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.46,
+            "y": 0.59,
+            "w": 0.25,
+            "h": 0.19
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_elephant"
+          }
+        },
+        {
+          "id": "f_sweet_candy_canes_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.78,
+            "y": 0.225,
+            "w": 0.12,
+            "h": 0.31
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_candy_canes"
+          }
+        },
+        {
+          "id": "f_sweet_candy_canes_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.875,
+            "y": 0.28,
+            "w": 0.03,
+            "h": 0.245
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_candy_canes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_02",
+      "image": "sweet-shoppe-02",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_16"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_05"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_icecream_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.533,
+            "y": 0.09,
+            "w": 0.317,
+            "h": 0.32
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_icecream"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_05",
+      "image": "sweet-shoppe-05",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_02"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_15"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_kitty_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.685,
+            "w": 0.24,
+            "h": 0.19
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_kitty"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_15",
+      "image": "sweet-shoppe-15",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_05"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_06"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_bunnies_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.09,
+            "w": 0.205,
+            "h": 0.2
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_bunnies"
+          }
+        },
+        {
+          "id": "f_sweet_bunnies_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.095,
+            "y": 0.37,
+            "w": 0.24,
+            "h": 0.26
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_bunnies"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_06",
+      "image": "sweet-shoppe-06",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_15"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_10"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_fish_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.215,
+            "y": 0.118,
+            "w": 0.095,
+            "h": 0.075
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_fish"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sweet_shoppe_10",
+      "image": "sweet-shoppe-10",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "nav_prev",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_06"
+          }
+        },
+        {
+          "id": "nav_next",
+          "shape": {
+            "type": "rect",
+            "x": 0.91,
+            "y": 0.08,
+            "w": 0.09,
+            "h": 0.72
+          },
+          "hint": "Look around",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "nav_back",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.88,
+            "w": 1,
+            "h": 0.12
+          },
+          "hint": "Step back",
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe"
+          }
+        },
+        {
+          "id": "f_sweet_xmas_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.57,
+            "y": 0.16,
+            "w": 0.335,
+            "h": 0.5
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "sweet_xmas"
           }
         }
       ]
