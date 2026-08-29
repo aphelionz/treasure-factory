@@ -12,16 +12,8 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
   user-select: none; -webkit-user-drag: none;
 }
 
-/* --- scene transitions: the incoming image animates on the fx layer --- */
+/* scene transition classes live in transitions.css (shared with the editor preview) */
 #fxframe { pointer-events: none; }
-.fx-dissolve { animation: fxDissolve .45s ease both; }
-@keyframes fxDissolve { from { opacity: 0; } to { opacity: 1; } }
-.fx-wipe { animation: fxWipe .5s ease-in-out both; }
-@keyframes fxWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-.fx-zoom { animation: fxZoom .5s ease-out both; }
-@keyframes fxZoom { from { opacity: 0; transform: scale(1.15); } to { opacity: 1; transform: scale(1); } }
-.fx-iris { animation: fxIris .55s ease-in-out both; }
-@keyframes fxIris { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(75% at 50% 50%); } }
 
 /* Transparent layer that catches the mouse and hosts debug outlines. */
 #overlay { position: absolute; inset: 0; cursor: default; }

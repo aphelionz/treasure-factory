@@ -439,6 +439,35 @@ function updateHsEditor() {
     `x ${s.x.toFixed(3)}  y ${s.y.toFixed(3)}  w ${s.w.toFixed(3)}  h ${s.h.toFixed(3)}`;
 }
 
+// Play the selected transition on the stage, into the hotspot's target image,
+// with the same shared CSS the engine uses. Ends by snapping back to the
+// node being edited.
+let fxPreviewDone = null;
+function previewTransition() {
+  const hs = currentHotspot();
+  if (!hs || !hs.action || hs.action.type !== 'goto') return;
+  const target = scene.nodes.find(n => n.id === hs.action.target);
+  const url = target && imageUrl(target.image);
+  if (!url) return;
+
+  const fx = hs.action.transition || 'dissolve';
+  const layer = el('fxpreview');
+  if (fxPreviewDone) fxPreviewDone();
+  const finish = () => {
+    if (fxPreviewDone !== finish) return;
+    fxPreviewDone = null;
+    clearTimeout(timer);
+    layer.hidden = true;
+    layer.className = '';
+  };
+  fxPreviewDone = finish;
+  layer.src = url;
+  layer.className = fx === 'cut' ? '' : 'fx-' + fx;
+  layer.hidden = false;
+  layer.addEventListener('animationend', () => setTimeout(finish, 350), { once: true });
+  const timer = setTimeout(finish, 1400);   // covers 'cut' (no animation) and any missed event
+}
+
 function deleteSelected() {
   const node = currentNode();
   if (!node || !selectedId) return;
@@ -561,7 +590,9 @@ function wireEvents() {
     if (e.target.value === 'dissolve') delete hs.action.transition;   // default stays implicit
     else hs.action.transition = e.target.value;
     markDirty();
+    previewTransition();
   });
+  el('hsFxPlay').addEventListener('click', previewTransition);
   el('hsTarget').addEventListener('change', (e) => {
     const hs = currentHotspot(); if (!hs) return;
     hs.action = hs.action || { type: 'goto' };
