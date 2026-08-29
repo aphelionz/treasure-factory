@@ -3801,6 +3801,20 @@
             "type": "find",
             "item": "mg_pelican"
           }
+        },
+        {
+          "id": "h_5",
+          "shape": {
+            "type": "rect",
+            "x": 0.8725351763773286,
+            "y": 0.011676947086801427,
+            "w": 0.11836727110582634,
+            "h": 0.8671456970868014
+          },
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
         }
       ]
     },
@@ -3841,6 +3855,20 @@
           "action": {
             "type": "goto",
             "target": "glad_you_are_here_13"
+          }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.3437685790725327,
+            "y": 0.22203849583828775,
+            "w": 0.3554052715021799,
+            "h": 0.33885441438763375
+          },
+          "action": {
+            "type": "find",
+            "item": "mg_mouse_nut"
           }
         }
       ]
@@ -4057,9 +4085,73 @@
     },
     {
       "id": "glad_you_are_here_04",
-      "image": "glad-you-are-here-04",
+      "image": "glad-you-are-here-03",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.3832738803012287,
+            "y": 0.5519842449464923,
+            "w": 0.4140532104637336,
+            "h": 0.24258230529131974
+          },
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_08"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.7980145164486723,
+            "y": 0.3137262187871581,
+            "w": 0.20042484145858097,
+            "h": 0.3037074539239002
+          },
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_06"
+          }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.017297116527942927,
+            "y": 0.07812964476813318,
+            "w": 0.5960971561632976,
+            "h": 0.4399849509512485
+          },
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_08",
+      "image": "glad-you-are-here-08",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.008422512881490289,
+            "y": 0.01013023929845422,
+            "w": 0.9800027249306381,
+            "h": 0.6671605603448275
+          },
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_04"
+          }
+        }
+      ]
     }
   ]
 }
