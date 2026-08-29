@@ -3870,7 +3870,23 @@
       "id": "glad_you_are_here_06",
       "image": "glad-you-are-here-06",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.8597837395957194,
+            "y": 0.080410225921522,
+            "w": 0.1402162604042806,
+            "h": 0.8162297488109393
+          },
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_09",
+            "transition": "wipe"
+          }
+        }
+      ]
     },
     {
       "id": "exterior_01",
