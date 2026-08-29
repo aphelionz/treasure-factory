@@ -1856,6 +1856,21 @@
             "type": "find",
             "item": "mg_lanterns"
           }
+        },
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.24049990091161316,
+            "y": 0.0026893207491082045,
+            "w": 0.31103225326991674,
+            "h": 0.43823851813317477
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
+          }
         }
       ]
     },
@@ -4007,8 +4022,29 @@
             "type": "goto",
             "target": "downstairs_gallery"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.7855603448275862,
+            "y": 0.0030748365041617124,
+            "w": 0.2144396551724138,
+            "h": 0.40787566884661114
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_13"
+          }
         }
       ]
+    },
+    {
+      "id": "international_room_07",
+      "image": "international-room-07",
+      "title": "",
+      "hotspots": []
     }
   ]
 }
