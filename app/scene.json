@@ -1458,15 +1458,30 @@
           "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.011444708680142687,
-            "y": 0.10006688466111771,
-            "w": 0.3873303111375347,
-            "h": 0.46710575208085614
+            "x": 0.20311261395164487,
+            "y": 0.1687258472057075,
+            "w": 0.2393851565596512,
+            "h": 0.3844103002378121
           },
           "hint": "",
           "action": {
             "type": "goto",
             "target": "glad_you_are_here_09"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.4606928755449861,
+            "y": 0.09054046521997622,
+            "w": 0.19750173404676968,
+            "h": 0.854832416765755
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_11"
           }
         }
       ]
@@ -3963,6 +3978,34 @@
           "action": {
             "type": "find",
             "item": "mg_pelican"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_18",
+      "image": "glad-you-are-here-18",
+      "title": "",
+      "hotspots": []
+    },
+    {
+      "id": "glad_you_are_here_11",
+      "image": "glad-you-are-here-11",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.01217548553309552,
+            "y": 0.8886509735434007,
+            "w": 0.9854773583036068,
+            "h": 0.11125613109393573
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
           }
         }
       ]
