@@ -399,7 +399,7 @@ function renderHotspotList() {
     const li = document.createElement('li');
     if (hs.id === selectedId) li.className = 'sel';
     li.dataset.id = hs.id;
-    const name = document.createElement('span'); name.textContent = hs.hint || hs.id;
+    const name = document.createElement('span'); name.textContent = hs.id;
     const t = document.createElement('span'); t.className = 't';
     if (hs.action && hs.action.type === 'find') {
       t.textContent = '★ ' + huntItemLabel(hs.action.item);
@@ -421,11 +421,12 @@ function updateHsEditor() {
   const box = el('hsEditor');
   if (!hs) { box.hidden = true; return; }
   box.hidden = false;
-  el('hsHint').value = hs.hint || '';
   const type = (hs.action && hs.action.type) || 'goto';
   el('hsActionType').value = type;
   el('hsTargetRow').hidden = type === 'find';
   el('hsItemRow').hidden = type !== 'find';
+  el('hsFxRow').hidden = type === 'find';
+  el('hsFx').value = (hs.action && hs.action.transition) || 'dissolve';
   if (type === 'find') {
     populateItemOptions();
     el('hsItem').value = (hs.action && hs.action.item) || '';
@@ -525,7 +526,6 @@ overlay.addEventListener('pointerup', (e) => {
       node.hotspots.push({
         id,
         shape: { type: 'rect', x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), w: Math.abs(b.x - a.x), h: Math.abs(b.y - a.y) },
-        hint: '',
         action: { type: 'goto', target: otherNodeId() },
       });
       markDirty(); renderHotspots(); selectHotspot(id);
@@ -556,9 +556,11 @@ function wireEvents() {
     const opt = [...el('nodeSelect').options].find(o => o.value === node.id);
     if (opt) opt.textContent = node.title || node.id;
   });
-  el('hsHint').addEventListener('input', (e) => {
-    const hs = currentHotspot(); if (!hs) return;
-    hs.hint = e.target.value; markDirty(); renderHotspotList();
+  el('hsFx').addEventListener('change', (e) => {
+    const hs = currentHotspot(); if (!hs || !hs.action || hs.action.type !== 'goto') return;
+    if (e.target.value === 'dissolve') delete hs.action.transition;   // default stays implicit
+    else hs.action.transition = e.target.value;
+    markDirty();
   });
   el('hsTarget').addEventListener('change', (e) => {
     const hs = currentHotspot(); if (!hs) return;

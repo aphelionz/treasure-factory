@@ -8,9 +8,9 @@ const MANIFEST_URL = 'images/manifest.json';
 
 const stage = document.getElementById('stage');
 const frame = document.getElementById('frame');
+const fxframe = document.getElementById('fxframe');
 const overlay = document.getElementById('overlay');
 const titleEl = document.getElementById('title');
-const hintEl = document.getElementById('hint');
 
 let scene = null;
 let manifest = null;
@@ -56,7 +56,9 @@ function imageUrl(imageKey) {
   return 'images/' + entry.file;
 }
 
-function goto(nodeId) {
+const TRANSITIONS = ['dissolve', 'cut', 'wipe', 'zoom', 'iris'];
+
+function goto(nodeId, transition) {
   const node = nodeById.get(nodeId);
   if (!node) { console.warn('unknown node:', nodeId); return; }
   const url = imageUrl(node.image);
@@ -64,22 +66,44 @@ function goto(nodeId) {
 
   current = node;
   titleEl.textContent = node.title || '';
-  hintEl.textContent = '';
 
-  frame.classList.add('fading');
+  const fx = TRANSITIONS.includes(transition) ? transition : 'dissolve';
   const next = new Image();
   next.onload = () => {
     naturalW = next.naturalWidth;
     naturalH = next.naturalHeight;
-    frame.src = url;
-    frame.classList.remove('fading');
-    if (debug) drawOutlines();
-    renderMarkers();
-    pulseNavHotspots(node);
-    preloadNeighbors(node);
+    playTransition(url, fx, () => {
+      if (debug) drawOutlines();
+      renderMarkers();
+      pulseNavHotspots(node);
+      preloadNeighbors(node);
+    });
   };
   next.onerror = () => showError('Failed to load image: ' + url);
   next.src = url;
+}
+
+// The incoming scene animates in on the fx layer above the old one, then the
+// base frame swaps underneath and the layer hides. 'cut' skips the layer.
+let fxDone = null;
+function playTransition(url, fx, done) {
+  if (fxDone) fxDone();   // a tap mid-transition finishes the old one instantly
+  if (fx === 'cut') { frame.src = url; done(); return; }
+  const finish = () => {
+    if (fxDone !== finish) return;
+    fxDone = null;
+    clearTimeout(timer);
+    frame.src = url;
+    fxframe.hidden = true;
+    fxframe.className = '';
+    done();
+  };
+  fxDone = finish;
+  fxframe.src = url;
+  fxframe.className = 'fx-' + fx;
+  fxframe.hidden = false;
+  fxframe.addEventListener('animationend', finish, { once: true });
+  const timer = setTimeout(finish, 800);   // safety net if the animation never fires
 }
 
 function preloadNeighbors(node) {
@@ -109,7 +133,6 @@ overlay.addEventListener('mousemove', (e) => {
   const p = localPoint(e, L.box);
   const hs = hitTest(p.x, p.y, current.hotspots || [], L);
   overlay.style.cursor = hs ? (hs.cursor || 'pointer') : 'default';
-  hintEl.textContent = hs && hs.hint ? hs.hint : '';
 });
 
 overlay.addEventListener('click', (e) => {
@@ -154,7 +177,7 @@ function dispatch(hs) {
   if (!action) return;
   switch (action.type) {
     case 'goto':
-      goto(action.target);
+      goto(action.target, action.transition);
       break;
     case 'find':
       onFind(hs, action);

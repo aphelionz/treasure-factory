@@ -33,7 +33,8 @@ hotspot coordinate is normalized to the image and would move.
 
 - `app/scene.json` is the scene graph: nodes (one photo each) + hotspots
   (clickable regions with normalized 0..1 coordinates) + actions: `goto`
-  (navigate) and `find` (scavenger-hunt item).
+  (navigate; optional `transition`: `dissolve` (default) / `cut` / `wipe` /
+  `zoom` / `iris`) and `find` (scavenger-hunt item).
 - **Scavenger hunt:** `meta.hunt.items` catalogs the items
   (`{id, room, label, count}`); a hotspot with `{type: "find", item: "<id>"}`
   places one instance. Progress is a set of `nodeId:hotspotId` keys in

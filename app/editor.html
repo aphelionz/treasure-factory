@@ -190,10 +190,16 @@
       <ul id="hotspotList"></ul>
       <div id="hsEditor" hidden>
         <h3>Selected hotspot</h3>
-        <label>Hint (shown on hover)<input id="hsHint" type="text" placeholder="e.g. Open the red door"></label>
         <label>Action<select id="hsActionType"><option value="goto">goto: navigate to a node</option><option value="find">find: scavenger item</option></select></label>
         <label id="hsTargetRow">Target node<select id="hsTarget"></select></label>
         <label id="hsItemRow" hidden>Item<select id="hsItem"></select></label>
+        <label id="hsFxRow">Transition<select id="hsFx">
+          <option value="dissolve">dissolve (default)</option>
+          <option value="cut">cut</option>
+          <option value="wipe">wipe</option>
+          <option value="zoom">zoom</option>
+          <option value="iris">iris</option>
+        </select></label>
         <div class="coords" id="hsCoords"></div>
         <button id="deleteHsBtn" class="danger">Delete hotspot</button>
       </div>

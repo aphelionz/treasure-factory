@@ -5,14 +5,23 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
 
 #stage { position: fixed; inset: 0; }
 
-#frame {
+#frame, #fxframe {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: contain;
   user-select: none; -webkit-user-drag: none;
-  transition: opacity .28s ease;
 }
-#frame.fading { opacity: 0; }
+
+/* --- scene transitions: the incoming image animates on the fx layer --- */
+#fxframe { pointer-events: none; }
+.fx-dissolve { animation: fxDissolve .45s ease both; }
+@keyframes fxDissolve { from { opacity: 0; } to { opacity: 1; } }
+.fx-wipe { animation: fxWipe .5s ease-in-out both; }
+@keyframes fxWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.fx-zoom { animation: fxZoom .5s ease-out both; }
+@keyframes fxZoom { from { opacity: 0; transform: scale(1.15); } to { opacity: 1; transform: scale(1); } }
+.fx-iris { animation: fxIris .55s ease-in-out both; }
+@keyframes fxIris { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(75% at 50% 50%); } }
 
 /* Transparent layer that catches the mouse and hosts debug outlines. */
 #overlay { position: absolute; inset: 0; cursor: default; }
@@ -23,16 +32,6 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
   color: var(--ink); text-shadow: 0 1px 5px rgba(0,0,0,.8);
   opacity: .85; pointer-events: none;
 }
-
-#hint {
-  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
-  max-width: 80%; padding: 7px 14px; border-radius: 999px;
-  background: rgba(0,0,0,.45); backdrop-filter: blur(3px);
-  font: 500 14px/1.2 ui-sans-serif, system-ui, sans-serif;
-  color: var(--ink); text-shadow: 0 1px 3px rgba(0,0,0,.8);
-  pointer-events: none; transition: opacity .15s ease;
-}
-#hint:empty { opacity: 0; }
 
 .hs-outline {
   position: absolute;
