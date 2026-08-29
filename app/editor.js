@@ -476,6 +476,37 @@ function deleteSelected() {
   markDirty(); renderHotspots(); updateHsEditor();
 }
 
+// Delete the current node plus every goto hotspot that leads to it, so no
+// door is left pointing at a missing room. The entry node is protected.
+function deleteCurrentNode() {
+  const node = currentNode();
+  if (!node) return;
+  if (scene.meta && scene.meta.entry === node.id) {
+    alert('"' + (node.title || node.id) + '" is the entry node; the game starts here. ' +
+      'Point meta.entry at another node before deleting it.');
+    return;
+  }
+  const inbound = [];
+  for (const n of scene.nodes) {
+    if (n.id === node.id) continue;
+    for (const h of n.hotspots) {
+      if (h.action && h.action.type === 'goto' && h.action.target === node.id) inbound.push({ n, h });
+    }
+  }
+  const label = node.title ? node.title + ' (' + node.id + ')' : node.id;
+  const msg = inbound.length
+    ? 'Delete "' + label + '" and the ' + inbound.length + ' hotspot(s) leading to it?'
+    : 'Delete "' + label + '"?';
+  if (!confirm(msg)) return;
+  for (const { n, h } of inbound) n.hotspots = n.hotspots.filter(x => x !== h);
+  scene.nodes = scene.nodes.filter(n => n.id !== node.id);
+  selectedId = null;
+  markDirty();
+  populateNodeSelect(); populateTargetOptions();
+  selectNode((scene.meta && scene.meta.entry) || (scene.nodes[0] && scene.nodes[0].id) || null);
+  if (!el('atlasView').hidden) openAtlas();   // redraw the map without the node
+}
+
 // ---------- pointer interaction ----------
 const capture = (e) => { try { capture(e); } catch (_) {} };
 
@@ -613,6 +644,7 @@ function wireEvents() {
     hs.action.item = e.target.value; markDirty(); renderHotspots();
   });
   el('deleteHsBtn').addEventListener('click', deleteSelected);
+  el('deleteNodeBtn').addEventListener('click', deleteCurrentNode);
   el('saveBtn').addEventListener('click', save);
   el('downloadBtn').addEventListener('click', download);
   window.addEventListener('resize', () => renderHotspots());
