@@ -326,7 +326,8 @@
           },
           "action": {
             "type": "goto",
-            "target": "downstairs_gallery"
+            "target": "downstairs_gallery",
+            "transition": "zoom"
           }
         }
       ]
