@@ -316,18 +316,18 @@
       "title": "Treasure Factory",
       "hotspots": [
         {
-          "id": "h_door",
+          "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.435,
-            "y": 0.5,
-            "w": 0.13,
-            "h": 0.175
+            "x": 0.4296782104637336,
+            "y": 0.5015467077883472,
+            "w": 0.16993658343242174,
+            "h": 0.1945554027942925
           },
-          "hint": "Go inside",
+          "hint": "",
           "action": {
             "type": "goto",
-            "target": "house_cutaway"
+            "target": "downstairs_gallery"
           }
         }
       ]
@@ -1455,48 +1455,18 @@
       "title": "Main Gallery",
       "hotspots": [
         {
-          "id": "nav_prev",
+          "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0,
-            "y": 0.08,
-            "w": 0.09,
-            "h": 0.72
+            "x": 0.011444708680142687,
+            "y": 0.10006688466111771,
+            "w": 0.3873303111375347,
+            "h": 0.46710575208085614
           },
-          "hint": "Look around",
+          "hint": "",
           "action": {
             "type": "goto",
-            "target": "glad_you_are_here_10"
-          }
-        },
-        {
-          "id": "nav_next",
-          "shape": {
-            "type": "rect",
-            "x": 0.91,
-            "y": 0.08,
-            "w": 0.09,
-            "h": 0.72
-          },
-          "hint": "Look around",
-          "action": {
-            "type": "goto",
-            "target": "glad_you_are_here_20"
-          }
-        },
-        {
-          "id": "nav_back",
-          "shape": {
-            "type": "rect",
-            "x": 0,
-            "y": 0.88,
-            "w": 1,
-            "h": 0.12
-          },
-          "hint": "Back to the house",
-          "action": {
-            "type": "goto",
-            "target": "house_cutaway"
+            "target": "glad_you_are_here_09"
           }
         }
       ]
@@ -3926,6 +3896,73 @@
           "action": {
             "type": "find",
             "item": "sweet_xmas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "glad_you_are_here_09",
+      "image": "glad-you-are-here-09",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.5724707689258819,
+            "y": 0.634326694411415,
+            "w": 0.3108402695204122,
+            "h": 0.22958159928656363
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_granite"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.8892594381688466,
+            "w": 0.9927417756638922,
+            "h": 0.10295593043995244
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
+          }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.00958680142687277,
+            "y": 0.14903667508917956,
+            "w": 0.40317206698374947,
+            "h": 0.6711968638525565
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_buoy"
+          }
+        },
+        {
+          "id": "h_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.6698684601664685,
+            "y": 0.2360703403686088,
+            "w": 0.19320996829171622,
+            "h": 0.2837117271105826
+          },
+          "hint": "",
+          "action": {
+            "type": "find",
+            "item": "mg_pelican"
           }
         }
       ]
