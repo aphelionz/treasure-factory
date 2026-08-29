@@ -1483,6 +1483,36 @@
             "type": "goto",
             "target": "glad_you_are_here_11"
           }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.1794119104240983,
+            "y": 0.6520604191438764,
+            "w": 0.30381118707887433,
+            "h": 0.32396328775267536
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_11"
+          }
+        },
+        {
+          "id": "h_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.8264466904478796,
+            "y": 0.004403240190249702,
+            "w": 0.17355330955212045,
+            "h": 0.9859913793103448
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
+          }
         }
       ]
     },
@@ -1783,51 +1813,6 @@
       "title": "",
       "hotspots": [
         {
-          "id": "nav_prev",
-          "shape": {
-            "type": "rect",
-            "x": 0,
-            "y": 0.08,
-            "w": 0.09,
-            "h": 0.72
-          },
-          "hint": "Look around",
-          "action": {
-            "type": "goto",
-            "target": "glad_you_are_here_21"
-          }
-        },
-        {
-          "id": "nav_next",
-          "shape": {
-            "type": "rect",
-            "x": 0.91,
-            "y": 0.08,
-            "w": 0.09,
-            "h": 0.72
-          },
-          "hint": "Look around",
-          "action": {
-            "type": "goto",
-            "target": "glad_you_are_here_22"
-          }
-        },
-        {
-          "id": "nav_back",
-          "shape": {
-            "type": "rect",
-            "x": 0,
-            "y": 0.88,
-            "w": 1,
-            "h": 0.12
-          },
-          "hint": "Step back",
-          "action": {
-            "type": "goto",
-            "target": "downstairs_gallery"
-          }
-        },
-        {
           "id": "f_mg_lanterns_1",
           "shape": {
             "type": "rect",
@@ -1861,7 +1846,7 @@
           "id": "h_1",
           "shape": {
             "type": "rect",
-            "x": 0.24049990091161316,
+            "x": 0.24223394768133175,
             "y": 0.0026893207491082045,
             "w": 0.31103225326991674,
             "h": 0.43823851813317477
@@ -1870,6 +1855,21 @@
           "action": {
             "type": "goto",
             "target": "international_room_07"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.3281064209274673,
+            "w": 0.18340021799445105,
+            "h": 0.6422924717598097
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_11"
           }
         }
       ]
@@ -4006,7 +4006,7 @@
     {
       "id": "glad_you_are_here_11",
       "image": "glad-you-are-here-11",
-      "title": "",
+      "title": "Mouse with Nut",
       "hotspots": [
         {
           "id": "h_1",
@@ -4044,7 +4044,23 @@
       "id": "international_room_07",
       "image": "international-room-07",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.5107696690447879,
+            "y": 0.5100930811533888,
+            "w": 0.48923033095521207,
+            "h": 0.34899394322235433
+          },
+          "hint": "",
+          "action": {
+            "type": "goto",
+            "target": "glad_you_are_here_13"
+          }
+        }
+      ]
     }
   ]
 }
