@@ -700,6 +700,20 @@
             "type": "goto",
             "target": "international_room_05"
           }
+        },
+        {
+          "id": "h_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.5696924603174603,
+            "y": 0.3042610336817654,
+            "w": 0.3000145180023228,
+            "h": 0.17088142421602787
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_01"
+          }
         }
       ]
     },
@@ -889,6 +903,48 @@
           "action": {
             "type": "goto",
             "target": "international_room_07"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.3952828590785908,
+            "y": 0.31187391114982577,
+            "w": 0.11547861014324429,
+            "h": 0.2160641695702672
+          },
+          "action": {
+            "type": "find",
+            "item": "intl_tulips"
+          }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.5226964769647696,
+            "y": 0.33773410278745647,
+            "w": 0.10685854626403413,
+            "h": 0.23752359175377463
+          },
+          "action": {
+            "type": "find",
+            "item": "intl_tulips"
+          }
+        },
+        {
+          "id": "h_4",
+          "shape": {
+            "type": "rect",
+            "x": 0.6418650793650794,
+            "y": 0.3371760670731707,
+            "w": 0.14930555555555547,
+            "h": 0.2854556837979094
+          },
+          "action": {
+            "type": "find",
+            "item": "intl_tulips"
           }
         }
       ]
@@ -1102,12 +1158,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "international_room_07_2",
-      "image": "international-room-07",
-      "title": "",
-      "hotspots": []
     },
     {
       "id": "international_room_14",
