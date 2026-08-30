@@ -714,6 +714,20 @@
             "type": "goto",
             "target": "international_room_01"
           }
+        },
+        {
+          "id": "h_5",
+          "shape": {
+            "type": "rect",
+            "x": 0.8981804103755323,
+            "y": 0.288835656213705,
+            "w": 0.10181958962446769,
+            "h": 0.4896695339721254
+          },
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_06"
+          }
         }
       ]
     },
@@ -1253,6 +1267,18 @@
     {
       "id": "green_and_gold_03",
       "image": "green-and-gold-03",
+      "title": "",
+      "hotspots": []
+    },
+    {
+      "id": "sweet_shoppe_17",
+      "image": "sweet-shoppe-17",
+      "title": "",
+      "hotspots": []
+    },
+    {
+      "id": "sweet_shoppe_06",
+      "image": "sweet-shoppe-06",
       "title": "",
       "hotspots": []
     }
