@@ -92,7 +92,8 @@ function openAtlas() {
   });
   const s = atlasApi.stats;
   el('atlasStats').innerHTML = '<b>' + s.scenes + '</b> scenes · <b>' + s.paths +
-    '</b> paths · <b class="gold">' + s.items + '</b> items placed';
+    '</b> paths · <b class="gold">' + s.items + '</b> items placed' +
+    (s.orphans ? ' · <b style="color:#ff5a6a">' + s.orphans + ' unreachable</b>' : '');
 }
 
 function closeAtlas() { el('atlasView').hidden = true; }
