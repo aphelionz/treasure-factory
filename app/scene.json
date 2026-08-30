@@ -383,14 +383,14 @@
           "id": "h_4",
           "shape": {
             "type": "rect",
-            "x": 0.8264466904478796,
-            "y": 0.004403240190249702,
+            "x": 0.8257778438367024,
+            "y": 0.0045658070749108205,
             "w": 0.17355330955212045,
             "h": 0.9859913793103448
           },
           "action": {
             "type": "goto",
-            "target": "international_room_07"
+            "target": "glad_you_are_here_13"
           }
         },
         {
@@ -482,6 +482,20 @@
           "action": {
             "type": "goto",
             "target": "glad_you_are_here_11"
+          }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.31125520214030916,
+            "y": 0.7589411786563615,
+            "w": 0.6586343143083631,
+            "h": 0.2263163272889418
+          },
+          "action": {
+            "type": "goto",
+            "target": "downstairs_gallery"
           }
         }
       ]
@@ -658,6 +672,20 @@
             "type": "goto",
             "target": "glad_you_are_here_13"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.8300138723741578,
+            "y": 0.16491249256837098,
+            "w": 0.1699861276258422,
+            "h": 0.28464997027348393
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_01"
+          }
         }
       ]
     },
@@ -832,6 +860,27 @@
           "action": {
             "type": "goto",
             "target": "glad_you_are_here_06"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_01",
+      "image": "international-room-01",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.0015730281411018628,
+            "y": 0.7168317107609988,
+            "w": 0.9918190150614349,
+            "h": 0.2686115859096314
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
           }
         }
       ]
