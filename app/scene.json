@@ -672,6 +672,34 @@
             "type": "goto",
             "target": "international_room_10"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.30910002972651607,
+            "w": 0.10995095124851367,
+            "h": 0.34813001634958385
+          },
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_14"
+          }
+        },
+        {
+          "id": "h_3",
+          "shape": {
+            "type": "rect",
+            "x": 0.4198994252873563,
+            "y": 0.5097818816884662,
+            "w": 0.435301476416964,
+            "h": 0.3739735062425683
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_05"
+          }
         }
       ]
     },
@@ -916,6 +944,69 @@
           "action": {
             "type": "find",
             "item": "intl_skulls"
+          }
+        }
+      ]
+    },
+    {
+      "id": "green_and_gold_14",
+      "image": "green-and-gold-14",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.38711974831549745,
+            "y": 0.013641684007134364,
+            "w": 0.6128802516845026,
+            "h": 0.9737802838882282
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_05",
+      "image": "international-room-05",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.5058462148236227,
+            "y": 0.09389398781212842,
+            "w": 0.41394792905271505,
+            "h": 0.30936942627824016
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_06"
+          }
+        }
+      ]
+    },
+    {
+      "id": "international_room_06",
+      "image": "international-room-06",
+      "title": "",
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.02282748711850971,
+            "y": 0.5343527051129607,
+            "w": 0.9580298751486326,
+            "h": 0.4356328032104637
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_05"
           }
         }
       ]
