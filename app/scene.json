@@ -656,38 +656,9 @@
     },
     {
       "id": "international_room_07",
-      "image": "international-room-07",
+      "image": "international-room-18",
       "title": "",
-      "hotspots": [
-        {
-          "id": "h_1",
-          "shape": {
-            "type": "rect",
-            "x": 0.5107696690447879,
-            "y": 0.5100930811533888,
-            "w": 0.48923033095521207,
-            "h": 0.34899394322235433
-          },
-          "action": {
-            "type": "goto",
-            "target": "glad_you_are_here_13"
-          }
-        },
-        {
-          "id": "h_2",
-          "shape": {
-            "type": "rect",
-            "x": 0.8300138723741578,
-            "y": 0.16491249256837098,
-            "w": 0.1699861276258422,
-            "h": 0.28464997027348393
-          },
-          "action": {
-            "type": "goto",
-            "target": "international_room_01"
-          }
-        }
-      ]
+      "hotspots": []
     },
     {
       "id": "glad_you_are_here_06",
