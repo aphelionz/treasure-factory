@@ -48,6 +48,77 @@ async function shot(page, name) {
   shots.push(name);
 }
 
+// On the editor's photo a tap or click on a box follows it to its room, and a
+// press-and-hold selects it for editing (then the same finger can drag it).
+// On desktop a mouse drag selects and moves it too.
+async function hotspotGestures(ed, label) {
+  const tag = 'editor-' + label;
+  if (await ed.locator('#atlasView').isVisible()) await ed.click('#atlasClose');
+  // Open a node that has a box leading somewhere.
+  const ok = await ed.evaluate(async () => {
+    const sel = document.getElementById('nodeSelect');
+    for (const opt of sel.options) {
+      sel.value = opt.value; sel.dispatchEvent(new Event('change'));
+      const img = document.getElementById('editframe');
+      for (let i = 0; i < 40 && !(img.complete && img.naturalWidth); i++) await new Promise(r => setTimeout(r, 50));
+      await new Promise(r => setTimeout(r, 100));
+      if ([...document.querySelectorAll('#overlay .hs:not(.find)')].some(b => /^Click to go/.test(b.title))) return opt.value;
+    }
+    return null;
+  });
+  if (!ok) { problems.push(`${tag}: no node has a box to follow`); return; }
+  const boxCenter = async () => {
+    const b = await ed.locator('#overlay .hs:not(.find)[title^="Click to go"]').first().boundingBox();
+    return { x: b.x + b.width / 2, y: b.y + b.height / 2, b };
+  };
+  const nodeNow = () => ed.inputValue('#nodeSelect');
+  const reopen = async () => {
+    await ed.selectOption('#nodeSelect', ok);
+    await ed.waitForTimeout(400);
+  };
+  const cdp = label === 'phone' ? await ed.context().newCDPSession(ed) : null;
+  const finger = (type, x, y) => cdp.send('Input.dispatchTouchEvent', { type,
+    touchPoints: type === 'touchEnd' ? [] : [{ x, y, id: 1 }] });
+  const press = async (holdMs, dragBy = 0) => {
+    const { x, y } = await boxCenter();
+    if (cdp) {
+      await finger('touchStart', x, y);
+      await ed.waitForTimeout(holdMs);
+      for (let d = 5; d <= dragBy; d += 5) await finger('touchMove', x + d, y + d);
+      await finger('touchEnd', x, y);
+    } else {
+      await ed.mouse.move(x, y); await ed.mouse.down();
+      await ed.waitForTimeout(holdMs);
+      for (let d = 5; d <= dragBy; d += 5) await ed.mouse.move(x + d, y + d);
+      await ed.mouse.up();
+    }
+    await ed.waitForTimeout(300);
+  };
+  const selected = () => ed.evaluate(() => !!document.querySelector('#overlay .hs.selected') &&
+    !document.getElementById('hsEditor').hidden);
+
+  // 1. A quick tap/click follows the box.
+  await press(60);
+  if (await nodeNow() === ok) problems.push(`${tag}: tapping a box should open the room it leads to`);
+  else console.log(`${tag}: tap on a box in ${ok} followed it to ${await nodeNow()}`);
+
+  // 2. Press and hold selects it and stays in the room.
+  await reopen();
+  await press(700);
+  if (await nodeNow() !== ok) problems.push(`${tag}: holding a box should not leave the room`);
+  if (!(await selected())) problems.push(`${tag}: holding a box should select it for editing`);
+  await shot(ed, `${tag}-hotspot-held`);
+
+  // 3. Dragging moves it: on a phone after a hold, on desktop straight away.
+  await reopen();
+  const before = (await boxCenter()).b;
+  await press(label === 'phone' ? 700 : 30, 40);
+  const after = await ed.locator('#overlay .hs.selected').boundingBox();
+  if (await nodeNow() !== ok) problems.push(`${tag}: dragging a box should not leave the room`);
+  if (!after || Math.abs(after.x - before.x) < 20) problems.push(`${tag}: dragging a box should move it`);
+  else console.log(`${tag}: dragged a box by ${Math.round(after.x - before.x)}px`);
+}
+
 // Pinch out on the editor's map with two real touch points and check it zooms
 // in around the fingers instead of zooming the whole page.
 async function pinchMap(ed) {
@@ -143,6 +214,7 @@ try {
     await ed.waitForTimeout(500);
     await shot(ed, 'editor-' + label);
     if (label === 'phone') await pinchMap(ed);
+    await hotspotGestures(ed, label);
     await ctx.close();
   }
 } finally {
