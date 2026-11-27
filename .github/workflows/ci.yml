@@ -1,0 +1,111 @@
+# Guardrails for every pull request (most are written by Claude and merged from
+# a phone, so these checks stand in for a careful review):
+#   check  - JS syntax + scene.json integrity (scripts/check-scene.mjs)
+#   smoke  - headless Chromium plays a few rooms and opens the editor; fails on
+#            console errors or missing files, and posts phone screenshots as a
+#            PR comment so you can see the change before merging.
+# Nothing here adds a dependency to the repo: Playwright is installed per run.
+name: ci
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: JS syntax
+        run: for f in app/*.js scripts/*.mjs; do node --check "$f" || exit 1; done
+      - name: scene.json integrity
+        run: node scripts/check-scene.mjs
+
+  smoke:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # push screenshots to the ci-screenshots branch
+      pull-requests: write   # post the screenshot comment
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright (not saved to the repo)
+        run: |
+          npm install --no-save --no-package-lock playwright@1.63.0
+          npx playwright install --with-deps chromium
+      - name: Smoke test
+        run: node scripts/smoke.mjs dist/smoke
+
+      - name: Keep screenshots as a run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-screenshots
+          path: dist/smoke
+          if-no-files-found: ignore
+
+      # Screenshots go to a separate orphan branch so the PR comment can show
+      # them inline (the repo is public, so raw.githubusercontent.com serves them).
+      # Skipped for PRs from forks, which get a read-only token.
+      - name: Post screenshots on the PR
+        if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && hashFiles('dist/smoke/*.jpg') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          OUTCOME: ${{ job.status }}
+        run: |
+          set -euo pipefail
+          DIR="pr-$PR/${SHA:0:7}"
+          SRC="$PWD/dist/smoke"
+          WORK="$RUNNER_TEMP/shots"
+          git init -q "$WORK" && cd "$WORK"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+          if git fetch -q --depth 1 origin ci-screenshots; then git checkout -q -B ci-screenshots FETCH_HEAD; else git checkout -q --orphan ci-screenshots; fi
+          mkdir -p "$DIR" && cp "$SRC"/*.jpg "$DIR"/
+          git add "$DIR" && git commit -q -m "Smoke screenshots for #$PR at ${SHA:0:7}"
+          for i in 1 2 3 4; do
+            git push -q origin HEAD:ci-screenshots && break
+            sleep $((i * 3)); git fetch -q --depth 1 origin ci-screenshots && git rebase -q FETCH_HEAD
+          done
+
+          BASE="https://raw.githubusercontent.com/$REPO/ci-screenshots/$DIR"
+          MARK="<!-- smoke-screenshots -->"
+          {
+            echo "$MARK"
+            if [ "$OUTCOME" = "success" ]; then echo "### Smoke test passed at ${SHA:0:7}"; else echo "### Smoke test FAILED at ${SHA:0:7}. See the run log."; fi
+            echo
+            echo "<table><tr>"
+            n=0
+            for f in "$SRC"/*.jpg; do
+              name=$(basename "$f" .jpg)
+              echo "<td align=\"center\"><img src=\"$BASE/$name.jpg\" width=\"220\"><br><sub>$name</sub></td>"
+              n=$((n + 1)); if [ $((n % 3)) -eq 0 ]; then echo "</tr><tr>"; fi
+            done
+            echo "</tr></table>"
+            echo
+            echo "<sub>[Run log](${GITHUB_SERVER_URL}/${REPO}/actions/runs/${GITHUB_RUN_ID}) · updated on every push</sub>"
+          } > "$RUNNER_TEMP/body.md"
+
+          ID=$(gh api "repos/$REPO/issues/$PR/comments" --paginate --jq ".[] | select(.body | startswith(\"$MARK\")) | .id" | head -1)
+          if [ -n "$ID" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$ID" -F body=@"$RUNNER_TEMP/body.md" > /dev/null
+          else
+            gh api -X POST "repos/$REPO/issues/$PR/comments" -F body=@"$RUNNER_TEMP/body.md" > /dev/null
+          fi
