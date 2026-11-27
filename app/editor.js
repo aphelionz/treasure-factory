@@ -293,13 +293,20 @@ function wireImageGrid() {
 }
 
 // ---------- build status badge (hosted, anonymous Actions read) ----------
-function setBuildState(s) {
+// `run` (optional) is the Actions run behind this state; for live/failed we show its
+// short commit sha so you can tell at a glance which commit the public site is on.
+function setBuildState(s, run) {
   buildState = s;
   const badge = el('buildBadge'); if (!badge) return;
   badge.hidden = !HOSTED;
   badge.className = 'buildbadge ' + s;
-  el('buildBadgeText').textContent =
-    { unsaved: 'Unsaved', building: 'Building', live: 'Live', failed: 'Build failed', unknown: '·' }[s] || s;
+  const label = { unsaved: 'Unsaved', building: 'Building', live: 'Live', failed: 'Build failed', unknown: '·' }[s] || s;
+  const sha = run && run.head_sha ? run.head_sha.slice(0, 7) : '';
+  const showSha = sha && (s === 'live' || s === 'failed');
+  el('buildBadgeText').textContent = showSha ? label + ' · ' + sha : label;
+  badge.title = showSha
+    ? 'GitHub Pages build for commit ' + sha + (run.updated_at ? ' (' + new Date(run.updated_at).toLocaleString() + ')' : '')
+    : 'GitHub Pages build status';
 }
 function stopBuildPoll() { if (buildTimer) { clearTimeout(buildTimer); buildTimer = null; } }
 async function fetchLatestRun() {
@@ -323,7 +330,7 @@ function watchBuild(expectSha) {
     if (run === undefined) { if (Date.now() < deadline) buildTimer = setTimeout(tick, 15000); return; }
     const ours = !expectSha || (run && run.head_sha === expectSha);
     if (run && run.status === 'completed' && ours) {
-      setBuildState(run.conclusion === 'success' ? 'live' : 'failed'); return;
+      setBuildState(run.conclusion === 'success' ? 'live' : 'failed', run); return;
     }
     setBuildState('building');
     if (Date.now() < deadline) buildTimer = setTimeout(tick, 8000);
@@ -335,7 +342,7 @@ function refreshBuild() {                            // one-shot on load
   if (dirty) { setBuildState('unsaved'); return; }
   fetchLatestRun().then(run => {
     if (dirty) return;
-    if (run && run.status === 'completed') setBuildState(run.conclusion === 'success' ? 'live' : 'failed');
+    if (run && run.status === 'completed') setBuildState(run.conclusion === 'success' ? 'live' : 'failed', run);
     else if (run) { setBuildState('building'); watchBuild(); }
     else setBuildState('unknown');
   });
