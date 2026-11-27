@@ -32,7 +32,7 @@ let selectedId = null;
 let dirty = false;
 
 // drag interaction state
-let mode = 'idle';        // 'draw' | 'move' | 'resize'
+let mode = 'idle';        // 'press' | 'draw' | 'move' | 'resize' | 'ignore'
 let dragStart = null;     // {x,y} in box pixels
 let dragOrig = null;      // original shape (normalized) for move/resize
 let tempEl = null;        // live rectangle while drawing
@@ -590,7 +590,7 @@ function renderHotspots() {
       const target = hs.action && hs.action.target;
       const tgt = target && scene.nodes.find(n => n.id === target);
       tgtName = (tgt && (tgt.title || tgt.id)) || target || hs.id;
-      d.title = 'Option-click to follow' + (target ? ' -> ' + tgtName : '');
+      d.title = (target ? 'Click to go to ' + tgtName : 'No target yet') + '. Hold, drag, or right-click to edit.';
     }
     if (isFind) d.classList.add('find');
     const label = document.createElement('span');
@@ -723,23 +723,51 @@ function deleteCurrentNode() {
 }
 
 // ---------- pointer interaction ----------
+// A box works like a button: tap or click it to follow it to the room it leads
+// to. Press and hold it (long press on a phone) to select it for editing, and
+// keep the finger down to drag it straight away. With a mouse, dragging any box
+// also selects and moves it, and right-click selects it. On a phone a drag only
+// moves the box that is already selected, so a sloppy tap never shoves a box.
+// Option-click still follows. Drag on empty photo draws a new box; a tap there
+// deselects.
+const HOLD_MS = 450;
 const capture = (e) => { try { overlay.setPointerCapture(e.pointerId); } catch (_) {} };
 let pointerActive = false;   // a finger/mouse is down on the photo
+let press = null;            // {id, x, y, touch, timer} while a box is pressed but not yet dragged
+
+function hotspotTarget(hs) {
+  const target = hs && hs.action && hs.action.type === 'goto' && hs.action.target;
+  return target && scene.nodes.some(n => n.id === target) ? target : null;
+}
+
+// Follow a box to its room; a box with nowhere to go (a find box, or a broken
+// target) is selected instead so it can be fixed.
+function followOrSelect(id) {
+  const node = currentNode();
+  const target = hotspotTarget(node && node.hotspots.find(h => h.id === id));
+  if (target) selectNode(target); else selectHotspot(id);
+}
+
+function startMove(id, p) {
+  if (selectedId !== id) selectHotspot(id);
+  mode = 'move'; dragOrig = { ...currentHotspot().shape }; dragStart = p;
+}
+
+function clearPress() {
+  if (press) clearTimeout(press.timer);
+  overlay.querySelectorAll('.hs.pressing').forEach(n => n.classList.remove('pressing'));
+  press = null;
+}
 
 overlay.addEventListener('pointerdown', (e) => {
   const node = currentNode();
   if (!node || !frame.naturalWidth) return;
   if (!e.isPrimary) return;     // ignore a second finger
+  if (e.pointerType === 'mouse' && e.button !== 0) return;   // right-click is handled by contextmenu
   closeMenu();
   pointerActive = true;
-  // Option/Alt-click a hotspot to follow it to its target node
   const hsEl = e.target.closest('.hs');
-  if (e.altKey && hsEl) {
-    const hs = node.hotspots.find(h => h.id === hsEl.dataset.id);
-    const target = hs && hs.action && hs.action.target;
-    if (target && scene.nodes.some(n => n.id === target)) selectNode(target);
-    return;
-  }
+  if (e.altKey && hsEl) { followOrSelect(hsEl.dataset.id); return; }   // Option-click: follow
   const L = layout();
   const p = clampPt(e, L);
   moved = false;
@@ -749,9 +777,19 @@ overlay.addEventListener('pointerdown', (e) => {
     mode = 'resize'; dragOrig = { ...currentHotspot().shape }; dragStart = p;
     capture(e); return;
   }
-  if (e.target.classList.contains('hs')) {
-    selectHotspot(e.target.dataset.id);
-    mode = 'move'; dragOrig = { ...currentHotspot().shape }; dragStart = p;
+  if (hsEl) {
+    const id = hsEl.dataset.id;
+    mode = 'press'; dragStart = p;
+    press = { id, x: e.clientX, y: e.clientY, touch: e.pointerType !== 'mouse' };
+    hsEl.classList.add('pressing');
+    press.timer = setTimeout(() => {
+      if (mode !== 'press' || !press) return;
+      // Held long enough: select it, and let the same finger drag it.
+      const start = dragStart;
+      clearPress();
+      startMove(id, start);
+      if (navigator.vibrate) { try { navigator.vibrate(12); } catch (_) {} }
+    }, HOLD_MS);
     capture(e); return;
   }
   // empty space: start drawing a new box
@@ -763,9 +801,20 @@ overlay.addEventListener('pointerdown', (e) => {
 });
 
 overlay.addEventListener('pointermove', (e) => {
-  if (mode === 'idle') return;
+  if (mode === 'idle' || mode === 'ignore') return;
   const L = layout();
   const p = clampPt(e, L);
+  if (mode === 'press') {
+    const slop = press.touch ? 10 : 4;
+    if (Math.hypot(e.clientX - press.x, e.clientY - press.y) < slop) return;
+    const { id, touch } = press;
+    const start = dragStart;
+    clearPress();
+    // A finger drag on a box that isn't selected yet does nothing (it was a
+    // sloppy tap); a mouse drag, or a drag on the selected box, moves it.
+    if (touch && selectedId !== id) { mode = 'ignore'; return; }
+    startMove(id, start);
+  }
   moved = true;
   if (mode === 'draw') {
     positionEl(tempEl, rectFromPoints(dragStart, p));
@@ -793,6 +842,14 @@ overlay.addEventListener('pointermove', (e) => {
 });
 
 overlay.addEventListener('pointerup', (e) => {
+  if (mode === 'press') {
+    // A plain tap or click on a box: follow it.
+    const id = press.id;
+    clearPress();
+    endPointer();
+    followOrSelect(id);
+    return;
+  }
   if (mode === 'draw') {
     const L = layout();
     const r = rectFromPoints(dragStart, clampPt(e, L));
@@ -809,6 +866,8 @@ overlay.addEventListener('pointerup', (e) => {
       });
       markDirty(); renderHotspots(); selectHotspot(id);
       linkHotspotId = id; openImageGrid('link');   // pick the destination right away
+    } else if (selectedId) {
+      selectHotspot(null);   // tap on empty photo: deselect
     }
   } else if ((mode === 'move' || mode === 'resize') && moved) {
     markDirty(); updateHsEditor();
@@ -823,7 +882,16 @@ overlay.addEventListener('pointercancel', () => {
   renderHotspots();
 });
 
+// Right-click a box to select it (desktop). Also stops the long-press menu on
+// Android from popping up over the photo.
+overlay.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  const hsEl = e.target.closest('.hs');
+  if (hsEl && !hsEl.classList.contains('drawing') && mode !== 'move') selectHotspot(hsEl.dataset.id);
+});
+
 function endPointer() {
+  clearPress();
   mode = 'idle'; dragStart = null; dragOrig = null; moved = false;
   pointerActive = false;
   syncSheet();
@@ -843,9 +911,8 @@ function closeMenu() {
 }
 
 function followSelected() {
-  const hs = currentHotspot();
-  const target = hs && hs.action && hs.action.type === 'goto' && hs.action.target;
-  if (target && scene.nodes.some(n => n.id === target)) selectNode(target);
+  const target = hotspotTarget(currentHotspot());
+  if (target) selectNode(target);
 }
 
 // ---------- events ----------

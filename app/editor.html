@@ -40,9 +40,11 @@
       color:var(--muted); text-align:center; padding:0 30px; pointer-events:none; }
 
     .hs { position:absolute; border:2px solid var(--accent2);
-      background:rgba(124,192,255,.14); border-radius:3px; cursor:move; }
+      background:rgba(124,192,255,.14); border-radius:3px; cursor:pointer; }
+    /* Pressing a box fills it in over the hold time, so a long press shows it's working. */
+    .hs.pressing { background:rgba(255,80,160,.32); transition:background .45s linear; }
     .hs.find { border-color:#ffd76a; background:rgba(255,215,106,.14); }
-    .hs.selected { border-color:var(--accent); background:rgba(255,80,160,.18); box-shadow:0 0 0 1px var(--accent); }
+    .hs.selected { border-color:var(--accent); background:rgba(255,80,160,.18); box-shadow:0 0 0 1px var(--accent); cursor:move; }
     .hs.drawing { border-style:dashed; pointer-events:none; }
     .hslabel { position:absolute; left:0; top:-19px; padding:0 5px; font-size:11px; line-height:17px;
       background:rgba(0,0,0,.7); color:var(--ink); border-radius:4px; white-space:nowrap; pointer-events:none; }
@@ -306,11 +308,11 @@
           <button id="doneHsBtn" type="button" title="Deselect this hotspot">Done</button>
         </div>
       </div>
-      <p class="help touchhelp">Drag on the photo to draw a box. Tap a box to select it, drag it to move it,
-      and drag its corner to resize. <b>Follow</b> opens the room it leads to.</p>
-      <p class="help deskhelp">Drag on the image to draw a box. Click a box to select it; <b>Option-click</b> it to
-      follow it to its target. Drag a box to move it, drag its corner to resize. Press <b>Delete</b> to
-      remove the selected box. Save writes <code>scene.json</code> into your <code>app/</code> folder.</p>
+      <p class="help touchhelp">Drag on the photo to draw a box. Tap a box to go to the room it leads to.
+      <b>Press and hold</b> a box to edit it, and keep holding to drag it. Drag its corner to resize.</p>
+      <p class="help deskhelp">Drag on the image to draw a box. Click a box to go to the room it leads to.
+      To edit a box, <b>drag</b> it, <b>click and hold</b> it, or <b>right-click</b> it; drag its corner to resize.
+      Press <b>Delete</b> to remove the selected box. Save writes <code>scene.json</code> into your <code>app/</code> folder.</p>
     </aside>
   </main>
 
