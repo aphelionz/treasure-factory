@@ -129,7 +129,12 @@ function normalizeScene(s) {
 // ---------- selectors / model helpers ----------
 const currentNode = () => scene.nodes.find(n => n.id === currentNodeId) || null;
 const currentHotspot = () => { const n = currentNode(); return n ? n.hotspots.find(h => h.id === selectedId) : null; };
-function imageUrl(key) { const e = manifest[key]; return e ? 'images/' + e.file : ''; }
+// Photos added from this device show from memory until Pages has deployed them.
+const localPreview = {};
+function imageUrl(key) {
+  if (localPreview[key]) return localPreview[key];
+  const e = manifest[key]; return e ? 'images/' + e.file : '';
+}
 function otherNodeId() { const o = scene.nodes.find(n => n.id !== currentNodeId); return o ? o.id : currentNodeId; }
 function uniqueHotspotId(node) {
   let i = 1, id;
@@ -233,7 +238,7 @@ function openImageGrid(mode) {
   renderImageGrid('');
   el('imageGridFilter').focus();
 }
-function closeImageGrid() { el('imageGrid').hidden = true; }
+function closeImageGrid() { el('imageGrid').hidden = true; el('addPhotos').hidden = true; }
 
 function renderImageGrid(filter) {
   const used = buildUsedMap();
@@ -246,7 +251,8 @@ function renderImageGrid(filter) {
     if (q && !key.toLowerCase().includes(q)) continue;
     const owner = used[key];
     const tile = document.createElement('div');
-    tile.className = 'tile' + (owner ? ' used' : '') + (cur && cur.image === key ? ' current' : '');
+    tile.className = 'tile' + (owner ? ' used' : '') + (cur && cur.image === key ? ' current' : '') +
+      (localPreview[key] ? ' fresh' : '');
     tile.dataset.key = key;
     const img = document.createElement('img');
     img.loading = 'lazy'; img.alt = key; img.src = imageUrl(key);
@@ -284,12 +290,198 @@ function onGridPick(key) {
 
 function wireImageGrid() {
   el('imageGridClose').addEventListener('click', closeImageGrid);
+  wireAddPhotos();
   el('imageGridFilter').addEventListener('input', (e) => renderImageGrid(e.target.value));
   el('imageGridList').addEventListener('click', (e) => {
     const tile = e.target.closest('.tile'); if (tile) onGridPick(tile.dataset.key);
   });
   el('imageGrid').addEventListener('click', (e) => { if (e.target === el('imageGrid')) closeImageGrid(); });
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !el('imageGrid').hidden) closeImageGrid(); });
+}
+
+// ---------- add photos (hosted) ----------
+// Photos picked on a phone (or any browser) are shrunk to the game's size here,
+// then committed to app/images/ with an updated manifest in ONE commit via the Git
+// Data API, so Pages deploys once. Keys are <room>-NNN numbered from 101 so they
+// group into the room on the map and never collide with the Mac's <Folder>-NN
+// photos. Entries carry "source": "phone" so build-assets.sh keeps them.
+const MAXDIM = 1600, QUALITY = 0.82, PHONE_START = 101;
+const REPO_IMAGES_DIR = 'app/images';
+const roomOfKey = (k) => k.replace(/-\d+$/, '');
+const slugify = (t) => t.toLowerCase().replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '');
+const titleCase = (p) => p.split('-').map(w => w[0] ? w[0].toUpperCase() + w.slice(1) : w).join(' ');
+
+function wireAddPhotos() {
+  const btn = el('addPhotosBtn');
+  btn.hidden = !HOSTED;
+  btn.addEventListener('click', () => {
+    const box = el('addPhotos');
+    box.hidden = !box.hidden;
+    if (!box.hidden) { populateRooms(); el('addStatus').hidden = true; }
+  });
+  el('addCancel').addEventListener('click', () => { el('addPhotos').hidden = true; });
+  el('addRoom').addEventListener('change', (e) => {
+    el('addRoomNewRow').hidden = e.target.value !== '__new';
+    if (e.target.value === '__new') el('addRoomNew').focus();
+  });
+  el('addFiles').addEventListener('change', async (e) => {
+    const files = [...e.target.files];
+    e.target.value = '';              // let the same photo be picked again later
+    if (files.length) await addPhotos(files);
+  });
+}
+
+function populateRooms() {
+  const rooms = [...new Set(Object.keys(manifest).map(roomOfKey))].sort();
+  const cur = currentNode();
+  const sel = el('addRoom');
+  sel.innerHTML = '';
+  for (const r of rooms) sel.add(new Option(titleCase(r), r));
+  sel.add(new Option('New room…', '__new'));
+  if (cur && cur.image && rooms.includes(roomOfKey(cur.image))) sel.value = roomOfKey(cur.image);
+  el('addRoomNewRow').hidden = sel.value !== '__new';
+}
+
+function addStatus(msg, isErr) {
+  const s = el('addStatus');
+  s.hidden = false; s.textContent = msg; s.classList.toggle('err', !!isErr);
+}
+
+function nextPhoneKey(room, taken) {
+  let n = PHONE_START;
+  for (const k of taken) {
+    if (roomOfKey(k) !== room) continue;
+    const num = parseInt(k.slice(room.length + 1), 10);
+    if (num >= n) n = num + 1;
+  }
+  return room + '-' + String(n);
+}
+
+function loadImage(file) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => res({ img, url });
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('could not read this image')); };
+    img.src = url;
+  });
+}
+
+// Resize to fit MAXDIM (never upscale). <img> already applies EXIF rotation, and
+// re-encoding through a canvas drops all metadata, including location.
+async function shrinkPhoto(file) {
+  const { img, url } = await loadImage(file);
+  try {
+    const w0 = img.naturalWidth, h0 = img.naturalHeight;
+    const k = Math.min(1, MAXDIM / Math.max(w0, h0));
+    const w = Math.round(w0 * k), h = Math.round(h0 * k);
+    if (w >= h) return { landscape: true, w, h };
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    let blob = await new Promise(r => c.toBlob(r, 'image/webp', QUALITY));
+    if (!blob || blob.type !== 'image/webp') blob = await new Promise(r => c.toBlob(r, 'image/jpeg', QUALITY));
+    if (!blob) throw new Error('could not encode the image');
+    const ext = blob.type === 'image/webp' ? 'webp' : 'jpg';
+    return { blob, ext, w, h };
+  } finally { URL.revokeObjectURL(url); }
+}
+
+async function blobToBase64(blob) {
+  const buf = new Uint8Array(await blob.arrayBuffer());
+  let bin = '';
+  for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+
+async function gh(method, path, body) {
+  const r = await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/${path}`, {
+    method,
+    headers: { ...ghHeaders(), ...(body ? { 'Content-Type': 'application/json' } : {}) },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!r.ok) {
+    let msg = ''; try { msg = (await r.json()).message || ''; } catch (_) {}
+    const e = new Error(method + ' ' + path.split('?')[0] + ': ' + r.status + (msg ? ' ' + msg : ''));
+    e.status = r.status; throw e;
+  }
+  return r.status === 204 ? null : r.json();
+}
+
+// One commit: image blobs + the merged manifest, on top of the current main.
+async function commitPhotos(photos, message) {
+  const blobs = [];
+  for (const p of photos) {
+    const b = await gh('POST', 'git/blobs', { content: p.base64, encoding: 'base64' });
+    blobs.push({ path: REPO_IMAGES_DIR + '/' + p.file, mode: '100644', type: 'blob', sha: b.sha });
+  }
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const ref = await gh('GET', 'git/ref/heads/' + GH_BRANCH);
+    const head = ref.object.sha;
+    const commit = await gh('GET', 'git/commits/' + head);
+    // Merge into the manifest as it is on main right now, not the (maybe stale) deployed copy.
+    const cur = await gh('GET', `contents/${REPO_IMAGES_DIR}/manifest.json?ref=${head}`);
+    const remote = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(cur.content.replace(/\n/g, '')), c => c.charCodeAt(0))));
+    for (const p of photos) {
+      if (remote[p.key]) throw new Error(p.key + ' already exists on GitHub. Reload the editor and try again.');
+      remote[p.key] = { file: p.file, h: p.h, source: 'phone', w: p.w };
+    }
+    const sorted = Object.fromEntries(Object.keys(remote).sort().map(k => [k, remote[k]]));
+    const tree = await gh('POST', 'git/trees', {
+      base_tree: commit.tree.sha,
+      tree: [...blobs, { path: REPO_IMAGES_DIR + '/manifest.json', mode: '100644', type: 'blob',
+        content: JSON.stringify(sorted, null, 2) + '\n' }],
+    });
+    const next = await gh('POST', 'git/commits', { message, tree: tree.sha, parents: [head] });
+    try {
+      await gh('PATCH', 'git/refs/heads/' + GH_BRANCH, { sha: next.sha });
+      return { sha: next.sha, manifest: sorted };
+    } catch (e) {
+      if (e.status !== 422 || attempt === 2) throw e;   // main moved under us: rebuild on the new head
+    }
+  }
+}
+
+async function addPhotos(files) {
+  let room = el('addRoom').value;
+  if (room === '__new') {
+    room = slugify(el('addRoomNew').value || '');
+    if (!room) { addStatus('Type a name for the new room first.', true); return; }
+  }
+  const label = el('addFiles').parentElement;
+  label.classList.add('busy');
+  try {
+    const taken = new Set(Object.keys(manifest));
+    const photos = [], skipped = [];
+    for (let i = 0; i < files.length; i++) {
+      addStatus('Shrinking photo ' + (i + 1) + ' of ' + files.length + '…');
+      let out;
+      try { out = await shrinkPhoto(files[i]); }
+      catch (e) { skipped.push(files[i].name + ': ' + e.message); continue; }
+      if (out.landscape) { skipped.push(files[i].name + ': landscape (shoot it vertically)'); continue; }
+      const key = nextPhoneKey(room, taken);
+      taken.add(key);
+      photos.push({ key, file: key + '.' + out.ext, w: out.w, h: out.h, blob: out.blob, base64: await blobToBase64(out.blob) });
+    }
+    if (!photos.length) { addStatus('Nothing to add.\n' + skipped.join('\n'), true); return; }
+    addStatus('Saving ' + photos.length + ' photo' + (photos.length > 1 ? 's' : '') + ' to GitHub…');
+    const n = photos.length;
+    const res = await commitPhotos(photos, `Add ${n} photo${n > 1 ? 's' : ''} to ${titleCase(room)} via editor`);
+    manifest = res.manifest;
+    for (const p of photos) localPreview[p.key] = URL.createObjectURL(p.blob);
+    addStatus('Added ' + photos.map(p => p.key).join(', ') + '. Tap one to use it; the public game has it in about a minute.' +
+      (skipped.length ? '\nSkipped:\n' + skipped.join('\n') : ''), skipped.length > 0);
+    el('imageGridFilter').value = room;
+    renderImageGrid(room);
+    setBuildState('building');
+    watchBuild(res.sha);
+  } catch (e) {
+    console.error(e);
+    if (e.status === 401 || e.status === 403) addStatus('GitHub refused the upload (' + e.status + '). The token needs Contents: Read and write.', true);
+    else addStatus('Upload failed: ' + e.message, true);
+  } finally {
+    label.classList.remove('busy');
+  }
 }
 
 // ---------- build status badge (hosted, anonymous Actions read) ----------

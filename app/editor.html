@@ -175,6 +175,21 @@
       .touchhelp { display:block; }
     }
 
+    #addPhotos { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+      padding:12px 14px; margin-bottom:12px; display:flex; flex-wrap:wrap; gap:10px 16px; align-items:flex-end; }
+    #addPhotos label { display:flex; flex-direction:column; gap:4px; color:var(--muted); font-size:13px; }
+    #addPhotos select, #addPhotos input[type=text] { background:var(--bg); color:var(--ink);
+      border:1px solid var(--line); border-radius:7px; padding:8px; font:inherit; min-width:180px; }
+    #addPhotos .modalnote { flex-basis:100%; margin:0; font-size:12px; }
+    .addrow { display:flex; gap:10px; }
+    .filebtn { position:relative; background:var(--accent); color:#1a0e16 !important; font-weight:600;
+      border-radius:8px; padding:8px 14px; cursor:pointer; font-size:14px !important; }
+    .filebtn input { position:absolute; inset:0; opacity:0; width:100%; cursor:pointer; }
+    .filebtn.busy { opacity:.5; pointer-events:none; }
+    .addstatus { flex-basis:100%; font-size:13px; color:var(--ink); white-space:pre-line; }
+    .addstatus.err { color:#ffb3b3; }
+    .tile.fresh { border-color:#36d399; }
+
     /* ---------- phone layout ---------- */
     @media (max-width: 720px) {
       html, body { height:100%; height:100dvh; }
@@ -221,6 +236,9 @@
       .gridhead { flex-wrap:wrap; gap:8px 10px; }
       .gridhead h2 { font-size:16px; }
       #imageGridFilter { order:3; flex-basis:100%; }
+      #addPhotos label, #addPhotos select, #addPhotos input[type=text] { width:100%; }
+      .addrow { flex-basis:100%; }
+      .addrow > * { flex:1; text-align:center; }
       #imageGridList { grid-template-columns:repeat(auto-fill, minmax(104px, 1fr)); gap:8px; }
 
       #gate { padding:12px; align-items:flex-start; }
@@ -343,7 +361,26 @@
       <h2>Images</h2>
       <span id="imageGridCount"></span>
       <input id="imageGridFilter" type="text" placeholder="Filter by name…" autocomplete="off" spellcheck="false">
+      <button id="addPhotosBtn" type="button" class="primary" title="Add photos from this device to a room" hidden>+ Photos</button>
       <button id="imageGridClose" type="button">Close</button>
+    </div>
+    <!-- Add photos (hosted editor): resized in the browser, committed to app/images/ on GitHub. -->
+    <div id="addPhotos" hidden>
+      <label>Room
+        <select id="addRoom"></select>
+      </label>
+      <label id="addRoomNewRow" hidden>New room name
+        <input id="addRoomNew" type="text" placeholder="e.g. Back Porch" autocomplete="off">
+      </label>
+      <div class="addrow">
+        <label class="filebtn">Choose photos
+          <input id="addFiles" type="file" accept="image/*" multiple>
+        </label>
+        <button id="addCancel" type="button">Cancel</button>
+      </div>
+      <p class="modalnote">Portrait shots only. Each photo is shrunk to 1600px and saved straight to the game
+        (location data is removed). Your full-size originals stay on this device.</p>
+      <div id="addStatus" class="addstatus" hidden></div>
     </div>
     <div id="imageGridList"></div>
   </div>

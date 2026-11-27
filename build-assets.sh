@@ -100,6 +100,31 @@ with open(entries_path) as f:
             continue
         key, file, w, h = line.split("|")
         m[key] = {"file": file, "w": int(w), "h": int(h)}
+
+# Keep photos added from the hosted editor (phone uploads). They have no source
+# folder here, only the resized file in app/images/, so the loop above never sees
+# them. Pull before running this so the manifest has them.
+import os
+kept = 0
+try:
+    with open(manifest_path) as f:
+        old = json.load(f)
+except (OSError, ValueError):
+    old = {}
+for key, e in old.items():
+    if e.get("source") != "phone":
+        continue
+    if key in m:
+        print(f"warn: phone photo '{key}' clashes with a local photo; keeping the local one", file=sys.stderr)
+        continue
+    if not os.path.exists(os.path.join(os.path.dirname(manifest_path), e.get("file", ""))):
+        print(f"warn: phone photo '{key}' is in the manifest but {e.get('file')} is missing; dropping it", file=sys.stderr)
+        continue
+    m[key] = e
+    kept += 1
+if kept:
+    print(f"kept {kept} photo(s) added from the editor")
+
 with open(manifest_path, "w") as f:
     json.dump(m, f, indent=2, sort_keys=True)
     f.write("\n")
