@@ -222,7 +222,16 @@ export function renderAtlas(container, scene, manifest, { onPick, currentId } = 
   }
 
   let zoom = 1;
+  let fitZoom = 1;
   let fitTries = 0;
+  const MAX_ZOOM = 2.5;
+  const minZoom = () => Math.min(0.1, fitZoom);
+  const applyZoom = (z) => {
+    zoom = z;
+    canvas.style.transform = 'scale(' + zoom + ')';
+    shell.style.width = Math.ceil(W * zoom) + 'px';
+    shell.style.height = Math.ceil(H * zoom) + 'px';
+  };
   const setZoom = (z) => {
     if (z === 'fit') {
       const cw = container.clientWidth - 8, ch = container.clientHeight - 8;
@@ -232,18 +241,89 @@ export function renderAtlas(container, scene, manifest, { onPick, currentId } = 
         return;
       }
       fitTries = 0;
-      zoom = Math.max(0.1, Math.min(1, cw / W, ch / H));
+      fitZoom = Math.max(0.1, Math.min(1, cw / W, ch / H));
+      applyZoom(fitZoom);
     } else {
-      zoom = z;
+      applyZoom(z);
     }
-    canvas.style.transform = 'scale(' + zoom + ')';
-    shell.style.width = Math.ceil(W * zoom) + 'px';
-    shell.style.height = Math.ceil(H * zoom) + 'px';
   };
   setZoom('fit');
 
+  // Zoom so the map point under (clientX, clientY) stays under (toX, toY).
+  // Pan is the container's own scroll, so one-finger drag scrolling still works.
+  const zoomAt = (z, clientX, clientY, toX = clientX, toY = clientY) => {
+    const r = container.getBoundingClientRect();
+    const mx = (container.scrollLeft + clientX - r.left) / zoom;
+    const my = (container.scrollTop + clientY - r.top) / zoom;
+    applyZoom(Math.max(minZoom(), Math.min(MAX_ZOOM, z)));
+    container.scrollLeft = mx * zoom - (toX - r.left);
+    container.scrollTop = my * zoom - (toY - r.top);
+  };
+
+  // Pinch to zoom, two-finger pan. Touch events (not pointer events) because
+  // iOS Safari only lets a page take over a pinch from touchmove.
+  let pinch = null;
+  const two = (e) => {
+    const [a, b] = e.touches;
+    return { x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2,
+      d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) || 1 };
+  };
+  const onTouchStart = (e) => {
+    if (e.touches.length !== 2) { pinch = null; return; }
+    const t = two(e);
+    const r = container.getBoundingClientRect();
+    pinch = { d: t.d, zoom,
+      mx: (container.scrollLeft + t.x - r.left) / zoom,
+      my: (container.scrollTop + t.y - r.top) / zoom };
+    e.preventDefault();
+  };
+  const onTouchMove = (e) => {
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    const t = two(e);
+    const r = container.getBoundingClientRect();
+    applyZoom(Math.max(minZoom(), Math.min(MAX_ZOOM, pinch.zoom * t.d / pinch.d)));
+    container.scrollLeft = pinch.mx * zoom - (t.x - r.left);
+    container.scrollTop = pinch.my * zoom - (t.y - r.top);
+  };
+  const onTouchEnd = (e) => { if (e.touches.length < 2) pinch = null; };
+  // Trackpad pinch (and ctrl + wheel) on a laptop.
+  const onWheel = (e) => {
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    zoomAt(zoom * Math.exp(-e.deltaY * 0.01), e.clientX, e.clientY);
+  };
+  // Safari's own page-zoom gesture events; the touch handlers do the zooming.
+  const stopGesture = (e) => e.preventDefault();
+
+  // renderAtlas runs on every open, so drop the previous render's listeners.
+  if (container._atlasCleanup) container._atlasCleanup();
+  const opts = { passive: false };
+  container.addEventListener('touchstart', onTouchStart, opts);
+  container.addEventListener('touchmove', onTouchMove, opts);
+  container.addEventListener('touchend', onTouchEnd);
+  container.addEventListener('touchcancel', onTouchEnd);
+  container.addEventListener('wheel', onWheel, opts);
+  container.addEventListener('gesturestart', stopGesture, opts);
+  container.addEventListener('gesturechange', stopGesture, opts);
+  container._atlasCleanup = () => {
+    container.removeEventListener('touchstart', onTouchStart, opts);
+    container.removeEventListener('touchmove', onTouchMove, opts);
+    container.removeEventListener('touchend', onTouchEnd);
+    container.removeEventListener('touchcancel', onTouchEnd);
+    container.removeEventListener('wheel', onWheel, opts);
+    container.removeEventListener('gesturestart', stopGesture, opts);
+    container.removeEventListener('gesturechange', stopGesture, opts);
+  };
+
   return {
     setZoom,
+    // 100% keeps the middle of the screen in place
+    zoomCentered: (z) => {
+      const r = container.getBoundingClientRect();
+      zoomAt(z, r.left + r.width / 2, r.top + r.height / 2);
+    },
+    getZoom: () => zoom,
     stats: { scenes: scene.nodes.length, paths: edgeCount, items: itemCount, orphans: orphanCount },
   };
 }

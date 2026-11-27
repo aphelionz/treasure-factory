@@ -48,6 +48,32 @@ async function shot(page, name) {
   shots.push(name);
 }
 
+// Pinch out on the editor's map with two real touch points and check it zooms
+// in around the fingers instead of zooming the whole page.
+async function pinchMap(ed) {
+  const body = await ed.locator('#atlasBody').boundingBox();
+  if (!body) { problems.push('editor-phone: map is not showing'); return; }
+  const zoomOf = () => ed.evaluate(() => {
+    const m = /scale\(([\d.]+)\)/.exec(document.querySelector('.at-canvas').style.transform);
+    return m ? +m[1] : NaN;
+  });
+  const before = await zoomOf();
+  const cdp = await ed.context().newCDPSession(ed);
+  const cx = body.x + body.width / 2, cy = body.y + body.height / 2;
+  const touch = (type, gap) => cdp.send('Input.dispatchTouchEvent', { type,
+    touchPoints: type === 'touchEnd' ? [] : [{ x: cx - gap, y: cy, id: 1 }, { x: cx + gap, y: cy, id: 2 }] });
+  await touch('touchStart', 20);
+  for (let gap = 30; gap <= 120; gap += 10) await touch('touchMove', gap);
+  await touch('touchEnd', 0);
+  await ed.waitForTimeout(300);
+  const after = await zoomOf();
+  const pageScale = await ed.evaluate(() => window.visualViewport ? window.visualViewport.scale : 1);
+  console.log(`editor-phone: map pinch zoom ${before.toFixed(2)} -> ${after.toFixed(2)}`);
+  if (!(after > before * 3)) problems.push(`editor-phone: pinching the map should zoom it in (zoom went ${before} -> ${after})`);
+  if (pageScale > 1.01) problems.push(`editor-phone: pinching the map zoomed the whole page (scale ${pageScale})`);
+  await shot(ed, 'editor-phone-map-pinched');
+}
+
 const browser = await chromium.launch();
 try {
   const scene = JSON.parse(await readFile(join(APP, 'scene.json'), 'utf8'));
@@ -116,6 +142,7 @@ try {
     }, null, { timeout: 10000 }).catch(() => problems.push(`editor-${label}: node list never loaded`));
     await ed.waitForTimeout(500);
     await shot(ed, 'editor-' + label);
+    if (label === 'phone') await pinchMap(ed);
     await ctx.close();
   }
 } finally {
