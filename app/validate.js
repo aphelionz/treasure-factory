@@ -104,6 +104,25 @@ export function validateScene(scene, manifest) {
       }
     }
     for (const id of nodeById.keys()) if (!seen.has(id)) warn(`node "${id}" can't be reached from the entry`);
+
+    // --- way back to the entry: a room (or loop of rooms) the player can enter
+    // but never leave traps them, even when every room in it has an exit ---
+    const back = new Set([meta.entry]);
+    let grew = true;
+    while (grew) {
+      grew = false;
+      for (const [id, n] of nodeById) {
+        if (back.has(id) || !Array.isArray(n.hotspots)) continue;
+        if (n.hotspots.some(h => h && h.action && h.action.type === 'goto' && back.has(h.action.target))) {
+          back.add(id); grew = true;
+        }
+      }
+    }
+    for (const [id, n] of nodeById) {
+      const hasExit = Array.isArray(n.hotspots) && n.hotspots.some(h => h && h.action && h.action.type === 'goto');
+      if (seen.has(id) && hasExit && !back.has(id))
+        warn(`node "${id}" has no way back to the entry: its exits only lead to rooms that never return`);
+    }
   }
 
   return { errors, warnings };

@@ -728,6 +728,20 @@
             "type": "goto",
             "target": "sweet_shoppe_06"
           }
+        },
+        {
+          "id": "h_6",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.9,
+            "w": 1,
+            "h": 0.1
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_15"
+          }
         }
       ]
     },
@@ -1065,6 +1079,20 @@
             "type": "goto",
             "target": "international_room_06"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.89,
+            "w": 1,
+            "h": 0.11
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
+          }
         }
       ]
     },
@@ -1261,6 +1289,20 @@
             "type": "goto",
             "target": "green_and_gold_03"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.89,
+            "w": 1,
+            "h": 0.11
+          },
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_14"
+          }
         }
       ]
     },
@@ -1268,19 +1310,78 @@
       "id": "green_and_gold_03",
       "image": "green-and-gold-03",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.89,
+            "w": 1,
+            "h": 0.11
+          },
+          "action": {
+            "type": "goto",
+            "target": "green_and_gold_11"
+          }
+        }
+      ]
     },
     {
       "id": "sweet_shoppe_17",
       "image": "sweet-shoppe-17",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.89,
+            "w": 1,
+            "h": 0.11
+          },
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_06"
+          }
+        }
+      ]
     },
     {
       "id": "sweet_shoppe_06",
       "image": "sweet-shoppe-06",
       "title": "",
-      "hotspots": []
+      "hotspots": [
+        {
+          "id": "h_1",
+          "shape": {
+            "type": "rect",
+            "x": 0.62,
+            "y": 0.08,
+            "w": 0.38,
+            "h": 0.6
+          },
+          "action": {
+            "type": "goto",
+            "target": "sweet_shoppe_17"
+          }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0,
+            "y": 0.89,
+            "w": 1,
+            "h": 0.11
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
+          }
+        }
+      ]
     }
   ]
 }
