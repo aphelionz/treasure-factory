@@ -20,6 +20,17 @@ never modified. The build writes only into `app/images/`. To add a room, drop
 the folder in, name the files `<Folder>-NN.jpg`, and add it to `SOURCES` in
 `build-assets.sh`.
 
+**Adding photos from a phone.** In the hosted editor, open the image grid
+(**+ Node** or **Image**) and tap **+ Photos**. Pick a room (or name a new one)
+and choose shots from the camera roll. The browser shrinks each one to 1600px
+(WebP, or JPEG where the browser can't encode WebP), drops landscape frames,
+strips metadata, and commits the files plus `manifest.json` to `main` in one
+commit, which redeploys Pages. They are keyed `<room>-101`, `<room>-102`, ...
+so they group into the room on the map and never clash with the Mac's
+`<Folder>-NN` photos, and their manifest entries carry `"source": "phone"`.
+`build-assets.sh` keeps those entries, so **`git pull` before running it** on
+the Mac. The full-size originals stay on the phone.
+
 **Portrait only.** This is a phone game, so `build-assets.sh` drops any frame
 that comes out landscape and reports the count. Shoot rooms vertically; a
 landscape photo will silently never reach `app/images/` or the manifest.
