@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Treasure Factory: Editor</title>
   <link rel="stylesheet" href="transitions.css">
   <style>
@@ -161,6 +161,71 @@
     .buildbadge.building .dot { width:12px; height:12px; background:transparent;
       border:2px solid rgba(245,177,74,.3); border-top-color:#f5b14a; animation:spin .8s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
+    /* Toolbar: the secondary tools sit inline on desktop; #moreBtn only exists on a phone. */
+    #toolExtras { display:contents; }
+    #moreBtn { display:none; }
+    .hsactions { display:flex; flex-wrap:wrap; gap:8px; }
+    #doneHsBtn { display:none; }
+    .touchhelp { display:none; }
+    /* Drags on the photo are ours, never the page's scroll or pinch. */
+    #overlay { touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+    @media (pointer: coarse) {
+      .handle { width:26px; height:26px; right:-13px; bottom:-13px; border-radius:50%; }
+      .deskhelp { display:none; }
+      .touchhelp { display:block; }
+    }
+
+    /* ---------- phone layout ---------- */
+    @media (max-width: 720px) {
+      html, body { height:100%; height:100dvh; }
+      /* iOS zooms the page when a focused field is under 16px. */
+      input, select, textarea { font-size:16px !important; }
+      #toolbar { gap:8px; padding:8px 10px; position:relative; }
+      #toolbar .brand, #toolbar .nodepick .lbl { display:none; }
+      #toolbar .nodepick { flex:1; min-width:0; }
+      #toolbar .nodepick select { width:100%; min-width:0; }
+      #moreBtn { display:inline-block; font-size:18px; line-height:1; padding:7px 11px; }
+      #buildBadge #buildBadgeText { display:none; }
+      #buildBadge { padding:6px; }
+      .wide { display:none; }
+      #toolExtras { display:none; position:absolute; z-index:950; top:100%; left:0; right:0;
+        flex-direction:column; align-items:stretch; gap:10px; padding:12px 14px 16px;
+        background:var(--panel); border-bottom:1px solid var(--line); box-shadow:0 12px 30px rgba(0,0,0,.5); }
+      body.menu-open #toolExtras { display:flex; }
+      #toolExtras .spacer { display:none; }
+      #toolExtras label { justify-content:space-between; }
+      #toolExtras input { width:auto; flex:1; }
+      #toolExtras .status { text-align:left; min-width:0; white-space:normal; }
+      #toolExtras button { padding:10px 12px; }
+
+      /* Photo on top at full width; the panel becomes a sheet underneath. */
+      #main { flex-direction:column; }
+      #stage { flex:1; min-height:0; }
+      #panel { width:100%; flex:none; max-height:34%; border-left:0; border-top:1px solid var(--line);
+        padding:10px 14px calc(10px + env(safe-area-inset-bottom)); }
+      body.hs-selected #panel { max-height:52%; }
+      body.hs-selected #hotspotList, body.hs-selected #panel > h3:first-child { display:none; }
+      #panel .help { display:none; }
+      #hotspotList { display:flex; gap:6px; overflow-x:auto; margin:0 0 4px; }
+      #hotspotList li { flex:none; margin:0; }
+      #panel:not(:has(#hotspotList li)) #hotspotList::after { content:"Drag on the photo to add a box."; color:var(--muted); font-size:13px; }
+      #hsEditor label { margin:8px 0; }
+      .hsactions button { flex:1; padding:10px 12px; }
+      #doneHsBtn { display:inline-block; }
+
+      .atlas-head { flex-wrap:wrap; gap:8px 12px; padding:8px 10px; }
+      .atlas-head .at-key { display:none; }
+      #atlasStats { flex-basis:100%; }
+
+      #imageGrid { padding:12px 10px calc(12px + env(safe-area-inset-bottom)); }
+      .gridhead { flex-wrap:wrap; gap:8px 10px; }
+      .gridhead h2 { font-size:16px; }
+      #imageGridFilter { order:3; flex-basis:100%; }
+      #imageGridList { grid-template-columns:repeat(auto-fill, minmax(104px, 1fr)); gap:8px; }
+
+      #gate { padding:12px; align-items:flex-start; }
+      .gatecard { padding:18px 16px; }
+    }
   </style>
 </head>
 <body>
@@ -171,16 +236,20 @@
   <header id="toolbar">
     <strong class="brand">Treasure Factory</strong>
     <button id="mapBtn" title="Back to the scene map">Map</button>
-    <label>Node <select id="nodeSelect"></select></label>
-    <button id="newNodeBtn" title="Create a new node from an image">+ Node</button>
-    <button id="browseImagesBtn" title="Pick this node's image from a grid">Image: <span id="curImageName">none</span></button>
-    <label>Name <input id="nodeTitle" type="text" placeholder="Room name"></label>
-    <button id="deleteNodeBtn" class="danger" title="Delete this node and every hotspot that leads to it">Delete node</button>
-    <span class="spacer"></span>
-    <span id="status" class="status"></span>
-    <button id="helpTokenBtn" title="Sign out (clear the saved token and lock the editor)" hidden>Sign out</button>
+    <label class="nodepick"><span class="lbl">Node</span> <select id="nodeSelect"></select></label>
+    <!-- Secondary tools: inline on desktop, a drop-down menu on a phone (see #moreBtn). -->
+    <div id="toolExtras">
+      <button id="newNodeBtn" title="Create a new node from an image">+ Node</button>
+      <button id="browseImagesBtn" title="Pick this node's image from a grid">Image: <span id="curImageName">none</span></button>
+      <label>Name <input id="nodeTitle" type="text" placeholder="Room name"></label>
+      <button id="deleteNodeBtn" class="danger" title="Delete this node and every hotspot that leads to it">Delete node</button>
+      <span class="spacer"></span>
+      <span id="status" class="status"></span>
+      <button id="helpTokenBtn" title="Sign out (clear the saved token and lock the editor)" hidden>Sign out</button>
+      <button id="downloadBtn" title="Export scene.json as a download">Download</button>
+    </div>
     <span id="buildBadge" class="buildbadge" title="GitHub Pages build status" hidden><span class="dot"></span><span id="buildBadgeText">·</span></span>
-    <button id="downloadBtn" title="Export scene.json as a download">Download</button>
+    <button id="moreBtn" type="button" aria-expanded="false" aria-controls="toolExtras" title="More tools">&#8943;</button>
     <button id="saveBtn" class="primary">Save to folder</button>
   </header>
   <main id="main">
@@ -211,9 +280,15 @@
           </span>
         </label>
         <div class="coords" id="hsCoords"></div>
-        <button id="deleteHsBtn" class="danger">Delete hotspot</button>
+        <div class="hsactions">
+          <button id="followHsBtn" type="button" title="Open the node this hotspot leads to">Follow &rarr;</button>
+          <button id="deleteHsBtn" class="danger">Delete<span class="wide"> hotspot</span></button>
+          <button id="doneHsBtn" type="button" title="Deselect this hotspot">Done</button>
+        </div>
       </div>
-      <p class="help">Drag on the image to draw a box. Click a box to select it; <b>Option-click</b> it to
+      <p class="help touchhelp">Drag on the photo to draw a box. Tap a box to select it, drag it to move it,
+      and drag its corner to resize. <b>Follow</b> opens the room it leads to.</p>
+      <p class="help deskhelp">Drag on the image to draw a box. Click a box to select it; <b>Option-click</b> it to
       follow it to its target. Drag a box to move it, drag its corner to resize. Press <b>Delete</b> to
       remove the selected box. Save writes <code>scene.json</code> into your <code>app/</code> folder.</p>
     </aside>

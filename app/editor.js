@@ -104,10 +104,10 @@ function applyMode() {
   if (HOSTED) tokenBtn.textContent = 'Sign out';
   const saveBtn = el('saveBtn');
   if (HOSTED) {
-    saveBtn.textContent = 'Save to GitHub';
+    saveBtn.innerHTML = 'Save<span class="wide"> to GitHub</span>';
     setStatus('Saves commit to ' + GH.owner + '/' + GH.repo + '.');
   } else if (IS_LOCAL && FSA) {
-    saveBtn.textContent = 'Save to folder';
+    saveBtn.innerHTML = 'Save<span class="wide"> to folder</span>';
     setStatus('Reads the served scene. Save writes to your app/ folder.');
   } else {
     saveBtn.textContent = 'Save';
@@ -427,8 +427,10 @@ function selectHotspot(id) { selectedId = id; renderHotspots(); updateHsEditor()
 function updateHsEditor() {
   const hs = currentHotspot();
   const box = el('hsEditor');
+  syncSheet();
   if (!hs) { box.hidden = true; return; }
   box.hidden = false;
+  el('followHsBtn').hidden = (hs.action && hs.action.type) === 'find';
   const type = (hs.action && hs.action.type) || 'goto';
   el('hsActionType').value = type;
   el('hsTargetRow').hidden = type === 'find';
@@ -516,11 +518,15 @@ function deleteCurrentNode() {
 }
 
 // ---------- pointer interaction ----------
-const capture = (e) => { try { capture(e); } catch (_) {} };
+const capture = (e) => { try { overlay.setPointerCapture(e.pointerId); } catch (_) {} };
+let pointerActive = false;   // a finger/mouse is down on the photo
 
 overlay.addEventListener('pointerdown', (e) => {
   const node = currentNode();
   if (!node || !frame.naturalWidth) return;
+  if (!e.isPrimary) return;     // ignore a second finger
+  closeMenu();
+  pointerActive = true;
   // Option/Alt-click a hotspot to follow it to its target node
   const hsEl = e.target.closest('.hs');
   if (e.altKey && hsEl) {
@@ -602,12 +608,44 @@ overlay.addEventListener('pointerup', (e) => {
   } else if ((mode === 'move' || mode === 'resize') && moved) {
     markDirty(); updateHsEditor();
   }
-  mode = 'idle'; dragStart = null; dragOrig = null; moved = false;
+  endPointer();
 });
+
+// The browser took the touch (e.g. a system gesture): drop any half-drawn box.
+overlay.addEventListener('pointercancel', () => {
+  if (tempEl) { tempEl.remove(); tempEl = null; }
+  endPointer();
+  renderHotspots();
+});
+
+function endPointer() {
+  mode = 'idle'; dragStart = null; dragOrig = null; moved = false;
+  pointerActive = false;
+  syncSheet();
+}
+
+// On a phone the hotspot panel is a sheet under the photo that grows while a
+// hotspot is selected. Only resize it between drags, so the photo never moves
+// under a finger.
+function syncSheet() {
+  if (pointerActive) return;
+  document.body.classList.toggle('hs-selected', !!currentHotspot());
+}
+
+function closeMenu() {
+  document.body.classList.remove('menu-open');
+  el('moreBtn').setAttribute('aria-expanded', 'false');
+}
+
+function followSelected() {
+  const hs = currentHotspot();
+  const target = hs && hs.action && hs.action.type === 'goto' && hs.action.target;
+  if (target && scene.nodes.some(n => n.id === target)) selectNode(target);
+}
 
 // ---------- events ----------
 function wireEvents() {
-  el('mapBtn').addEventListener('click', openAtlas);
+  el('mapBtn').addEventListener('click', () => { closeMenu(); openAtlas(); });
   el('atlasClose').addEventListener('click', closeAtlas);
   el('atlasFit').addEventListener('click', () => atlasApi && atlasApi.setZoom('fit'));
   el('atlas100').addEventListener('click', () => atlasApi && atlasApi.setZoom(1));
@@ -652,6 +690,20 @@ function wireEvents() {
     hs.action.item = e.target.value; markDirty(); renderHotspots();
   });
   el('deleteHsBtn').addEventListener('click', deleteSelected);
+  el('followHsBtn').addEventListener('click', followSelected);
+  el('doneHsBtn').addEventListener('click', () => selectHotspot(null));
+  el('moreBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = document.body.classList.toggle('menu-open');
+    el('moreBtn').setAttribute('aria-expanded', String(open));
+  });
+  // Close the phone menu after any action in it, or on a tap elsewhere.
+  el('toolExtras').addEventListener('click', (e) => { if (e.target.closest('button')) closeMenu(); });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#toolExtras') && !e.target.closest('#moreBtn')) closeMenu();
+  });
+  // The stage changes size when the phone sheet grows or shrinks; keep boxes on the photo.
+  if ('ResizeObserver' in window) new ResizeObserver(() => { if (mode === 'idle') renderHotspots(); }).observe(el('stage'));
   el('deleteNodeBtn').addEventListener('click', deleteCurrentNode);
   el('saveBtn').addEventListener('click', save);
   el('downloadBtn').addEventListener('click', download);
