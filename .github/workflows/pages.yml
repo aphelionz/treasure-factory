@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - 'app/**'
+      - 'scripts/check-scene.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -28,6 +29,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+      # Gate: never publish a scene.json that would break the game. This also
+      # covers editor Saves, which commit straight to main without a PR.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check scene.json
+        run: node scripts/check-scene.mjs
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload app/ as the Pages artifact

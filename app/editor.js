@@ -5,6 +5,7 @@
 // Reuses geometry.js so a box drawn here is clickable at the same spot in the player.
 import { containRect, rectToScreen, screenToNorm } from './geometry.js';
 import { renderAtlas } from './atlas.js';
+import { validateScene } from './validate.js';
 
 const SCENE_URL = 'scene.json';
 const MANIFEST_URL = 'images/manifest.json';
@@ -684,6 +685,13 @@ async function ensureDir() {
 }
 
 async function save() {
+  // Same check CI runs: never write a scene.json that would break the game.
+  const { errors } = validateScene(scene, manifest);
+  if (errors.length) {
+    console.warn('scene.json not saved:', errors);
+    setStatus('Not saved: ' + errors[0] + (errors.length > 1 ? ` (+${errors.length - 1} more, see console)` : ''));
+    return;
+  }
   if (IS_LOCAL && FSA) return saveFsa();
   if (HOSTED) return ghSave();
   return download();
