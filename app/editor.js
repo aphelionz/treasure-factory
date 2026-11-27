@@ -853,7 +853,7 @@ function wireEvents() {
   el('mapBtn').addEventListener('click', () => { closeMenu(); openAtlas(); });
   el('atlasClose').addEventListener('click', closeAtlas);
   el('atlasFit').addEventListener('click', () => atlasApi && atlasApi.setZoom('fit'));
-  el('atlas100').addEventListener('click', () => atlasApi && atlasApi.setZoom(1));
+  el('atlas100').addEventListener('click', () => atlasApi && atlasApi.zoomCentered(1));
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !el('atlasView').hidden && el('imageGrid').hidden) closeAtlas();
   });

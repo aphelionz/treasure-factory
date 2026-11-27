@@ -119,7 +119,9 @@
     .atlas-head .gold { color:#ffd76a; }
     .at-key { display:inline-flex; align-items:center; gap:6px; }
     .at-sw { width:16px; border-top:3px solid; border-radius:2px; }
-    #atlasBody { flex:1; overflow:auto; position:relative; }
+    /* One finger scrolls the map; two fingers are ours (pinch zoom + pan, atlas.js). */
+    #atlasBody { flex:1; overflow:auto; position:relative; touch-action:pan-x pan-y;
+      overscroll-behavior:contain; -webkit-user-select:none; user-select:none; }
     .at-shell { overflow:hidden; }
     .at-canvas { position:relative; transform-origin:0 0; }
     .at-canvas svg { position:absolute; inset:0; }
