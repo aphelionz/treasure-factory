@@ -329,6 +329,20 @@
             "target": "downstairs_gallery",
             "transition": "iris"
           }
+        },
+        {
+          "id": "h_2",
+          "shape": {
+            "type": "rect",
+            "x": 0.17280227621688654,
+            "y": 0.1823265968496376,
+            "w": 0.10737999020706218,
+            "h": 0.33570836612289423
+          },
+          "action": {
+            "type": "goto",
+            "target": "international_room_07"
+          }
         }
       ]
     },
