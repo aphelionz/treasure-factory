@@ -307,6 +307,7 @@ function wireImageGrid() {
 // group into the room on the map and never collide with the Mac's <Folder>-NN
 // photos. Entries carry "source": "phone" so build-assets.sh keeps them.
 const MAXDIM = 1600, QUALITY = 0.82, PHONE_START = 101;
+const MAX_BYTES = 560 * 1024;   // under check-scene.mjs's 600 KB limit, with headroom
 const REPO_IMAGES_DIR = 'app/images';
 const roomOfKey = (k) => k.replace(/-\d+$/, '');
 const slugify = (t) => t.toLowerCase().replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '');
@@ -380,9 +381,20 @@ async function shrinkPhoto(file) {
     const c = document.createElement('canvas');
     c.width = w; c.height = h;
     c.getContext('2d').drawImage(img, 0, 0, w, h);
-    let blob = await new Promise(r => c.toBlob(r, 'image/webp', QUALITY));
-    if (!blob || blob.type !== 'image/webp') blob = await new Promise(r => c.toBlob(r, 'image/jpeg', QUALITY));
-    if (!blob) throw new Error('could not encode the image');
+    // WebP where the browser can encode it, else JPEG. Step the quality down until the
+    // file fits under MAX_BYTES, or the Pages deploy check (scripts/check-scene.mjs) rejects it.
+    const encode = async (q) => {
+      const webp = await new Promise(r => c.toBlob(r, 'image/webp', q));
+      if (webp && webp.type === 'image/webp') return webp;
+      return new Promise(r => c.toBlob(r, 'image/jpeg', q));
+    };
+    let blob = null;
+    for (const q of [QUALITY, 0.72, 0.62, 0.5, 0.4]) {
+      blob = await encode(q);
+      if (!blob) throw new Error('could not encode the image');
+      if (blob.size <= MAX_BYTES) break;
+    }
+    if (blob.size > MAX_BYTES) throw new Error('still too big after compressing (' + Math.round(blob.size / 1024) + ' KB)');
     const ext = blob.type === 'image/webp' ? 'webp' : 'jpg';
     return { blob, ext, w, h };
   } finally { URL.revokeObjectURL(url); }
